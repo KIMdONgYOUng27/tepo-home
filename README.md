@@ -10,4 +10,4 @@ HTML, CSS, JavaScript로 구성된 정적 사이트로 설치나 빌드 없이 �
 
 GitHub Pages는 `main` 브랜치의 루트(`/`) 폴더를 배포하도록 설정합니다.
 
-`assets/busan-parchment-clean-v2.png`는 배경, `assets/busan-parchment-map-v1.png`는 요소 원화, `assets/parchment-paper-v1.png`는 종이 질감입니다. 요소의 외곽 마스크는 `app.js`에 포함되며 편집용 SVG도 `assets/`에 있습니다.
+`assets/busan-map-simple-v3.png`는 단순화한 배경, `assets/destinations-varied-angles-v4.png`는 배경과 별도로 그린 실제 투명 PNG 시트, `assets/parchment-paper-v1.png`는 종이 질감입니다. 마우스 반응 영역은 PNG의 알파 채널에서 자동으로 계산합니다. 이전 수작업 외곽 마스크는 현재 사용하지 않습니다.
