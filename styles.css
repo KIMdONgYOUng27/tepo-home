@@ -1,0 +1,26 @@
+@charset "UTF-8";
+:root{color-scheme:light;--ease:cubic-bezier(.2,.75,.25,1)}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#eddfba}
+body{font-family:"Malgun Gothic",system-ui,sans-serif;background-image:url('assets/parchment-paper-v1.png');background-size:800px 800px}
+button{-webkit-tap-highlight-color:transparent;cursor:pointer}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+main,.map-shell,.map-viewport{position:absolute;inset:0;width:100%;height:100%}
+.map-shell{isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at center,transparent 45%,#72501c13 100%)}
+.map-scene{position:absolute;top:0;left:0;transform-origin:0 0;filter:drop-shadow(0 5px 10px #69451828)}
+.map-picture{position:absolute;inset:0;display:block}
+.map-background{display:block;width:100%;height:100%;pointer-events:none;user-select:none}
+.destination{position:absolute;padding:0;border:0;background:transparent;z-index:2}
+.place-sprite{display:block;width:100%;height:100%;background-image:url('assets/busan-parchment-map-v1.png');background-repeat:no-repeat;transform:scale(1);transition:transform .26s var(--ease);pointer-events:none}
+.destination:is(:hover,:focus-visible,.is-selected){z-index:8;filter:drop-shadow(0 0 3px #fff9d5) drop-shadow(0 0 7px #e4a948aa)}
+.destination:is(:hover,:focus-visible,.is-selected) .place-sprite{transform:scale(1.15)}
+.destination:focus-visible{outline:0}
+.place-sprite{mask-repeat:no-repeat;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;-webkit-mask-size:100% 100%}
+.destination{pointer-events:none}
+.hit-area{position:absolute;inset:0;display:block;overflow:visible;pointer-events:none}
+.map-loading{position:absolute;inset:0;background:#eddfba url('assets/parchment-paper-v1.png') center/800px;display:flex;align-items:center;justify-content:center;z-index:30;transition:opacity .3s}
+.map-loading.is-ready{opacity:0;pointer-events:none;visibility:hidden}
+.loading-spinner{width:24px;height:24px;border:2px solid #c6ab76;border-top-color:#69411f;border-radius:50%;animation:turn .8s linear infinite}
+@keyframes turn{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}.loading-spinner{animation:none}}
+
