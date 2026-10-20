@@ -1,13 +1,15 @@
 # 테포의 부산
 
-테포와 엘펭이의 세계를 종이 탐험 지도로 표현한 홈페이지입니다.
+종이 탐험 지도에서 등대로 들어가 테포의 방을 둘러보는 정적 웹사이트입니다.
 
-사이트: https://kimdongyoung27.github.io/tepo-home/
+공개 사이트: https://kimdongyoung27.github.io/tepo-home/
 
-오락실, 팝업, 포토존, 테포의 등대, 수상한 모래굴의 외곽에 마우스를 올리면 15% 확대됩니다. 현재는 홈페이지 시안이며 상세 페이지로 이동하지 않습니다.
+- 지도: 장소별 PNG 외곽에 반응하는 확대와 발광, 등대 입장
+- 방: 컴퓨터 영상 폴더, 그림 일기장, 액자, 모자, 무기 모음과 지갑
+- 테포: 네 번 연속 클릭해 깨우기, 서랍에서 얻는 소통 기계, 선택지 대화
+- 여행: 취향·시간·속도별 부산 코스 추천, 손글씨 코스 종이 받기와 가방 보관
+- 진행 상황은 현재 브라우저의 localStorage에 저장됩니다. 로컬 미리보기와 공개 사이트의 진행 상황은 서로 다릅니다.
 
-HTML, CSS, JavaScript로 구성된 정적 사이트로 설치나 빌드 없이 실행할 수 있습니다. `index.html`을 열거나 정적 웹 서버로 폴더를 제공합니다.
+HTML/CSS/JavaScript 정적 사이트로 별도 빌드 없이 실행됩니다. GitHub Pages는 main 브랜치의 루트(/)를 사용합니다. 영상은 YouTube 임베드입니다.
 
-GitHub Pages는 `main` 브랜치의 루트(`/`) 폴더를 배포하도록 설정합니다.
-
-`assets/busan-map-simple-v3.png`는 단순화한 배경, `assets/destinations-varied-angles-v4.png`는 배경과 별도로 그린 실제 투명 PNG 시트, `assets/parchment-paper-v1.png`는 종이 질감입니다. 마우스 반응 영역은 PNG의 알파 채널에서 자동으로 계산합니다. 이전 수작업 외곽 마스크는 현재 사용하지 않습니다.
+컴퓨터(Mona), 일기장(YoonChoWooSan), 코스 종이(Nanum Pen Script)는 각각 별도 폰트를 사용합니다. 폰트 출처와 해당 라이선스는 assets/fonts/에 포함되어 있습니다.

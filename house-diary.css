@@ -1,0 +1,5 @@
+@font-face{font-family:'YoonChoWooSan';src:url('assets/fonts/yoon/YoonChildfundkoreaManSeh.woff2') format('woff2');font-weight:normal;font-style:normal;font-display:swap}
+/* Handwriting belongs only to the diary pages, including their controls. */
+.view-diary .diary-cover,.view-diary .diary-cover *{font-family:'YoonChoWooSan',sans-serif}
+.view-diary .story-list button{font-size:18px}.view-diary .book-note{font-size:18px}.view-diary .reader-heading h3{font-size:23px}.view-diary .comic-frame{font-size:20px}.view-diary .sns-link{font-size:16px}.view-diary .reader-footer{font-size:17px}
+.view-diary .diary-cover{grid-template-rows:minmax(0,1fr)}.view-diary .open-book{min-height:0;height:100%;max-height:90dvh}

@@ -11,7 +11,9 @@
   // Ground anchors keep every landmark planted during enlargement.
   const places={
     arcade:{crop:[210,60,470,445],width:265,ground:[548,365],anchor:[238/470,353/445]},
-    popup:{crop:[866,76,520,454],width:265,ground:[1090,383],anchor:[249/520,359/454]},
+    // The atlas crop also catches the photo frame's top edge at bottom-left.
+    // Mask that empty corner in both the artwork and the pointer silhouette.
+    popup:{crop:[866,76,520,454],width:265,ground:[1090,383],anchor:[249/520,359/454],exclude:[0,420,100,34],clip:'polygon(0 0,100% 0,100% 100%,19.23% 100%,19.23% 92.51%,0 92.51%)'},
     photo:{crop:[653,499,445,401],width:190,ground:[850,548],anchor:[174/445,296/401],exclude:[311,0,134,36],clip:'polygon(0 0,69.89% 0,69.89% 8.98%,100% 8.98%,100% 100%,0 100%)'},
     home:{crop:[1300,330,320,555],width:150,ground:[1435,535],anchor:[187/320,450/555],exclude:[0,0,92,433],clip:'polygon(28.75% 0,100% 0,100% 100%,0 100%,0 78.02%,28.75% 78.02%)'},
     mystery:{crop:[98,550,397,330],width:185,ground:[268,495],anchor:[202/397,229/330]}
@@ -68,6 +70,7 @@
   }
   let selectedTimer;
   buttons.forEach(button=>button.addEventListener('click',()=>{
+    if(button.dataset.place==='home'){window.location.href='house.html';return;}
     clearTimeout(selectedTimer);
     buttons.forEach(item=>item.classList.toggle('is-selected',item===button));
     selectedTimer=setTimeout(()=>button.classList.remove('is-selected'),900);

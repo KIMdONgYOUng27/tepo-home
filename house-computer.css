@@ -1,0 +1,21 @@
+/* Same Mona12 webfont supplied by MonadABXY, served locally to avoid CDN failures.
+   Source and OFL license: assets/fonts/mona/. This scope never reaches room/diary/wallet UI. */
+@font-face{font-family:"TEPO Mona";src:url("assets/fonts/mona/Mona12.woff2") format("woff2");font-style:normal;font-weight:400;font-display:swap}
+.view-computer .monitor,.view-computer .monitor *{font-family:"TEPO Mona",monospace;font-synthesis:none}
+.view-computer .os-bar h2{font-size:24px;letter-spacing:2px;font-weight:400}
+.view-computer .os-bar>span,.view-computer .os-footer{font-size:12px;letter-spacing:1px}
+.view-computer .computer-desktop{background:#071c11 url("assets/crt-lighthouse-wallpaper-v1.png") center/cover no-repeat;padding:27px}
+.view-computer .computer-desktop>.desktop-folders{position:relative;z-index:1}
+.view-computer .desktop-folders>button{font-size:12px;text-shadow:0 1px 4px #000,0 0 5px #000;gap:12px;border-radius:3px}
+.view-computer .computer-desktop>.desktop-folders>button{width:110px;background:#04170b38}
+.view-computer .folder-symbol{background:#8ee6a51c;box-shadow:0 2px 6px #0004}
+.archive-window{position:absolute;inset:28px 12% 28px 15%;z-index:2;border:1px solid #8ee6a5;background:#092016ed;box-shadow:8px 8px 0 #0006;display:flex;flex-direction:column;min-width:250px}
+.archive-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border-bottom:1px solid #8ee6a5;background:#8ee6a51c}
+.archive-header h3{font-size:12px;margin:0;font-weight:400}
+.archive-close{border:1px solid #8ee6a5;background:none;color:#8ee6a5;width:24px;height:24px;font-size:16px}
+.archive-folders{padding:27px;display:flex;gap:25px;align-items:flex-start}
+.archive-footer{margin-top:auto;border-top:1px solid #8ee6a544;padding:9px 15px;font-size:12px;color:#8dc79b}
+.view-computer .video-window{z-index:3}
+.view-computer .video-window h3,.view-computer .video-files button,.view-computer .youtube-original,.view-computer .empty-videos{font-size:12px;font-weight:400}
+.view-computer .monitor-brand{font-size:12px;letter-spacing:1px}
+.view-computer .archive-close:focus-visible,.view-computer .window-close:focus-visible,.view-computer .desktop-folders>button:focus-visible{outline:1px dashed #b4ffbd;outline-offset:3px}
