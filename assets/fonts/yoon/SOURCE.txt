@@ -1,0 +1,3 @@
+User-supplied diary font: YoonChoWooSan
+Source: https://cdn.jsdelivr.net/gh/projectnoonnu/2408@1.0/YoonChildfundkoreaManSeh.woff2
+Local copy used to keep the diary independent of CDN availability.
