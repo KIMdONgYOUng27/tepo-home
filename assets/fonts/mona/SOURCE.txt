@@ -1,0 +1,5 @@
+Official project: https://github.com/MonadABXY/mona-font
+Requested stylesheet: https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/mona.css
+Font file: https://raw.githubusercontent.com/MonadABXY/mona-font/main/web/Mona12.woff2
+License: OFL.txt (SIL Open Font License 1.1), copied from the official repository.
+This local copy is used only within the TEPO computer view.
