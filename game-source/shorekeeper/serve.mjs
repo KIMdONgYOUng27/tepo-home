@@ -6,7 +6,7 @@ import path from 'node:path';
 import { createGzip } from 'node:zlib';
 
 const root = path.resolve(fileURLToPath(new URL('./web/', import.meta.url)));
-const mime = {'.html':'text/html; charset=utf-8','.js':'application/javascript','.wasm':'application/wasm','.pck':'application/octet-stream','.png':'image/png','.svg':'image/svg+xml'};
+const mime = {'.html':'text/html; charset=utf-8','.js':'application/javascript','.wasm':'application/wasm','.pck':'application/octet-stream','.png':'image/png','.svg':'image/svg+xml','.ogg':'audio/ogg'};
 const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');

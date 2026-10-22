@@ -115,9 +115,12 @@ body {
 			<div id="status-notice"></div>
 		</div>
 
+		<script src="web-music.js?v=13"></script>
 		<script src="$GODOT_URL"></script>
 		<script>
 const GODOT_CONFIG = $GODOT_CONFIG;
+GODOT_CONFIG.mainPack = 'index-v0.13.pck';
+GODOT_CONFIG.fileSizes['index-v0.13.pck'] = GODOT_CONFIG.fileSizes['index.pck'];
 const GODOT_THREADS_ENABLED = $GODOT_THREADS_ENABLED;
 const engine = new Engine(GODOT_CONFIG);
 

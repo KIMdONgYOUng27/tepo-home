@@ -10,9 +10,12 @@ var current:=""
 var active:=-1
 var foreground:=true
 var duck:=1.0
+var web_audio: JavaScriptObject
+var web_clock:=0.0
 const FADE_SECONDS:=1.2
 
 func shutdown() -> void:
+	if web_audio!=null: web_audio.stop()
 	for voice in voices:
 		if is_instance_valid(voice):
 			voice.stream_paused=false
@@ -22,6 +25,9 @@ func shutdown() -> void:
 	streams.clear()
 
 func setup() -> void:
+	if OS.has_feature("web"):
+		web_audio=JavaScriptBridge.get_interface("TepoMusic")
+		if web_audio!=null: return
 	for id in ["title","combat","late","boss"]:
 		var stream:AudioStreamOggVorbis=load("res://assets/music/%s.ogg"%id)
 		stream.loop=true
@@ -42,6 +48,15 @@ func desired_track() -> String:
 
 func update(dt: float) -> void:
 	var wanted:=desired_track()
+	if web_audio!=null:
+		var changed:bool=wanted!=current
+		current=wanted
+		web_clock-=dt
+		if changed or web_clock<=0:
+			var attenuation:float=0.32 if g.state=="treasure" else (0.25 if g.state in ["won","lost"] else (0.5 if g.state in ["paused","levelup","blessing"] else 1.0))
+			web_audio.sync(current,volume*pow(10.0,-8.0/20.0)*attenuation,g.sound_enabled)
+			web_clock=0.1
+		return
 	if wanted!=current: transition(wanted)
 	var desired_duck:=1.0
 	if g.state in ["paused","levelup","blessing"]: desired_duck=0.5

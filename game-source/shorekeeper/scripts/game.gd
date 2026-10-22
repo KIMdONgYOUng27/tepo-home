@@ -304,6 +304,10 @@ func movement() -> Vector2:
 	if touch_active: return ((touch_now - touch_start) / 65.0).limit_length()
 	return Vector2.ZERO
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton or event is InputEventScreenTouch or event is InputEventKey:
+		if event.is_pressed() and music!=null: music.foreground=true
+
 func _unhandled_input(event: InputEvent) -> void:
 	if (event is InputEventKey and event.pressed and event.keycode in [KEY_W,KEY_A,KEY_S,KEY_D,KEY_UP,KEY_DOWN,KEY_LEFT,KEY_RIGHT]) or event is InputEventScreenDrag or event is InputEventScreenTouch:
 		presentation.note_input()

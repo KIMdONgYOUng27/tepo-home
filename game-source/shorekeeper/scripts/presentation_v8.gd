@@ -332,7 +332,6 @@ func performance_sample(delta: float) -> void:
 		if frame_samples.size()>1800: frame_samples.pop_front()
 		frame_accumulator=0
 		sample_clock=0
-	sound_clocks.clear()
 
 func performance_text() -> String:
 	if frame_samples.is_empty(): return "성능 측정 중"

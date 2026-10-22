@@ -153,3 +153,11 @@ https://vampire-survivors.fandom.com/wiki/Nduja_Fritta_Tanto
 
 엔진이 프로젝트 형제 tools 폴더에 없으면 GODOT_BIN 환경 변수로 Godot 4.7.2 실행 파일을 지정한 뒤 build.ps1을 실행합니다. 공개 웹은 games/shorekeeper/, 편집용 소스는 game-source/shorekeeper/에 있습니다.
 
+# v0.13 · 웹 음악과 멈춤 수정
+
+웹 브금은 HTMLAudioElement 2개로 재생합니다. 엔진의 긴 Ogg 샘플 등록을 피하고 곡이 필요할 때 music/에서 불러옵니다. 처음 재생이 브라우저에 차단되면 '♪ 소리 켜기' 버튼을 보여줍니다. 네이티브 실행은 기존 Ogg 경로를 유지합니다. web-music.js와 music/ 폴더도 반드시 함께 배포해야 합니다.
+
+매 프레임 효과음 제한 기록을 초기화하던 버그를 수정했습니다. 70프레임·집계 구간 경계에서 재생 제한이 보존되는 회귀 검사를 추가했습니다. 웹의 HiDPI 중복 렌더를 줄여 CSS 화면 크기로 그립니다. 고배율 화면에서는 선명도가 조금 낮아질 수 있습니다.
+
+새 PCK는 index-v0.13.pck로 배포해 이전 캐시와 분리합니다. tests/web_music_checks.mjs는 Node로 실행하며 자동재생 차단/첫 입력/크로스페이드/뮤트/탭 복귀/반복 sync 시 재시작 방지를 검증합니다.
+

@@ -14,6 +14,13 @@ func run() -> void:
 	var p=g.presentation
 	check(p.clips.size()==59,"weapon, interface and new collision effect clips")
 	check(p.voices.size()==12,"voice count bounded including reserved UI channels")
+	g.sound_enabled=true
+	p.sound("water")
+	var water_deadline:float=p.sound_clocks["water"]
+	for frame in 70:
+		p.performance_sample(1.0/60)
+		check(p.sound_clocks.get("water",-1)==water_deadline,"frame telemetry must not erase sound rate limits")
+	g.sound_enabled=false
 	var a:Array=p.mesh("hero","walk",0).surface_get_arrays(0)
 	var b:Array=p.mesh("hero","walk",2).surface_get_arrays(0)
 	for i in 13*5:

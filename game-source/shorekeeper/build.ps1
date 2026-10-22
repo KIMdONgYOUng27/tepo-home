@@ -26,6 +26,10 @@ try {
     if ($LASTEXITCODE -ne 0 -or -not ($checkOutput -match 'FULL STAGE: 0 errors') -or ($checkOutput -match 'SCRIPT ERROR')) { throw 'Game verification failed' }
     & $engine --headless --path $PSScriptRoot --export-release Web
     if ($LASTEXITCODE -ne 0) { throw 'Web export failed' }
+    Move-Item -LiteralPath (Join-Path $PSScriptRoot 'web/index.pck') -Destination (Join-Path $PSScriptRoot 'web/index-v0.13.pck') -Force
+    Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'web-music.js') -Destination (Join-Path $PSScriptRoot 'web/web-music.js')
+    New-Item -ItemType Directory -Path (Join-Path $PSScriptRoot 'web/music') -Force | Out-Null
+    Copy-Item -Path (Join-Path $PSScriptRoot 'assets/music/*.ogg') -Destination (Join-Path $PSScriptRoot 'web/music')
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'assets/FONT-LICENSE.txt') -Destination (Join-Path $PSScriptRoot 'web/FONT-LICENSE.txt')
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'assets/HAND-FONT-LICENSE.txt') -Destination (Join-Path $PSScriptRoot 'web/HAND-FONT-LICENSE.txt')
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'assets/GODOT-LICENSE.txt') -Destination (Join-Path $PSScriptRoot 'web/GODOT-LICENSE.txt')
