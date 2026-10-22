@@ -30,7 +30,7 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WTJKQKLP"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
-  <main>
+  <main tabindex="-1">
     <section class="map-shell" aria-label="테포의 부산 탐험 지도">
       <h1 class="sr-only">테포의 부산</h1>
       <div id="map-viewport" class="map-viewport" aria-label="부산 지도">
@@ -46,5 +46,19 @@
       <div id="map-loading" class="map-loading" role="status" aria-label="지도 불러오는 중"><span class="loading-spinner" aria-hidden="true"></span></div>
     </section>
   </main>
+  <dialog class="world-welcome" id="world-welcome" aria-labelledby="welcome-title" aria-describedby="welcome-description">
+    <article class="welcome-paper">
+      <div class="welcome-rule" aria-hidden="true"></div>
+      <img class="welcome-tepo" src="assets/tepo-welcome-pot-v20.png" alt="" width="120" height="140">
+      <h2 id="welcome-title">어서 와, 테포의 부산에!</h2>
+      <div class="welcome-description" id="welcome-description">
+        <p>여긴 테포와 함께 놀고, 이야기를 나누고,<br>추억을 남길 수 있는 작은 부산이야.</p>
+        <p>테포의 일상을 들여다보고,<br>함께 한판 놀거나 사진을 남겨도 좋아.</p>
+        <p>정해진 순서는 없어.<br>마음 가는 곳에서 테포와 시간을 보내 봐!</p>
+      </div>
+      <p class="welcome-note">이 동네는 테포의 이야기로 조금씩 채워지고 있어.</p>
+      <button class="welcome-start" type="button">둘러보기 <span aria-hidden="true">→</span></button>
+    </article>
+  </dialog>
 </body>
 </html>

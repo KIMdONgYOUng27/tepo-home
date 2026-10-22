@@ -1,5 +1,19 @@
 (() => {
   'use strict';
+  const welcome=document.querySelector('#world-welcome'),welcomeKey='tepo-world-welcome-session-v1';
+  // Session-only: return trips from the house and reloads keep the map unobstructed.
+  let welcomed=false;
+  try{welcomed=sessionStorage.getItem(welcomeKey)==='shown';}catch{}
+  let fromWorld=false;
+  try{const ref=new URL(document.referrer);fromWorld=ref.origin===location.origin&&ref.pathname.startsWith(new URL('.',location.href).pathname);}catch{}
+  if(welcome&&!welcomed&&!fromWorld){
+    try{sessionStorage.setItem(welcomeKey,'shown');}catch{}
+    welcome.showModal();
+  }
+  if(welcome){
+    welcome.querySelector('.welcome-start').addEventListener('click',()=>welcome.close());
+    welcome.addEventListener('close',()=>{document.querySelector('main').focus({preventScroll:true});});
+  }
   const background=document.querySelector('.map-background');
   const viewport=document.querySelector('#map-viewport');
   const scene=document.querySelector('#map-scene');

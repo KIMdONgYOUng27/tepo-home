@@ -2,9 +2,10 @@
   const storageKey='tepo-lighthouse-progress-v1';
   const validCourse=course=>course&&Object.hasOwn(window.TEPO_DIALOGUE.types,course.type)&&['half','day'].includes(course.duration)&&['slow','full'].includes(course.pace);
   const courseKey=course=>[course.type,course.duration,course.pace].join('-');
-  let progress={awake:false,translator:false,courses:[]};
-  try{const saved=JSON.parse(localStorage.getItem(storageKey)||'null');if(saved&&typeof saved==='object')progress={awake:saved.awake===true,translator:saved.translator===true,courses:Array.isArray(saved.courses)?[...new Map(saved.courses.filter(validCourse).map(course=>[courseKey(course),{type:course.type,duration:course.duration,pace:course.pace}])).values()].slice(0,16):[]};}catch{}
-  function save(){try{localStorage.setItem(storageKey,JSON.stringify(progress));}catch{}}
+  const weapons=window.TEPO_WEAPONS;
+  let progress={awake:false,translator:false,courses:[],weapons:[]};
+  try{const saved=JSON.parse(localStorage.getItem(storageKey)||'null');if(saved&&typeof saved==='object')progress={awake:saved.awake===true,translator:saved.translator===true,courses:Array.isArray(saved.courses)?[...new Map(saved.courses.filter(validCourse).map(course=>[courseKey(course),{type:course.type,duration:course.duration,pace:course.pace}])).values()].slice(0,16):[],weapons:Array.isArray(saved.weapons)?[...new Set(saved.weapons.filter(id=>weapons.items.some(item=>item.id===id)))]:[]};}catch{}
+  function save(){try{localStorage.setItem(storageKey,JSON.stringify(progress));}catch{}window.dispatchEvent(new Event('tepo-inventory-change'));}
   function keepCourse(trip){
     const course={type:trip.type,duration:trip.duration,pace:trip.pace};
     progress.courses=[course,...progress.courses.filter(item=>courseKey(item)!==courseKey(course))].slice(0,16);save();
@@ -112,25 +113,44 @@
       },{once:true});
     });
   }
-  function renderBag(host){
-    host.innerHTML='<button class="close-view" aria-label="방으로 돌아가기">← 방으로</button><section class="bag-view"><header><p>발견하고 챙긴 물건들</p><h2 id="dialog-title">내 가방</h2></header><div class="bag-panel"><div class="bag-slots"></div><section class="bag-inspection" aria-live="polite"></section></div></section>';
-    const slots=host.querySelector('.bag-slots'),inspection=host.querySelector('.bag-inspection');
-    if(progress.translator){
-      const item=document.createElement('button');item.className='bag-item';item.setAttribute('aria-label','수상한 기계 확인하기');
-      item.innerHTML='<img src="assets/tepo-translator-device-v1.png" alt=""><span>수상한 기계</span>';
-      item.addEventListener('click',()=>{
-        item.setAttribute('aria-pressed','true');
-        inspection.innerHTML='<img src="assets/tepo-translator-device-v1.png" alt="초록 화면과 안테나가 달린 수상한 기계"><h3>수상한 기계</h3><p>테포의 말을 알아들을 수 있게 해 주는 장치.<br>가방에 넣어 두면 대화할 때 자동으로 작동한다.</p>';
-      });slots.append(item);
-    }
-    progress.courses.forEach(course=>{
-      const route=window.TEPO_DIALOGUE.makeRoute(course),item=document.createElement('button');item.className='bag-item bag-course-item';item.setAttribute('aria-label',route.title+' · '+route.summary+' 종이 펼치기');
-      item.innerHTML='<span class="bag-paper-icon" aria-hidden="true"><i></i><i></i><i></i></span><span class="bag-course-title"></span><small></small>';
-      item.querySelector('.bag-course-title').textContent=route.title;item.querySelector('small').textContent=route.summary;
-      item.addEventListener('click',()=>openCoursePaper(host,course));slots.append(item);
+  function weaponDetail(container,item,onBack){
+    const owned=progress.weapons.includes(item.id);
+    container.innerHTML='<section class="weapon-detail">'+(onBack?'<button class="weapon-back">← 무기 모음으로</button>':'')+'<div class="weapon-large-art">'+weapons.picture(item)+'</div><h3></h3><p class="weapon-description"></p><button class="take-weapon"></button><p class="weapon-state" role="status"></p></section>';
+    container.querySelector('h3').textContent=item.label;container.querySelector('.weapon-description').textContent=item.description;
+    if(onBack)container.querySelector('.weapon-back').addEventListener('click',onBack);
+    const take=container.querySelector('.take-weapon');take.disabled=owned;take.textContent=owned?'가방에 보관 중':'가방에 넣기';
+    take.addEventListener('click',()=>{
+      if(progress.weapons.includes(item.id))return;
+      progress.weapons.push(item.id);save();take.disabled=true;take.textContent='가방에 보관 중';container.querySelector('.weapon-state').textContent=item.label+' — 가방에 보관했어.';
     });
-    inspection.innerHTML=slots.children.length?'<p class="bag-empty">물건을 눌러 자세히 살펴보자.</p>':'<p class="bag-empty">아직 챙긴 물건이 없다.<br>방 안을 조금 더 살펴볼까?</p>';
-    for(let i=slots.children.length;i<6;i++){const slot=document.createElement('span');slot.className='bag-slot-empty';slot.setAttribute('aria-hidden','true');slots.append(slot);}
   }
-  window.TEPO_STORY={get awake(){return progress.awake;},wake(){progress.awake=true;save();},talk:conversation,renderDrawer,renderBag};
+  function renderWeapons(host){
+    host.innerHTML='<button class="close-view" aria-label="방으로 돌아가기">← 방으로</button><section class="weapons-view"><header><p>벽에 걸려 있던 물건들</p><h2 id="dialog-title">테포의 무기 모음</h2></header><div class="weapons-stage"></div></section>';
+    const stage=host.querySelector('.weapons-stage');
+    function gallery(){
+      stage.innerHTML='<p class="weapons-hint">궁금한 물건을 하나 골라 봐.</p><div class="weapon-grid"></div>';
+      weapons.items.forEach(item=>{const button=document.createElement('button');button.className='weapon-choice';button.setAttribute('aria-label',item.label+' 살펴보기');button.innerHTML=weapons.picture(item)+'<span></span><small></small>';button.querySelector('span').textContent=item.label;button.querySelector('small').textContent=progress.weapons.includes(item.id)?'가방에 보관 중':'살펴보기';button.addEventListener('click',()=>{weaponDetail(stage,item,gallery);stage.querySelector('.weapon-back').focus();});stage.querySelector('.weapon-grid').append(button);});
+    }gallery();
+  }
+  function renderBag(host){
+    host.innerHTML='<button class="close-view" aria-label="방으로 돌아가기">← 방으로</button><section class="bag-view"><header><p>발견하고 챙긴 물건들</p><h2 id="dialog-title">내 가방</h2><span class="bag-total"></span></header><div class="bag-panel"><section class="bag-browser"><nav class="bag-filters" aria-label="가방 분류"></nav><div class="bag-slots"></div><nav class="bag-pagination" aria-label="가방 페이지"><button class="bag-prev" aria-label="가방 이전 페이지">←</button><span></span><button class="bag-next" aria-label="가방 다음 페이지">→</button></nav></section><section class="bag-inspection" aria-live="polite"></section></div></section>';
+    const slots=host.querySelector('.bag-slots'),inspection=host.querySelector('.bag-inspection'),filters=host.querySelector('.bag-filters'),pager=host.querySelector('.bag-pagination');
+    const items=[];let category='all',page=0,selected=null;
+    if(progress.translator)items.push({id:'translator',category:'objects',label:'수상한 기계',icon:'<img src="assets/tepo-translator-device-v1.png" alt="">',open:()=>{inspection.innerHTML='<img src="assets/tepo-translator-device-v1.png" alt="초록 화면과 안테나가 달린 수상한 기계"><h3>수상한 기계</h3><p>테포의 말을 알아들을 수 있게 해 주는 장치.<br>가방에 넣어 두면 대화할 때 자동으로 작동한다.</p>';}});
+    weapons.items.filter(item=>progress.weapons.includes(item.id)).forEach(item=>items.push({id:item.id,category:'weapons',label:item.label,icon:weapons.picture(item),open:()=>weaponDetail(inspection,item)}));
+    progress.courses.forEach(course=>{const route=window.TEPO_DIALOGUE.makeRoute(course);items.push({id:courseKey(course),category:'courses',label:route.title,description:route.summary,icon:'<span class="bag-paper-icon" aria-hidden="true"><i></i><i></i><i></i></span>',open:()=>openCoursePaper(host,course)});});
+    const capacity=Math.max(24,Math.ceil(items.length/12)*12);host.querySelector('.bag-total').textContent=items.length+' / '+capacity+'칸';
+    [['all','전체'],['objects','물건'],['weapons','무기'],['courses','코스 종이']].forEach(([id,label])=>{const button=document.createElement('button');button.textContent=label;button.dataset.category=id;button.addEventListener('click',()=>{category=id;page=0;draw();});filters.append(button);});
+    function draw(){
+      const filtered=items.filter(item=>category==='all'||item.category===category),pages=category==='all'?capacity/12:Math.max(1,Math.ceil(filtered.length/12));
+      page=Math.max(0,Math.min(page,pages-1));slots.replaceChildren();
+      filtered.slice(page*12,page*12+12).forEach(item=>{const button=document.createElement('button');button.className='bag-item';button.setAttribute('aria-label',item.label+(item.description?' · '+item.description:'')+' 확인하기');button.setAttribute('aria-pressed',String(selected===item.id));button.innerHTML=item.icon+'<span class="bag-item-name"></span><small></small>';button.querySelector('.bag-item-name').textContent=item.label;button.querySelector('small').textContent=item.description||'';button.addEventListener('click',()=>{selected=item.id;slots.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));item.open();});slots.append(button);});
+      for(let i=slots.children.length;i<12;i++){const empty=document.createElement('span');empty.className='bag-slot-empty';empty.setAttribute('aria-hidden','true');slots.append(empty);}
+      filters.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.category===category)));
+      pager.querySelector('span').textContent=(page+1)+' / '+pages;pager.querySelector('.bag-prev').disabled=page===0;pager.querySelector('.bag-next').disabled=page>=pages-1;
+    }
+    pager.querySelector('.bag-prev').addEventListener('click',()=>{page--;draw();});pager.querySelector('.bag-next').addEventListener('click',()=>{page++;draw();});
+    inspection.innerHTML=items.length?'<p class="bag-empty">물건을 눌러 자세히 살펴보자.</p>':'<p class="bag-empty">아직 챙긴 물건이 없다.<br>방 안을 조금 더 살펴볼까?</p>';draw();
+  }
+  window.TEPO_STORY={get awake(){return progress.awake;},wake(){progress.awake=true;save();},hasWeapon:id=>progress.weapons.includes(id),talk:conversation,renderDrawer,renderBag,renderWeapons};
 })();

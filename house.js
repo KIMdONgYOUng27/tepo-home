@@ -1,5 +1,5 @@
-(() => {
-  const art='assets/lighthouse-room-stable-v8.png';
+(async() => {
+  const art='assets/lighthouse-room-empty-hooks-v18.png';
   const scene=document.querySelector('#room-scene'),image=document.querySelector('#room-image');
   const config=window.TEPO_HOUSE_CONTENT||{stories:[],videos:{shorts:[],long:[]}};
   // Remove the old comparison URL; this room now has one approved art direction.
@@ -8,25 +8,26 @@
   addEventListener('resize',layout);layout();image.decode().then(()=>scene.classList.add('ready')).catch(()=>scene.classList.add('ready'));
   const objects=[
     {id:'drawer',label:'벤치 아래 왼쪽 서랍 손잡이',box:[648,579,38,24],path:'M3 19 C5 7 10 3 19 3 C28 3 34 9 35 18 C28 21 10 22 3 19 Z'},
-    {id:'baton',label:'삼단봉',box:[1012,173,17,202],points:'2,0 14,0 14,62 10,64 10,187 15,191 14,199 7,202 0,198 0,191 5,187 5,64 1,62'},
-    {id:'bat',label:'야구방망이',box:[1083,153,30,223],points:'7,0 24,0 26,9 20,14 20,65 29,186 29,211 25,220 7,223 1,216 0,199 10,67 10,14 4,10'},
-    {id:'unknown',label:'정체불명의 무기',box:[1149,178,73,185],points:'29,0 42,0 43,110 62,121 71,145 68,164 54,179 36,184 49,165 50,145 38,132 20,130 9,145 6,160 0,146 4,126 25,110 30,102'},
-    {id:'mace',label:'메이스',box:[1242,178,75,185],points:'28,0 44,0 44,99 49,105 44,116 58,118 64,126 74,132 65,143 74,154 61,160 64,174 48,173 38,185 28,173 14,175 13,161 0,154 8,143 0,132 16,122 25,116 24,103 29,99'}
+    ...window.TEPO_WEAPONS.items
   ];
   const ns='http://www.w3.org/2000/svg';
+  await window.TEPO_WEAPONS.ready;
   objects.forEach(item=>{
     const [x,y,w,h]=item.box,button=document.createElement('button');button.className='object';button.dataset.object=item.id;button.setAttribute('aria-label',item.label);Object.assign(button.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px'});
     const svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.setAttribute('aria-hidden','true');
     // The drawer uses only the brass pull's curved edge, with no copied background.
-    if(item.path){
+    if(item.crop){
+      const [cx,cy,cw,ch]=item.crop;svg.setAttribute('viewBox',`0 0 ${cw} ${ch}`);svg.setAttribute('preserveAspectRatio','none');
+      svg.innerHTML=`<defs><clipPath id="clip-${item.id}"><rect width="${cw}" height="${ch}"/></clipPath></defs><image class="object-art" href="${window.TEPO_WEAPONS.source}" x="${-cx}" y="${-cy}" width="1999" height="787" clip-path="url(#clip-${item.id})"/><path class="object-hit" d="${item.hit}"/>`;
+    }else if(item.path){
       svg.innerHTML=`<path class="object-outline" d="${item.path}"/><path class="object-hit" d="${item.path}"/>`;
     }else{
-      svg.innerHTML=`<defs><clipPath id="clip-${item.id}"><polygon points="${item.points}"/></clipPath></defs><image class="object-art" href="${art}" x="${-x}" y="${-y}" width="1672" height="941" clip-path="url(#clip-${item.id})"/><polygon class="object-outline" points="${item.points}"/><polygon class="object-hit" points="${item.points}"/>`;
+      svg.innerHTML=`<defs><clipPath id="clip-${item.id}"><polygon points="${item.points}"/></clipPath></defs><image class="object-art" href="${window.TEPO_WEAPONS.source}" x="${-x}" y="${-y}" width="1672" height="941" clip-path="url(#clip-${item.id})"/><polygon class="object-outline" points="${item.points}"/><polygon class="object-hit" points="${item.points}"/>`;
     }
     button.append(svg);document.querySelector('#room-objects').append(button);
     const weapon=['baton','bat','unknown','mace'].includes(item.id);
     if(item.id==='drawer')button.classList.add('drawer');
-    if(weapon){button.classList.add('weapon');button.setAttribute('aria-label',item.label+' · 무기 모음 보기');}
+    if(weapon){button.classList.add('weapon');button.setAttribute('aria-label',item.label+' · 무기 모음 보기');const sync=()=>{button.hidden=window.TEPO_STORY.hasWeapon(item.id);};sync();addEventListener('tepo-inventory-change',sync);}
     button.addEventListener('click',()=>openObject(weapon?'weapons':item.id));
     if(weapon){['pointerenter','focus'].forEach(type=>button.addEventListener(type,()=>scene.classList.add('weapons-active')));['pointerleave','blur'].forEach(type=>button.addEventListener(type,()=>scene.classList.remove('weapons-active')));}
   });
@@ -85,7 +86,7 @@
   function close(){dialog.close();content.replaceChildren();}
   function openObject(id){
     dialog.className='view-'+id;content.replaceChildren();
-    if(id==='bag')story.renderBag(content);else if(id==='drawer')story.renderDrawer(content);else if(id==='computer')renderComputer();else if(id==='diary')renderDiary();else if(id==='wallet')window.renderTepoWallet(content);else if(id==='photo'){
+    if(id==='weapons')story.renderWeapons(content);else if(id==='bag')story.renderBag(content);else if(id==='drawer')story.renderDrawer(content);else if(id==='computer')renderComputer();else if(id==='diary')renderDiary();else if(id==='wallet')window.renderTepoWallet(content);else if(id==='photo'){
       content.innerHTML=closeButton+'<section class="inspect"><h2 id="dialog-title">테트라포드</h2><img class="inspect-frame" src="assets/room-frame-alpha-v1.png" alt="장엄한 테트라포드가 담긴 액자"></section>';
     }else if(id==='hat'){
       content.innerHTML=closeButton+'<section class="inspect"><h2 id="dialog-title">테포의 뚝배기</h2><img class="inspect-cutout" src="assets/tepo-pot-hat-v1.png" alt="벗어 놓은 테포의 뚝배기 모자"></section>';
