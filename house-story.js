@@ -1,11 +1,11 @@
 (() => {
-  const storageKey='tepo-lighthouse-progress-v1';
+  const storageKey='tepo-lighthouse-visit-v2';
   const validCourse=course=>course&&Object.hasOwn(window.TEPO_DIALOGUE.types,course.type)&&['half','day'].includes(course.duration)&&['slow','full'].includes(course.pace);
   const courseKey=course=>[course.type,course.duration,course.pace].join('-');
   const weapons=window.TEPO_WEAPONS;
   let progress={awake:false,translator:false,courses:[],weapons:[]};
-  try{const saved=JSON.parse(localStorage.getItem(storageKey)||'null');if(saved&&typeof saved==='object')progress={awake:saved.awake===true,translator:saved.translator===true,courses:Array.isArray(saved.courses)?[...new Map(saved.courses.filter(validCourse).map(course=>[courseKey(course),{type:course.type,duration:course.duration,pace:course.pace}])).values()].slice(0,16):[],weapons:Array.isArray(saved.weapons)?[...new Set(saved.weapons.filter(id=>weapons.items.some(item=>item.id===id)))]:[]};}catch{}
-  function save(){try{localStorage.setItem(storageKey,JSON.stringify(progress));}catch{}window.dispatchEvent(new Event('tepo-inventory-change'));}
+  try{const saved=JSON.parse(sessionStorage.getItem(storageKey)||'null');if(saved&&typeof saved==='object')progress={awake:saved.awake===true,translator:saved.translator===true,courses:Array.isArray(saved.courses)?[...new Map(saved.courses.filter(validCourse).map(course=>[courseKey(course),{type:course.type,duration:course.duration,pace:course.pace}])).values()].slice(0,16):[],weapons:Array.isArray(saved.weapons)?[...new Set(saved.weapons.filter(id=>weapons.items.some(item=>item.id===id)))]:[]};}catch{}
+  function save(){try{sessionStorage.setItem(storageKey,JSON.stringify(progress));}catch{}window.dispatchEvent(new Event('tepo-inventory-change'));}
   function keepCourse(trip){
     const course={type:trip.type,duration:trip.duration,pace:trip.pace};
     progress.courses=[course,...progress.courses.filter(item=>courseKey(item)!==courseKey(course))].slice(0,16);save();
