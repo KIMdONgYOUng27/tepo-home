@@ -1,0 +1,4 @@
+User-supplied font family: GeuriunXGukhanbakSingoyangI
+URL: https://cdn.jsdelivr.net/gh/Project-Noonnu/2607161334@x-6/x/GriunXHangeul_Gowoon-Rg.woff2
+Used locally for welcome popup description, supporting note and action button only.
+Welcome heading retains its original Nanum Pen Script typeface.
