@@ -1,0 +1,46 @@
+[
+  {
+    "id": "title",
+    "source": "타이틀.wav",
+    "seconds": 89.6,
+    "bytes": 1265593,
+    "normalization_target": "-18 LUFS / -2dBTP / LRA9",
+    "edge_fades_ms": [
+      25,
+      80
+    ]
+  },
+  {
+    "id": "combat",
+    "source": "일반 전투.wav",
+    "seconds": 179.52,
+    "bytes": 2639836,
+    "normalization_target": "-18 LUFS / -2dBTP / LRA9",
+    "edge_fades_ms": [
+      25,
+      80
+    ]
+  },
+  {
+    "id": "late",
+    "source": "후반 전투.wav",
+    "seconds": 179.96,
+    "bytes": 2741494,
+    "normalization_target": "-18 LUFS / -2dBTP / LRA9",
+    "edge_fades_ms": [
+      25,
+      80
+    ]
+  },
+  {
+    "id": "boss",
+    "source": "보스전.wav",
+    "seconds": 148.6,
+    "bytes": 2329401,
+    "normalization_target": "-18 LUFS / -2dBTP / LRA9",
+    "edge_fades_ms": [
+      25,
+      80
+    ]
+  }
+]

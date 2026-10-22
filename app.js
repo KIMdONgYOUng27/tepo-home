@@ -85,6 +85,7 @@
   let selectedTimer;
   buttons.forEach(button=>button.addEventListener('click',()=>{
     if(button.dataset.place==='home'){window.location.href='house.html';return;}
+    if(button.dataset.place==='arcade'){window.location.href='games/shorekeeper/';return;}
     clearTimeout(selectedTimer);
     buttons.forEach(item=>item.classList.toggle('is-selected',item===button));
     selectedTimer=setTimeout(()=>button.classList.remove('is-selected'),900);

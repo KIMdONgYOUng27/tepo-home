@@ -1,0 +1,7 @@
+.godot/
+web/*
+!web/.gitkeep
+*.tmp
+build.log
+*.log
+preview-*.png

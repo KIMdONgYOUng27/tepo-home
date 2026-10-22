@@ -1,0 +1,533 @@
+[
+  {
+    "id": "sand",
+    "seconds": 0.22,
+    "file": "sand.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 3500
+  },
+  {
+    "id": "pearl",
+    "seconds": 0.22,
+    "file": "pearl.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.9,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "bowl",
+    "seconds": 0.22,
+    "file": "bowl.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 3500
+  },
+  {
+    "id": "kelp",
+    "seconds": 0.22,
+    "file": "kelp.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "chain",
+    "seconds": 0.22,
+    "file": "chain.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 3500
+  },
+  {
+    "id": "shell",
+    "seconds": 0.22,
+    "file": "shell.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 3500
+  },
+  {
+    "id": "snack",
+    "seconds": 0.22,
+    "file": "snack.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 3500
+  },
+  {
+    "id": "wave",
+    "seconds": 0.65,
+    "file": "wave.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2800
+  },
+  {
+    "id": "rain",
+    "seconds": 0.65,
+    "file": "rain.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2800
+  },
+  {
+    "id": "stone",
+    "seconds": 0.22,
+    "file": "stone.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 3500
+  },
+  {
+    "id": "tetra",
+    "seconds": 0.22,
+    "file": "tetra.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "heat",
+    "seconds": 0.22,
+    "file": "heat.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "gull_white",
+    "seconds": 0.22,
+    "file": "gull_white.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "gull_dark",
+    "seconds": 0.22,
+    "file": "gull_dark.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "gull_union",
+    "seconds": 0.22,
+    "file": "gull_union.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "feather",
+    "seconds": 0.22,
+    "file": "feather.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "gust",
+    "seconds": 0.22,
+    "file": "gust.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "wing_union",
+    "seconds": 0.22,
+    "file": "wing_union.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "anchor",
+    "seconds": 0.22,
+    "file": "anchor.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 3500
+  },
+  {
+    "id": "water",
+    "seconds": 0.65,
+    "file": "water.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2800
+  },
+  {
+    "id": "hit",
+    "seconds": 0.075,
+    "file": "hit.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "kill",
+    "seconds": 0.22,
+    "file": "kill.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "pick",
+    "seconds": 0.075,
+    "file": "pick.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.65,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "hurt",
+    "seconds": 0.22,
+    "file": "hurt.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "level",
+    "seconds": 0.65,
+    "file": "level.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.72,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "drop",
+    "seconds": 0.22,
+    "file": "drop.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "chest",
+    "seconds": 0.65,
+    "file": "chest.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.72,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "evolve",
+    "seconds": 0.95,
+    "file": "evolve.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.72,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "win",
+    "seconds": 0.65,
+    "file": "win.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.72,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "lose",
+    "seconds": 0.22,
+    "file": "lose.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "ui",
+    "seconds": 0.075,
+    "file": "ui.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.65,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "warning",
+    "seconds": 0.95,
+    "file": "warning.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "impact_light",
+    "seconds": 0.22,
+    "file": "impact_light.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "impact_heavy",
+    "seconds": 0.22,
+    "file": "impact_heavy.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "wing_drop",
+    "seconds": 0.65,
+    "file": "wing_drop.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2800
+  },
+  {
+    "id": "food",
+    "seconds": 0.22,
+    "file": "food.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.72,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "magnet",
+    "seconds": 0.65,
+    "file": "magnet.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2800
+  },
+  {
+    "id": "freeze",
+    "seconds": 0.22,
+    "file": "freeze.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.85,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "wipe",
+    "seconds": 0.65,
+    "file": "wipe.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2800
+  },
+  {
+    "id": "xp",
+    "seconds": 0.22,
+    "file": "xp.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.8,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "coin",
+    "seconds": 0.075,
+    "file": "coin.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.62,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "relic",
+    "seconds": 0.65,
+    "file": "relic.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.72,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "revive",
+    "seconds": 0.65,
+    "file": "revive.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.72,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "boss_down",
+    "seconds": 0.22,
+    "file": "boss_down.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "chest_open",
+    "seconds": 0.22,
+    "file": "chest_open.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 3500
+  },
+  {
+    "id": "reel_tick",
+    "seconds": 0.075,
+    "file": "reel_tick.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.48,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "reel_stop",
+    "seconds": 0.35,
+    "file": "reel_stop.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.78,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "treasure_1",
+    "seconds": 0.65,
+    "file": "treasure_1.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.72,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "treasure_3",
+    "seconds": 0.95,
+    "file": "treasure_3.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.72,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "treasure_5",
+    "seconds": 1.25,
+    "file": "treasure_5.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 0.72,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "water_start",
+    "seconds": 0.65,
+    "file": "water_start.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2800
+  },
+  {
+    "id": "water_end",
+    "seconds": 0.65,
+    "file": "water_end.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2800
+  },
+  {
+    "id": "enemy_shot",
+    "seconds": 0.22,
+    "file": "enemy_shot.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "bug_die",
+    "seconds": 0.22,
+    "file": "bug_die.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "shell_die",
+    "seconds": 0.22,
+    "file": "shell_die.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 3500
+  },
+  {
+    "id": "kelp_die",
+    "seconds": 0.22,
+    "file": "kelp_die.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "quad_die",
+    "seconds": 0.22,
+    "file": "quad_die.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "jelly_die",
+    "seconds": 0.22,
+    "file": "jelly_die.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  },
+  {
+    "id": "human_die",
+    "seconds": 0.22,
+    "file": "human_die.wav",
+    "original": true,
+    "revision": "v11-muted-coastal",
+    "gain": 1.0,
+    "lowpass_hz": 2400
+  }
+]
