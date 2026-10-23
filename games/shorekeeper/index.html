@@ -38,7 +38,7 @@ body {
 #status-splash {display:block;width:100%;height:100%;object-fit:contain;animation:tepo-float 2.8s ease-in-out infinite}
 .loading-title {font-size:clamp(23px,4vw,32px);margin:0 0 10px;letter-spacing:-.06em}
 #loading-caption {font-size:14px;margin:0 0 18px;line-height:1.6;word-break:keep-all;color:#637052}
-#status-progress {display:block;width:100%;height:14px;border:2px solid #6b7152;border-radius:12px;overflow:hidden;background:#e4d7b3;accent-color:#628a76;box-sizing:border-box}
+#status-progress {display:block;width:100%;height:14px;border:1px solid #6cf9ed;border-radius:12px;overflow:hidden;background:#e4d7b3;accent-color:#628a76;box-sizing:border-box}
 #status-progress::-webkit-progress-bar {background:#e4d7b3}
 #status-progress::-webkit-progress-value {background:linear-gradient(90deg,#779e86,#426d62);border-radius:8px;transition:width .2s}
 #status-progress::-moz-progress-bar {background:#628a76;border-radius:8px}
@@ -48,11 +48,15 @@ body {
 @media (orientation:landscape) and (max-height:500px) {.loading-card{padding:4px}.loading-art{height:100px;margin:6px 0}.loading-label{margin-bottom:4px}.loading-title{font-size:23px;margin-bottom:6px}#loading-caption{margin-bottom:10px}}
 @media (prefers-reduced-motion:reduce) {#status-splash{animation:none}}
 
-#tepo-rotate {display:none;position:fixed;inset:0;background:#faf0d8;color:#334637;z-index:30;text-align:center;align-items:center;justify-content:center;flex-direction:column;gap:18px;font-family:system-ui,sans-serif;padding:24px;box-sizing:border-box}
-#tepo-fullscreen {position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));z-index:25;border:2px solid #6b7152;border-radius:9px;background:#faf0d8dc;color:#334637;padding:8px 12px;font-size:14px;cursor:pointer}
+#tepo-rotate {display:none;position:fixed;inset:0;background:#101a30;color:#d8ffff;z-index:30;text-align:center;align-items:center;justify-content:center;flex-direction:column;gap:18px;font-family:system-ui,sans-serif;padding:24px;box-sizing:border-box}
+#tepo-fullscreen {position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));z-index:25;border:1px solid #6cf9ed;border-radius:9px;background:#101a30ed;color:#d8ffff;padding:8px 12px;font-size:14px;cursor:pointer}
 #tepo-rotate strong {font-size:24px} #tepo-rotate span {line-height:1.7;max-width:320px;word-break:keep-all}
 @media (orientation:portrait) and (pointer:coarse) {#tepo-rotate {display:flex} #tepo-fullscreen {z-index:35}}
 @media (orientation:landscape) and (max-height:500px) {#tepo-fullscreen {font-size:12px;padding:5px 9px;opacity:.65}}
+/* Arcade shell palette; game rendering remains untouched. */
+body{background:#080b17}#status{background:radial-gradient(ellipse at 50% 34%,#182646,#080b17);color:#e6faff}.loading-label{color:#6cf9ed}.loading-title{color:#e9f8ff}#loading-caption,#loading-percent{color:#b4c7df}#status-progress,#status-progress::-webkit-progress-bar{background:#1b2945}#status-progress::-webkit-progress-value{background:linear-gradient(90deg,#4fe4dc,#a68aff)}#status-progress::-moz-progress-bar{background:#6cf9ed}#status-notice{background:#2d1835;border-color:#bd79d3;color:#f8ccec}
+/* Bright arcade shell; preserve the game's own graphics. */
+body{background:#f5f8f5}#status{background:radial-gradient(ellipse at 50% 34%,#fff,#eef8f4);color:#365764}.loading-label{color:#408f94}.loading-title{color:#365764}#loading-caption,#loading-percent{color:#6d858d}#status-progress,#status-progress::-webkit-progress-bar{background:#e4eeed}#status-progress::-webkit-progress-value{background:linear-gradient(90deg,#86dacf,#b7a6df)}#status-progress::-moz-progress-bar{background:#86dacf}#status-notice{background:#fff4f8;border-color:#d8bbd0;color:#8c566e}#tepo-fullscreen{background:#fffffff0;color:#365b66;border-color:#84c6c1}#tepo-rotate{background:#f5faf7;color:#365b66}
 </style>
 		<meta name="theme-color" content="#132e35">
 	</head>
@@ -104,6 +108,7 @@ const engine = new Engine(GODOT_CONFIG);
 			return;
 		}
 		if (mode === 'hidden') {
+			window.parent.postMessage({type:'tepo-game',status:'ready'},location.origin);
 			statusOverlay.remove();
 			initializing = false;
 			return;
@@ -130,6 +135,7 @@ const engine = new Engine(GODOT_CONFIG);
 	}
 
 	function displayFailureNotice(err) {
+        window.parent.postMessage({type:'tepo-game',status:'error'},location.origin);
 		console.error(err);
 		if (err instanceof Error) {
 			setStatusNotice(err.message);
@@ -181,6 +187,7 @@ const engine = new Engine(GODOT_CONFIG);
 		setStatusMode('progress');
 		engine.startGame({
 			'onProgress': function (current, total) {
+                window.parent.postMessage({type:'tepo-game',status:'progress',percent:total?Math.round(current/total*100):0},location.origin);
 				if (current > 0 && total > 0) {
 					statusProgress.value = current;
 					statusProgress.max = total;
@@ -217,6 +224,9 @@ document.addEventListener('keydown',event=>{
  if(document.activeElement===tepoCanvas && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(event.key))event.preventDefault();
 });
 </script>
-</body>
+<script>
+if(window.parent!==window){document.getElementById('tepo-fullscreen').hidden=true;}
+else{const exit=document.createElement('a');exit.textContent='종료하고 오락실로';exit.href='../../index.html?arcade=return';exit.style.cssText='position:fixed;top:12px;right:12px;z-index:50;padding:10px 16px;background:#fffffff0;color:#365b66;border:1px solid #84c6c1;border-radius:8px;text-decoration:none;font-family:sans-serif';document.body.append(exit);}
+</script></body>
 </html>
 

@@ -21,6 +21,7 @@
   const buttons=[...document.querySelectorAll('.destination')];
   const atlas=new Image();
   atlas.src='assets/destinations-varied-angles-v4.png';
+  const arcadeArt=new Image();arcadeArt.src='assets/arcade-map-white-alpha-v25.png';
   // Source rectangles contain real PNG alpha, with no background sampling.
   // Ground anchors keep every landmark planted during enlargement.
   const places={
@@ -42,10 +43,12 @@
     buttons.forEach(button=>{
       const {crop:[x,y,cw,ch],width,ground:[gx,gy],anchor:[ax,ay]}=places[button.dataset.place];
       const height=width*ch/cw;
+      const source=button.dataset.place==='arcade'?arcadeArt:atlas;
       Object.assign(button.style,{left:(gx-ax*width)+'px',top:(gy-ay*height)+'px',width:width+'px',height:height+'px'});
       Object.assign(button.querySelector('.place-sprite').style,{
-        backgroundSize:atlas.naturalWidth/cw*100+'% '+atlas.naturalHeight/ch*100+'%',
-        backgroundPosition:x/(atlas.naturalWidth-cw)*100+'% '+y/(atlas.naturalHeight-ch)*100+'%',
+        backgroundImage:'url('+ (button.dataset.place==='arcade'?arcadeArt.src:atlas.src) +')',
+        backgroundSize:source.naturalWidth/cw*100+'% '+source.naturalHeight/ch*100+'%',
+        backgroundPosition:(source.naturalWidth===cw?0:x/(source.naturalWidth-cw)*100)+'% '+(source.naturalHeight===ch?0:y/(source.naturalHeight-ch)*100)+'%',
         transformOrigin:ax*100+'% '+ay*100+'%',
         clipPath:places[button.dataset.place].clip||'none'
       });
@@ -58,6 +61,8 @@
     ctx.drawImage(atlas,0,0);
     const ns='http://www.w3.org/2000/svg';
     buttons.forEach(button=>{
+      const source=button.dataset.place==='arcade'?arcadeArt:atlas;
+      canvas.width=source.naturalWidth;canvas.height=source.naturalHeight;ctx.drawImage(source,0,0);
       const [x,y,w,h]=places[button.dataset.place].crop;
       const pixels=ctx.getImageData(x,y,w,h).data;
       const exclude=places[button.dataset.place].exclude;
@@ -85,14 +90,15 @@
   let selectedTimer;
   buttons.forEach(button=>button.addEventListener('click',()=>{
     if(button.dataset.place==='home'){window.location.href='house.html';return;}
-    if(button.dataset.place==='arcade'){window.location.href='games/shorekeeper/';return;}
+    if(button.dataset.place==='arcade'){window.TEPO_WORLD.open(button.dataset.place,button);return;}
     clearTimeout(selectedTimer);
     buttons.forEach(item=>item.classList.toggle('is-selected',item===button));
     selectedTimer=setTimeout(()=>button.classList.remove('is-selected'),900);
   }));
   background.addEventListener('load',layoutScene);
   new ResizeObserver(layoutScene).observe(viewport);
-  Promise.all([background.decode(),atlas.decode()]).then(()=>{
+  Promise.all([background.decode(),atlas.decode(),arcadeArt.decode()]).then(()=>{
+    places.arcade.crop=[276,121,929,928];places.arcade.anchor=[.5,.83];
     layoutScene();createAlphaHitAreas();loading.classList.add('is-ready');
   }).catch(error=>{loading.classList.add('is-ready');console.error('Map asset loading failed.',error);});
 })();

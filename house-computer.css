@@ -19,3 +19,15 @@
 .view-computer .video-window h3,.view-computer .video-files button,.view-computer .youtube-original,.view-computer .empty-videos{font-size:12px;font-weight:400}
 .view-computer .monitor-brand{font-size:12px;letter-spacing:1px}
 .view-computer .archive-close:focus-visible,.view-computer .window-close:focus-visible,.view-computer .desktop-folders>button:focus-visible{outline:1px dashed #b4ffbd;outline-offset:3px}
+.view-computer .monitor{padding:16px;box-sizing:border-box}
+.view-computer .monitor-shell{width:min(1240px,calc((100dvh - 130px) * 16 / 9),100%);height:auto;padding:18px 18px 0;border-radius:24px}
+.view-computer .screen-rim{flex:none;aspect-ratio:16/9;padding:10px;border-radius:20px}
+.view-computer .crt-screen{border-radius:14px}
+.view-computer .monitor-chin{height:55px;min-height:45px}
+.view-computer .os-bar{padding:10px 20px}.view-computer .os-footer{padding:6px 20px}
+.view-computer .video-window.is-playing{inset:4px}
+.view-computer .video-window.is-playing .video-list{padding:6px;gap:4px}
+.view-computer .youtube-stage{container-type:size;overflow:hidden}
+.view-computer .youtube-embed{flex:none;min-height:0;width:min(100cqw,calc(100cqh * 16 / 9));height:auto;aspect-ratio:16/9}
+.view-computer .youtube-stage.is-shorts .youtube-embed{min-width:0;max-width:100%;width:min(100cqw,calc(100cqh * 9 / 16));height:auto;aspect-ratio:9/16}
+@media(max-height:550px){.view-computer .monitor{padding:6px}.view-computer .monitor-shell{width:min(100%,calc((100dvh - 76px) * 16 / 9));padding:8px 8px 0}.view-computer .monitor-chin{height:38px;min-height:38px}.view-computer .os-bar{padding:5px 12px}.view-computer .os-footer{display:none}}

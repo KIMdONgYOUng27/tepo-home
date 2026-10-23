@@ -4,8 +4,8 @@
   const courseKey=course=>[course.type,course.duration,course.pace].join('-');
   const weapons=window.TEPO_WEAPONS;
   let progress={awake:false,translator:false,courses:[],weapons:[]};
-  try{const saved=JSON.parse(sessionStorage.getItem(storageKey)||'null');if(saved&&typeof saved==='object')progress={awake:saved.awake===true,translator:saved.translator===true,courses:Array.isArray(saved.courses)?[...new Map(saved.courses.filter(validCourse).map(course=>[courseKey(course),{type:course.type,duration:course.duration,pace:course.pace}])).values()].slice(0,16):[],weapons:Array.isArray(saved.weapons)?[...new Set(saved.weapons.filter(id=>weapons.items.some(item=>item.id===id)))]:[]};}catch{}
-  function save(){try{sessionStorage.setItem(storageKey,JSON.stringify(progress));}catch{}window.dispatchEvent(new Event('tepo-inventory-change'));}
+  try{const saved=JSON.parse(sessionStorage.getItem(storageKey)||'null');if(saved&&typeof saved==='object')progress={...saved,awake:saved.awake===true,translator:saved.translator===true,courses:Array.isArray(saved.courses)?[...new Map(saved.courses.filter(validCourse).map(course=>[courseKey(course),{type:course.type,duration:course.duration,pace:course.pace}])).values()].slice(0,16):[],weapons:Array.isArray(saved.weapons)?[...new Set(saved.weapons.filter(id=>weapons.items.some(item=>item.id===id)))]:[]};}catch{}
+  function save(){try{const live=JSON.parse(sessionStorage.getItem(storageKey)||'{}');progress={...live,...progress};sessionStorage.setItem(storageKey,JSON.stringify(progress));}catch{}window.dispatchEvent(new Event('tepo-inventory-change'));}
   function keepCourse(trip){
     const course={type:trip.type,duration:trip.duration,pace:trip.pace};
     progress.courses=[course,...progress.courses.filter(item=>courseKey(item)!==courseKey(course))].slice(0,16);save();
@@ -121,7 +121,9 @@
     const take=container.querySelector('.take-weapon');take.disabled=owned;take.textContent=owned?'가방에 보관 중':'가방에 넣기';
     take.addEventListener('click',()=>{
       if(progress.weapons.includes(item.id))return;
-      progress.weapons.push(item.id);save();take.disabled=true;take.textContent='가방에 보관 중';container.querySelector('.weapon-state').textContent=item.label+' — 가방에 보관했어.';
+      progress.weapons.push(item.id);save();
+      if(onBack){onBack();(container.querySelector('.weapon-choice')||container.closest('dialog')?.querySelector('.close-view'))?.focus();return;}
+      take.disabled=true;take.textContent='가방에 보관 중';container.querySelector('.weapon-state').textContent=item.label+' — 가방에 보관했어.';
     });
   }
   function renderWeapons(host){
@@ -129,7 +131,9 @@
     const stage=host.querySelector('.weapons-stage');
     function gallery(){
       stage.innerHTML='<p class="weapons-hint">궁금한 물건을 하나 골라 봐.</p><div class="weapon-grid"></div>';
-      weapons.items.forEach(item=>{const button=document.createElement('button');button.className='weapon-choice';button.setAttribute('aria-label',item.label+' 살펴보기');button.innerHTML=weapons.picture(item)+'<span></span><small></small>';button.querySelector('span').textContent=item.label;button.querySelector('small').textContent=progress.weapons.includes(item.id)?'가방에 보관 중':'살펴보기';button.addEventListener('click',()=>{weaponDetail(stage,item,gallery);stage.querySelector('.weapon-back').focus();});stage.querySelector('.weapon-grid').append(button);});
+      const remaining=weapons.items.filter(item=>!progress.weapons.includes(item.id));
+      if(!remaining.length)stage.querySelector('.weapons-hint').textContent='벽에 걸려 있던 무기를 모두 챙겼다.';
+      remaining.forEach(item=>{const button=document.createElement('button');button.className='weapon-choice';button.setAttribute('aria-label',item.label+' 살펴보기');button.innerHTML=weapons.picture(item)+'<span></span><small></small>';button.querySelector('span').textContent=item.label;button.querySelector('small').textContent='살펴보기';button.addEventListener('click',()=>{weaponDetail(stage,item,gallery);stage.querySelector('.weapon-back').focus();});stage.querySelector('.weapon-grid').append(button);});
     }gallery();
   }
   function renderBag(host){
