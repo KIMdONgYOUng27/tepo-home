@@ -8,9 +8,12 @@ const COMBAT_FX = preload("res://scripts/combat_fx_v9.gd")
 var combat_fx: RefCounted
 var presentation: RefCounted
 var music: RefCounted
+var rankings: RefCounted
 const WORLD_SIZE := Vector2(12288, 7680)
-const ROUND_TIME := 1800.0
-const CELL := 100.0
+const ROUND_TIME := 1200.0
+const ORDINARY_CAP:=112
+const TOTAL_CAP:=144
+const CELL := 160.0
 var state := "title"
 var player := Vector2(6000, 4000)
 var facing := Vector2.RIGHT
@@ -118,6 +121,9 @@ func _ready() -> void:
 	music=load("res://scripts/music_v12.gd").new()
 	music.g=self
 	music.setup()
+	rankings=load("res://scripts/rankings_v14.gd").new()
+	rankings.g=self
+	rankings.setup()
 	shore = SHORE.new()
 	add_child(shore)
 	camera = Camera2D.new()
@@ -131,13 +137,14 @@ func _ready() -> void:
 	init_audio()
 	var save := ConfigFile.new()
 	if save.load("user://tepo.cfg") == OK:
-		best_time = float(save.get_value("records", "best", 0.0))
+		best_time = float(save.get_value("records", "best20_v14", 0.0))
 		sound_enabled = bool(save.get_value("settings", "sound", true))
 		harbor_coins = int(save.get_value("harbor","coins",0))
 		harbor = save.get_value("harbor","upgrades",harbor)
 		presentation.volume=clampf(float(save.get_value("settings","effects_volume",0.65)),0,1)
 		presentation.ui_volume=clampf(float(save.get_value("settings","ui_volume",0.7)),0,1)
 		music.volume=clampf(float(save.get_value("settings","music_volume",0.55)),0,1)
+		rankings.nickname=str(save.get_value("settings","nickname","테포 친구"))
 		presentation.reduced_motion=bool(save.get_value("settings","reduced_motion",false))
 		presentation.low_fx=bool(save.get_value("settings","low_fx",false))
 	hud.show_start()
@@ -149,6 +156,7 @@ func _exit_tree() -> void:
 	if music!=null: music.shutdown()
 
 func start_game() -> void:
+	rankings.submitted=false
 	boss_warning=0.0
 	treasure_clock=0.0
 	state = "running"
@@ -209,7 +217,7 @@ func start_game() -> void:
 		spawn_pickup(pos,relic)
 	for i in 14: spawn_enemy()
 	hud.clear_modal()
-	banner = "광안리 · 바다를 지키는 30분"
+	banner = "광안리 · 바다를 지키는 20분"
 	banner_time = 3.0
 	hud.refresh()
 
@@ -254,12 +262,16 @@ func tick(dt: float, input_override: Vector2 = Vector2.INF) -> void:
 	if timers.spawn <= 0:
 		var current := wave_data()
 		var amount := int(current.batch)
-		var minimum:=mini(180,roundi(float(current.minimum)*curse()))
+		var minimum:=mini(ORDINARY_CAP,roundi(float(current.minimum)*curse()))
 		if enemies.size() < minimum: amount = mini(12,minimum-enemies.size())
 		for i in amount: spawn_enemy()
 		timers.spawn = float(current.interval)/curse()
 	check_miniboss()
 	check_stage_events()
+	var checkpoint:bool=bool(wave_data().get("checkpoint",false)) and fmod(elapsed,60)>=30 and fmod(elapsed,60)<35
+	if checkpoint and banner_time<=0:
+		banner="거센 물결 접근 · 돌진 경로를 피하세요!"
+		banner_time=5.0
 	update_enemies(dt)
 	if resolve_death(): return
 	build_grid()
@@ -352,11 +364,8 @@ func toggle_pause() -> void:
 		hud.clear_modal()
 
 func xp_needed() -> float:
-	if level<20: return 5.0+(level-1)*10
-	if level==20: return 795
-	if level<40: return 195.0+(level-20)*13
-	if level==40: return 2855
-	return 455.0+(level-40)*16
+	var n:float=level-1
+	return 5.0+6.0*n+0.055*n*n
 
 func open_level_up() -> void:
 	xp -= xp_needed()
@@ -448,6 +457,7 @@ func finish(won: bool) -> void:
 	set_meta("finish_clock",scene_time)
 	best_time = maxf(best_time, elapsed)
 	harbor_coins += round_coins
+	rankings.record(won)
 	save_settings()
 	touch_active = false
 	if won: hud.show_end(true)
@@ -457,11 +467,12 @@ func finish(won: bool) -> void:
 func save_settings() -> void:
 	if not persist_results: return
 	var save := ConfigFile.new()
-	save.set_value("records", "best", best_time)
+	save.set_value("records", "best20_v14", best_time)
 	save.set_value("settings", "sound", sound_enabled)
 	save.set_value("settings","effects_volume",presentation.volume)
 	save.set_value("settings","ui_volume",presentation.ui_volume)
 	save.set_value("settings","music_volume",music.volume)
+	save.set_value("settings","nickname",rankings.nickname)
 	save.set_value("settings","reduced_motion",presentation.reduced_motion)
 	save.set_value("settings","low_fx",presentation.low_fx)
 	save.set_value("harbor","coins",harbor_coins)
@@ -490,10 +501,21 @@ func check_miniboss() -> void:
 			banner_time = 3
 
 func spawn_enemy(boss: bool = false, elite: bool = false, forced_kind: int = -1, event_spawn: bool = false) -> bool:
+	if (boss or elite) and enemies.size()>=TOTAL_CAP:
+		var victim:=-1
+		var farthest:=-1.0
+		for i in enemies.size():
+			if enemies[i].boss or enemies[i].elite: continue
+			var distance:float=enemies[i].pos.distance_squared_to(player)
+			if distance>farthest: farthest=distance;victim=i
+		if victim<0: return false
+		enemies.remove_at(victim)
 	if not boss and not elite:
-		if enemies.size()>=232: return false
-		if not event_spawn and enemies.filter(func(e):return not e.get("swarm",false)).size()>=180: return false
+		if enemies.size()>=TOTAL_CAP: return false
+		if not event_spawn and enemies.filter(func(e):return not e.get("swarm",false)).size()>=mini(ORDINARY_CAP,int(wave_data().minimum)+32): return false
 	var angle := rng.randf() * TAU
+	if elapsed>=120 and move_dir.length_squared()>0.1 and rng.randf()<0.6:
+		angle=move_dir.angle()+rng.randf_range(-1.4,1.4)
 	var pos := player + Vector2.from_angle(angle) * rng.randf_range(1100, 1350)
 	pos = pos.clamp(shore.PLAY.position+Vector2(40,40),shore.PLAY.end-Vector2(40,40))
 	for tries in 20:
@@ -516,11 +538,11 @@ func spawn_enemy(boss: bool = false, elite: bool = false, forced_kind: int = -1,
 	return true
 
 func spawn_swarm(event: Dictionary) -> void:
-	var available:=mini(int(event.count),48-enemies.filter(func(e):return e.get("swarm",false) and e.hp>0).size())
+	var available:=mini(int(event.count),32-enemies.filter(func(e):return e.get("swarm",false) and e.hp>0).size())
 	if available<=0: return
 	var dir:=Vector2.from_angle(rng.randf()*TAU)
 	var side:=dir.orthogonal()
-	var half_view:=Vector2(640,400)/camera.zoom
+	var half_view:=view_half()
 	var reach:=absf(dir.x)*half_view.x+absf(dir.y)*half_view.y+140
 	for i in available:
 		var column:=i%8
@@ -564,7 +586,9 @@ func update_enemies(dt: float) -> void:
 					e.pos=candidate
 					break
 			continue
-		var dir := to_player / maxf(1.0, distance)
+		var lead:float=minf(0.8,distance/900.0) if elapsed>=120 and e.kind in [0,3,4,7] else 0.0
+		var target:Vector2=player+move_dir*225*move_speed()*lead
+		var dir:Vector2=(target-e.pos).normalized()
 		if e.get("swarm",false): dir=e.rush_dir
 		elif e.kind==7 and not e.elite and not e.boss: dir=dir.rotated(sin(scene_time*2+e.phase)*0.65)
 		var speed: float = e.speed
@@ -576,15 +600,31 @@ func update_enemies(dt: float) -> void:
 		e.exposed=maxf(0,e.get("exposed",0.0)-dt)
 		if e.frozen>0: speed=0
 		elif e.slow>0: speed*=0.5
-		if e.kind==3 and not e.elite and not e.boss and fmod(scene_time+e.phase,4.5)<0.8: speed*=1.4
+		var dashing:=false
+		if e.kind in [3,4] and not e.elite and not e.boss and elapsed>=120 and e.frozen<=0:
+			var cycle:float=fmod(elapsed+e.phase*2,5.5)
+			if cycle<0.65:
+				e.charge_dir=(player+move_dir*120-e.pos).normalized()
+				e.charge_warning=0.65-cycle
+				speed=0
+			elif cycle<1.3 and e.has("charge_dir"):
+				dir=e.charge_dir
+				speed=(305 if e.kind==3 else 330)*(0.5 if e.slow>0 else 1.0)
+				dashing=true
+				e.charge_warning=0.0
+			else: e.charge_warning=0.0
+		e.detour_time=maxf(0,float(e.get("detour_time",0))-dt)
+		if e.detour_time>0 and not dashing: dir=e.detour_dir
 		var motion: Vector2 = (dir*speed+e.knock)*dt
 		var next: Vector2 = shore.slide(e.pos,motion,14)
-		if next.distance_squared_to(e.pos) < 0.1 and speed > 0:
+		if next.distance_squared_to(e.pos) < 0.1 and speed > 0 and not dashing:
 			# Simple local detours keep people from walking through benches/walls.
 			for a in [0.9,-0.9,1.55,-1.55]:
 				var alternative: Vector2 = shore.slide(e.pos,dir.rotated(a)*speed*dt,14)
 				if alternative.distance_squared_to(e.pos) > 0.1:
 					next = alternative
+					e.detour_dir=dir.rotated(a)
+					e.detour_time=0.25
 					break
 		var actually_moving:bool=next.distance_squared_to(e.pos)>0.01
 		e.moving=actually_moving
@@ -633,12 +673,13 @@ func update_aim() -> void:
 		aim = snap_aim(get_global_mouse_position()-player)
 		return
 	var best := facing
-	var best_distance := 820.0
+	var best_distance := 820.0*820.0
 	for e in enemies:
 		if e.hp <= 0: continue
 		var offset: Vector2 = e.pos-player
-		var distance := offset.length()
-		var in_cone := absf(facing.angle_to(offset)) < deg_to_rad(65)
+		var distance := offset.length_squared()
+		if distance>=best_distance: continue
+		var in_cone := move_dir.length_squared()<0.01 or absf(facing.angle_to(offset)) < deg_to_rad(65)
 		if (in_cone or move_dir.length_squared()<0.01) and distance < best_distance:
 			best_distance = distance
 			best = offset
@@ -656,12 +697,19 @@ func build_grid() -> void:
 		enemy_grid[key].append(e)
 
 func nearby(pos: Vector2, radius: float) -> Array:
-	var result: Array = []
-	var reach := ceili((radius + 70.0) / CELL)
-	var cell := grid_key(pos)
-	for y in range(-reach, reach + 1):
-		for x in range(-reach, reach + 1):
-			result.append_array(enemy_grid.get(cell + Vector2i(x, y), []))
+	var result:Array=[]
+	# Tight conservative AABB. Every creature center is in exactly one cell.
+	var reach:float=radius+42.0
+	var lo:=grid_key(pos-Vector2.ONE*reach)
+	var hi:=grid_key(pos+Vector2.ONE*reach)
+	if (hi.x-lo.x+1)*(hi.y-lo.y+1)>maxi(16,enemies.size()):
+		for e in enemies:
+			if e.hp>0 and absf(e.pos.x-pos.x)<=reach and absf(e.pos.y-pos.y)<=reach: result.append(e)
+		return result
+	for y in range(lo.y,hi.y+1):
+		for x in range(lo.x,hi.x+1):
+			var bucket:Array=enemy_grid.get(Vector2i(x,y),[])
+			if not bucket.is_empty(): result.append_array(bucket)
 	return result
 
 func power() -> float:
@@ -719,7 +767,7 @@ func view_half() -> Vector2:
 	return get_viewport_rect().size*0.5/camera.zoom
 
 func wave_data() -> Dictionary:
-	return encounters.waves[mini(29,int(elapsed/60))]
+	return encounters.waves[mini(encounters.waves.size()-1,int(elapsed/60))]
 
 func check_stage_events() -> void:
 	while boss_index<encounters.bosses.size() and elapsed>=float(encounters.bosses[boss_index].time):
@@ -728,7 +776,7 @@ func check_stage_events() -> void:
 			var e: Dictionary=enemies[-1]
 			e.hp=float(event.hp)*sqrt(maxf(1,level/5.0))
 			e.max_hp=e.hp
-			e.evolution_chest=float(event.time)>=600
+			e.evolution_chest=float(event.time)>=360
 			e.final=bool(event.final)
 			e.pattern=boss_index
 			e.portrait=[2,4,3,0,1,6][boss_index]
@@ -802,7 +850,7 @@ func damage(e: Dictionary, amount: float, knock: Vector2, can_crit: bool = true,
 	e.hp -= amount
 	e.hit = 0.1
 	e.knock += knock * (0.25 if e.boss else (1.5 if e.get("exposed",0)>0 else 1.0))
-	if pops.size() < 18:
+	if pops.size() < (8 if presentation.light_effects() else 18):
 		pops.append({"pos":e.pos + Vector2(rng.randf_range(-10,10), -25), "life":0.65, "text":str(int(amount))})
 	if e.hp <= 0:
 		kills += 1
@@ -844,7 +892,7 @@ func update_gems(dt: float) -> void:
 		if dist < radius: gem.pulled = true
 		if gem.pulled: gem.pos = gem.pos.move_toward(player, dt * 500)
 		if gem.pos.distance_to(player) < 22:
-			xp += gem.value*growth()
+			xp += gem.value*growth()*1.7
 			gems.remove_at(i)
 			if pickup_sound_cd <= 0:
 				play_sound("pick")
@@ -895,7 +943,7 @@ func apply_pickup(kind: String) -> void:
 			hp = minf(max_health(),hp+healing)
 			banner = "따끈한 바다 간식 · 체력 +%d" % int(recovered)
 		"magnet":
-			for gem in gems: xp += gem.value*growth()
+			for gem in gems: xp += gem.value*growth()*1.7
 			gems.clear()
 			banner = "자석 · 맵 전체의 경험치를 모두 회수!"
 		"xp":
@@ -997,7 +1045,7 @@ func update_rewards(dt: float) -> void:
 
 func burst(pos: Vector2, color: Color, count: int) -> void:
 	for i in count:
-		if particles.size() >= (30 if presentation.low_fx else 90): break
+		if particles.size() >= (30 if presentation.light_effects() else 90): break
 		particles.append({"pos":pos, "vel":Vector2.from_angle(rng.randf() * TAU) * rng.randf_range(35, 155), "life":rng.randf_range(0.2, 0.55), "color":color})
 
 func update_effects(dt: float) -> void:
@@ -1208,6 +1256,9 @@ func draw_enemy(e: Dictionary) -> void:
 	if not on_screen(e.pos): return
 	var size_value:float=185 if e.boss else (float(encounters.miniboss.size) if e.elite else float(encounters.creatures[e.kind].get("draw_size",92)))
 	presentation.enemy_visual(e)
+	if e.get("charge_warning",0)>0:
+		draw_arc(e.pos,35,0,TAU,16,Color("d9ae62"),3,true)
+		draw_line(e.pos,e.pos+e.get("charge_dir",Vector2.RIGHT)*170,Color(0.8,0.35,0.2,0.65),5,true)
 	if e.elite or e.boss:
 		draw_rect(Rect2(e.pos+Vector2(-46,-size_value+4),Vector2(92,6)),Color("3e342c"))
 		draw_rect(Rect2(e.pos+Vector2(-46,-size_value+4),Vector2(92*maxf(0,e.hp/e.max_hp),6)),Color("df9d5c"))

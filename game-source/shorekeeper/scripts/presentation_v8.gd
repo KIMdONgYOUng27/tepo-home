@@ -28,6 +28,10 @@ var bake_viewport: SubViewport
 var input_started:=0
 var input_samples: Array[float]=[]
 
+func light_effects() -> bool:
+	# Decorative layers only: damage, hitboxes and the creature sprites are unchanged.
+	return low_fx or g.enemies.size()>80
+
 func reset() -> void:
 	for collection in [ghosts,impacts,boss_hazards,frame_samples,input_samples]: collection.clear()
 	input_started=0
@@ -221,7 +225,7 @@ func enemy_visual(e: Dictionary,alpha: float=1,death_age: float=0) -> void:
 	rig(atlas,index,e.pos+Vector2(0,17+death_age*14)+jolt,Vector2(width,height),profile,motion,time,tint,2 if human or kind<5 else 1,death_age*0.6)
 
 func add_impact(pos: Vector2,id: String,evolved: bool=false) -> void:
-	if impacts.size()>=(12 if low_fx else 32): return
+	if impacts.size()>=(12 if light_effects() else 32): return
 	impacts.append({"pos":pos,"id":id,"life":0.3,"evolved":evolved})
 
 func record_hit(e: Dictionary,amount: float,id: String,knock: Vector2=Vector2.ZERO) -> void:
@@ -234,7 +238,7 @@ func record_hit(e: Dictionary,amount: float,id: String,knock: Vector2=Vector2.ZE
 		if id not in ["rain","tetra","gull_white","gull_dark","gull_union","heat","wing_union"]:
 			add_impact(e.pos+Vector2(0,-15),id,g.evolved.has(id))
 		sound(id if id in ["kelp","bowl","gull_white","gull_dark","gull_union","wing_union"] else "hit")
-	if amount>=e.hp and ghosts.size()<(12 if low_fx else 28):
+	if amount>=e.hp and ghosts.size()<(12 if light_effects() else 28):
 		var copy:Dictionary=e.duplicate()
 		copy.death_life=0.45
 		ghosts.append(copy)

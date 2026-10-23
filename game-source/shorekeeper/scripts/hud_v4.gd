@@ -18,6 +18,7 @@ var font: Font=preload("res://assets/hand.ttf")
 var sound_button: Button
 var xp_frame: Panel
 var compact:=false
+var ranking_open:=false
 
 func _ready() -> void:
 	font.fallbacks=[preload("res://assets/korean.ttf")]
@@ -68,6 +69,7 @@ func resize_layout(rebuild: bool=true) -> void:
 		if child is Button and child.text=="Ⅱ": child.position.x=view.x-66
 	notice.position.x=view.x/2-340
 	if not rebuild or not is_instance_valid(modal): return
+	if ranking_open: show_rankings(false); return
 	match game.state:
 		"title": show_start()
 		"levelup": show_choices(game.selected_options)
@@ -154,6 +156,7 @@ func icon(index: int,rect: Rect2,parent: Node) -> TextureRect:
 	return r
 
 func clear_modal() -> void:
+	ranking_open=false
 	if is_instance_valid(modal):
 		modal.queue_free()
 		modal=null
@@ -203,12 +206,14 @@ func show_start() -> void:
 	label("부산 바다의 작은 수호자",Rect2(55,40,700,38),28,MUTED,p)
 	label("테포, 파도를 지켜라",Rect2(50,115,850,82),62,INK,p)
 	label("광안리의 모래와 파도, 그리고 뚝배기 하나.",Rect2(55,230,780,45),31,INK,p)
-	label("밀려오는 해양 크리처와 선을 넘는 진상들.\n무기를 모으고 진화시키며 30분 동안 바다를 지켜주세요.",Rect2(55,297,770,90),27,MUTED,p)
+	label("밀려오는 해양 크리처와 선을 넘는 진상들.\n무기를 모으고 진화시키며 20분 동안 바다를 지켜주세요.",Rect2(55,297,770,90),27,MUTED,p)
 	button("출항하기  →",Rect2(55,452,400,67),p,func():game.start_game();game.offer_blessing(),true)
 	button("출항 준비  ·  %d 코인"%game.harbor_coins,Rect2(480,452,335,67),p,func():show_harbor())
 	label("WASD / 방향키 이동 · 자동 공격 · M 마우스 조준 · ESC 가방",Rect2(55,575,1040,38),23,MUTED,p)
 	icon(31,Rect2(825,220,325,325),p)
 	button("소리 · 화면 설정",Rect2(875,452,285,67),p,func():show_settings())
+	button("오늘의 생존 기록",Rect2(55,620,320,45),p,func():show_rankings())
+	label("20분 정규 모드 · 성장 경험치 ×1.7",Rect2(420,623,730,38),23,MUTED,p)
 
 func show_choices(options: Array) -> void:
 	var p:=modal_base()
@@ -273,7 +278,7 @@ func show_pause() -> void:
 	label("테포의 바다 수첩",Rect2(25,15,1050,55),40,INK,p)
 	stats_sidebar(p)
 	label("무기와 진화 수첩",Rect2(366,98,800,50),36,INK,p)
-	label("%s / 30:00 · 처치 %d · 코인 %d"%[format_time(game.elapsed),game.kills,game.round_coins],Rect2(370,148,780,30),22,MUTED,p)
+	label("%s / 20:00 · 처치 %d · 코인 %d"%[format_time(game.elapsed),game.kills,game.round_coins],Rect2(370,148,780,30),22,MUTED,p)
 	var scroll:=ScrollContainer.new()
 	scroll.position=Vector2(352,188)
 	scroll.size=Vector2(835,350)
@@ -342,6 +347,52 @@ func show_end(won: bool) -> void:
 	label("DPS: 보유 시간당 실제 피해 · 초과 피해 제외",Rect2(25,538,width,35),21,MUTED,p)
 	button("다시 바다로 →",Rect2(25,600,480,64),p,func():game.start_game();game.offer_blessing(),true)
 	button("항구로",Rect2(540,600,330,64),p,func():game.return_to_harbor())
+	button("오늘의 기록",Rect2(895,600,295,64),p,func():show_rankings())
+
+func show_rankings(refresh: bool=true) -> void:
+	var p:=modal_base()
+	ranking_open=true
+	if refresh: game.rankings.refresh()
+	label("오늘의 생존 기록",Rect2(30,20,1120,60),42,INK,p)
+	label(game.rankings.status,Rect2(30,80,1120,35),23,MUTED,p)
+	var field:=LineEdit.new()
+	field.text=game.rankings.nickname
+	field.placeholder_text="랭킹에 사용할 이름"
+	field.max_length=16
+	field.position=Vector2(30,125)
+	field.size=Vector2(380,50)
+	field.add_theme_font_override("font",font)
+	field.add_theme_color_override("font_color",INK)
+	field.add_theme_color_override("caret_color",INK)
+	field.add_theme_stylebox_override("normal",style(Color("eee4c9")))
+	field.add_theme_stylebox_override("focus",style(CREAM,9,GOLD))
+	field.text_changed.connect(func(value):game.rankings.nickname=value;game.save_settings())
+	p.add_child(field)
+	label("최장 생존 순 · 20분 동률은 처치 수 순",Rect2(445,132,700,40),25,INK,p)
+	var list:Array=game.rankings.ordered()
+	var scroll:=ScrollContainer.new()
+	scroll.position=Vector2(30,190)
+	scroll.size=Vector2(1150,380)
+	p.add_child(scroll)
+	var box:=VBoxContainer.new()
+	box.custom_minimum_size.x=1100
+	scroll.add_child(box)
+	if list.is_empty(): label("첫 항해의 기록을 남겨보세요",Rect2(25,20,900,60),30,MUTED,box)
+	for i in list.size():
+		var row:Dictionary=list[i]
+		var line:=HBoxContainer.new()
+		line.custom_minimum_size.y=48
+		box.add_child(line)
+		var cells:Array=["%02d"%(i+1),str(row.get("name","테포 친구")),format_time(float(row.seconds))+(" · 완주" if row.get("won",false) else ""),"처치 %d"%int(row.kills)]
+		for column in 4:
+			var cell:=Label.new()
+			cell.text=cells[column]
+			cell.custom_minimum_size.x=[75,360,250,300][column]
+			cell.add_theme_font_size_override("font_size",28)
+			cell.add_theme_color_override("font_color",INK)
+			line.add_child(cell)
+	button("돌아가기",Rect2(30,600,540,60),p,func():show_end(game.state=="won") if game.state in ["won","lost"] else show_start(),true)
+	button("기록 새로고침",Rect2(640,600,540,60),p,func():show_rankings())
 
 func result_weapon_name(id: String) -> String:
 	if game.evolved.has(id) and game.encounters.evolutions.has(id): return str(game.encounters.evolutions[id].name)

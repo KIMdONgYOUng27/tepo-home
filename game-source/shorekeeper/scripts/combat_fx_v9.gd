@@ -26,7 +26,7 @@ func event(id: String,pos: Vector2,dir: Vector2=Vector2.RIGHT,kind: String="laun
 	var key:=id+"/"+kind
 	if g.elapsed<float(clocks.get(key,-1)): return
 	clocks[key]=g.elapsed+(0.15 if kind=="hit" else 0.09)
-	if events.size()>=(8 if g.presentation.low_fx else 20): return
+	if events.size()>=(8 if g.presentation.light_effects() else 20): return
 	events.append({"id":id,"pos":pos,"dir":dir,"kind":kind,"size":size,"age":0.0,"life":0.28 if kind=="launch" else 0.36})
 
 func launch(id: String,pos: Vector2,dir: Vector2) -> void:
@@ -119,7 +119,7 @@ func draw_flight(z: Dictionary,decorated: bool=true) -> void:
 func draw_arsenal() -> void:
 	var a:RefCounted=g.arsenal
 	var trails:=0
-	var trail_budget:=10 if g.presentation.low_fx else 26
+	var trail_budget:=10 if g.presentation.light_effects() else 26
 	if a.heat_visual>0:
 		var t:float=1-a.heat_visual/0.7
 		g.draw_item(37,g.player+Vector2(0,-100-t*50),Vector2.ONE*(220+t*110),0,Color(1,1,1,1-t))
@@ -161,7 +161,7 @@ func draw_arsenal() -> void:
 			var angle:float=orbit.age*orbit.speed+TAU*n/orbit.count+orbit.phase
 			var pos:Vector2=g.player+Vector2.from_angle(angle)*g.orbit_radius()
 			g.draw_bowl(pos,orbit.radius/22*1.3)
-			if not g.presentation.low_fx:
+			if not g.presentation.light_effects():
 				g.atlas_draw(g.effects,10,pos-Vector2.from_angle(angle+PI/2)*25,Vector2(50,25),4,4,angle+PI/2,Color(0.9,0.8,0.6,0.5))
 	if g.upgrades.get("kelp",0)>0:
 		var radius:float=a.stats("kelp").radius
@@ -173,7 +173,7 @@ func draw_arsenal() -> void:
 	var decorated_flights:=0
 	for z in a.flights:
 		if not g.on_screen(z.pos,450): continue
-		draw_flight(z,decorated_flights<(4 if g.presentation.low_fx else 12))
+		draw_flight(z,decorated_flights<(4 if g.presentation.light_effects() else 12))
 		decorated_flights+=1
 	for z in a.zones:
 		if not g.on_screen(z.pos,450): continue
@@ -182,7 +182,7 @@ func draw_arsenal() -> void:
 		if z.kind=="rain":
 			g.atlas_draw(g.effects,4,z.pos,Vector2.ONE*z.radius*2.3,4,4,z.age*0.12,Color(0.65,0.9,1,0.55))
 			g.draw_item(35,z.pos+Vector2(0,-110),Vector2(95,78),sin(z.age*4)*0.04)
-			if not g.presentation.low_fx:
+			if not g.presentation.light_effects():
 				for n in 6:
 					var drop:Vector2=z.pos+Vector2(sin(n*2.4)*z.radius,fmod(z.age*300+n*23,120)-125)
 					g.draw_line(drop,drop+Vector2(-6,23),Color(0.7,0.9,0.9,0.75),3,true)

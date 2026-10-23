@@ -17,6 +17,8 @@ var shield_started:=false
 var serial:=0
 var healed:=0.0
 var last_hp:=100.0
+var stat_cache:Dictionary={}
+var caching:=false
 var heat_visual:=0.0
 
 func reset() -> void:
@@ -28,11 +30,13 @@ func reset() -> void:
 	serial=0
 	healed=0
 	last_hp=g.hp
+	caching=false
 	heat_visual=0
 
 func stats(id: String, level_override: int=-1) -> Dictionary:
+	if caching and level_override<0 and stat_cache.has(id): return stat_cache[id]
 	var p:Dictionary=g.encounters.weapon_profiles[id]
-	var s:Dictionary=p.duplicate(true)
+	var s:Dictionary=p.duplicate()
 	var level:int=level_override if level_override>0 else maxi(1,g.upgrades.get(id,1))
 	var n:=level-1
 	s.level=level
@@ -67,16 +71,23 @@ func stats(id: String, level_override: int=-1) -> Dictionary:
 			"wave": s.pierce=99; s.radius*=1.3
 			"kelp": s.damage+=minf(30,healed/4)
 			"heat": s.cooldown*=0.7
+	if caching and level_override<0: stat_cache[id]=s
 	return s
 
 func targets(pos: Vector2, radius: float) -> Array:
-	return g.nearby(pos,radius).filter(func(e):return e.hp>0 and e.pos.distance_to(pos)<=radius)
+	return g.nearby(pos,radius).filter(func(e):return e.hp>0 and e.pos.distance_squared_to(pos)<=radius*radius)
 
 func nearest_direction(fallback: Vector2) -> Vector2:
-	var list:=targets(g.player,850)
-	if list.is_empty(): return fallback
-	list.sort_custom(func(a,b):return a.pos.distance_squared_to(g.player)<b.pos.distance_squared_to(g.player))
-	return (list[0].pos-g.player).normalized()
+	var best:float=INF
+	var result:=fallback
+	for enemy in g.nearby(g.player,850):
+		if enemy.hp<=0: continue
+		var distance:float=enemy.pos.distance_squared_to(g.player)
+		if distance>850.0*850.0: continue
+		if distance<best:
+			best=distance
+			result=(enemy.pos-g.player).normalized()
+	return result
 
 func deal(e: Dictionary, amount: float, knock: Vector2, id: String) -> void:
 	var critical:=0.0
@@ -170,6 +181,8 @@ func heat_pulse(force_keep: int=-1) -> void:
 	g.banner_time=2.5
 
 func update(dt: float) -> void:
+	stat_cache.clear()
+	caching=true
 	g.combat_fx.update(dt)
 	heat_visual=maxf(0,heat_visual-dt)
 	healed+=maxf(0,g.hp-last_hp)
@@ -191,6 +204,7 @@ func update(dt: float) -> void:
 	update_orbits(dt)
 	update_zones(dt)
 	last_hp=g.hp
+	caching=false
 
 func update_pending(dt: float) -> void:
 	for i in range(pending.size()-1,-1,-1):

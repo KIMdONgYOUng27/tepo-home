@@ -8,9 +8,13 @@ var rows: Array[Label]=[]
 var steps: Array[int]=[]
 var stopped: Array[bool]=[]
 var final_sound:=false
+var reward_texts:Array[String]=[]
+var reward_icons:Array[int]=[]
 
 func _ready() -> void:
-	var count:int=g.last_boss_rewards.size()
+	reward_texts.assign(g.last_boss_rewards)
+	reward_icons.assign(g.last_reward_icons)
+	var count:int=reward_texts.size()
 	confirm=h.button("빛이 모이고 있어요…",Rect2(320,598,580,62),self,func():g.close_treasure(),true)
 	confirm.add_theme_font_override("font",h.font)
 	confirm.disabled=true
@@ -19,7 +23,7 @@ func _ready() -> void:
 		stopped.append(false)
 		var spacing:float=200 if count==5 else 290
 		var x:float=610+(i-(count-1)*0.5)*spacing
-		var row:Label=h.label(g.last_boss_rewards[i],Rect2(x-spacing/2+8,378,spacing-16,95),25,h.INK,self)
+		var row:Label=h.label(reward_texts[i],Rect2(x-spacing/2+8,378,spacing-16,95),25,h.INK,self)
 		row.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 		row.add_theme_font_override("font",h.font)
 		row.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
@@ -27,6 +31,7 @@ func _ready() -> void:
 		rows.append(row)
 
 func _process(_dt: float) -> void:
+	if not is_instance_valid(h.modal) or not h.modal.is_ancestor_of(self): return
 	var t:float=g.treasure_clock
 	for i in rows.size():
 		var stop:float=2.4+i*0.28
@@ -39,12 +44,12 @@ func _process(_dt: float) -> void:
 			stopped[i]=true
 			rows[i].visible=true
 			g.presentation.sound("reel_stop",true)
-	if t>=g.treasure_duration():
+	if t>=2.6+reward_texts.size()*0.28:
 		confirm.disabled=false
 		confirm.text="보물 챙기고 계속하기 →"
 		if not final_sound:
 			final_sound=true
-			g.presentation.sound("evolve" if g.last_boss_rewards.any(func(s):return s.begins_with("진화")) else "treasure_%d"%rows.size(),true)
+			g.presentation.sound("evolve" if reward_texts.any(func(s):return s.begins_with("진화")) else "treasure_%d"%rows.size(),true)
 	queue_redraw()
 
 func text_center(text: String,y: float,size: int,color: Color) -> void:
@@ -55,12 +60,13 @@ func item(index: int,rect: Rect2) -> void:
 	draw_texture_rect_region(g.item_atlas(index),rect,g.item_region(index))
 
 func _draw() -> void:
+	if not is_instance_valid(h.modal) or not h.modal.is_ancestor_of(self): return
 	var t:float=g.treasure_clock
-	var count:int=g.last_boss_rewards.size()
-	var evolved:bool=g.last_boss_rewards.any(func(s):return s.begins_with("진화"))
+	var count:int=reward_texts.size()
+	var evolved:bool=reward_texts.any(func(s):return s.begins_with("진화"))
 	var gold:=Color("ebbe60")
 	text_center("새로운 파도로 진화!" if evolved else "파도가 가져온 보물 · %d개"%count,65,42,h.INK)
-	text_center("상자가 품고 있던 빛이 깨어납니다" if t<g.treasure_duration() else "이번 항해에 더해진 힘",104,25,h.MUTED)
+	text_center("상자가 품고 있던 빛이 깨어납니다" if t<2.6+count*0.28 else "이번 항해에 더해진 힘",104,25,h.MUTED)
 	var chest:=Vector2(610,514)
 	var rays:int=10+count*3
 	for j in rays:
@@ -97,7 +103,7 @@ func _draw() -> void:
 				draw_line(sp-Vector2(0,5),sp+Vector2(0,5),gold,2)
 		var box:=Rect2(pos-Vector2(44,44),Vector2(88,88))
 		draw_style_box(h.style(Color("faf0d8"),8,gold if stopped[i] else h.MUTED),box)
-		var index:int=g.last_reward_icons[i]
+		var index:int=reward_icons[i] if i<reward_icons.size() else 27
 		if not stopped[i]:
 			var candidates:Array=g.catalog
 			index=int(candidates[(maxi(0,steps[i])*7+i*11)%candidates.size()].icon)

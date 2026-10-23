@@ -9,6 +9,9 @@ try {
     }
     & $engine --headless --path $PSScriptRoot --editor --import --quit
     if ($LASTEXITCODE -ne 0) { throw 'Godot import failed' }
+    $modeOutput = & $engine --headless --path $PSScriptRoot --script res://tests/mode20_checks.gd 2>&1
+    $modeOutput | ForEach-Object { Write-Host $_ }
+    if ($LASTEXITCODE -ne 0 -or -not ($modeOutput -match 'MODE20: 0 errors') -or ($modeOutput -match 'SCRIPT ERROR')) { throw 'Twenty minute mode verification failed' }
     $musicOutput = & $engine --headless --path $PSScriptRoot --script res://tests/music_checks.gd 2>&1
     $musicOutput | ForEach-Object { Write-Host $_ }
     if ($LASTEXITCODE -ne 0 -or -not ($musicOutput -match 'MUSIC: 0 errors') -or ($musicOutput -match 'SCRIPT ERROR')) { throw 'Music verification failed' }
@@ -26,7 +29,8 @@ try {
     if ($LASTEXITCODE -ne 0 -or -not ($checkOutput -match 'FULL STAGE: 0 errors') -or ($checkOutput -match 'SCRIPT ERROR')) { throw 'Game verification failed' }
     & $engine --headless --path $PSScriptRoot --export-release Web
     if ($LASTEXITCODE -ne 0) { throw 'Web export failed' }
-    Move-Item -LiteralPath (Join-Path $PSScriptRoot 'web/index.pck') -Destination (Join-Path $PSScriptRoot 'web/index-v0.13.pck') -Force
+    Move-Item -LiteralPath (Join-Path $PSScriptRoot 'web/index.pck') -Destination (Join-Path $PSScriptRoot 'web/index-v0.14.pck') -Force
+    Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'web-ranking.js') -Destination (Join-Path $PSScriptRoot 'web/web-ranking.js')
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'web-music.js') -Destination (Join-Path $PSScriptRoot 'web/web-music.js')
     New-Item -ItemType Directory -Path (Join-Path $PSScriptRoot 'web/music') -Force | Out-Null
     Copy-Item -Path (Join-Path $PSScriptRoot 'assets/music/*.ogg') -Destination (Join-Path $PSScriptRoot 'web/music')

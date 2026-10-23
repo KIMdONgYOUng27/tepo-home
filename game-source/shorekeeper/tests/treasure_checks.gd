@@ -37,6 +37,11 @@ func run() -> void:
 		check(show.stopped.all(func(v):return v),"every orb lands")
 		g.close_treasure()
 		check(g.state=="running","continues after reveal")
+	g.grant_boss_chest(1,false)
+	var previous=g.hud.modal.find_children("*","Node2D",true,false)[0]
+	g.grant_boss_chest(5,false)
+	check(previous.reward_texts.size()==1 and previous.reward_icons.size()==1,"retiring reveal owns an immutable reward snapshot")
+	check(not g.hud.modal.is_ancestor_of(previous),"old reveal retires before a replacement draws")
 	g.start_game()
 	g.elapsed=300
 	g.check_stage_events()

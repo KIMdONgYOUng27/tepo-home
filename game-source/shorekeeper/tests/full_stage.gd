@@ -38,7 +38,7 @@ func run() -> void:
 	check(g.catalog.filter(func(u):return u.kind=="passive").size()==14,"fourteen linked common passive choices")
 	check(g.catalog.filter(func(u):return u.kind=="special").is_empty(),"no redundant weapon-special cards")
 	check(g.encounters.creatures.size()==9,"nine sea creature types")
-	check(g.encounters.waves.size()==30,"all thirty minute waves configured")
+	check(g.encounters.waves.size()==20,"all twenty minute waves configured")
 	for wave in g.encounters.waves:
 		var sum:=0
 		for w in wave.weights: sum+=int(w)
@@ -211,37 +211,37 @@ func run() -> void:
 	# All wave transitions and attacks run in a complete deterministic 30-minute simulation.
 	g.start_game()
 	g.upgrades={"sand":8,"bowl":8,"wave":8,"tetra":8,"kelp":8,"pearl":8,"power":5,"haste":5,"area":5,"armor":5,"magnet":5,"regen":5}
-	for i in 3602:
+	for i in 2402:
 		if g.state=="won": break
 		if g.state=="levelup": g.choose_upgrade(str(g.selected_options[0].id))
 		if g.state=="treasure": g.treasure_clock=g.treasure_duration(); g.close_treasure()
 		if g.state=="blessing": g.choose_blessing(str(g.selected_options[0].id))
 		g.hp=g.max_health()
 		g.tick(0.5,Vector2.from_angle(i*0.035))
-	check(g.state=="won" and g.elapsed==1800,"thirty-minute victory")
+	check(g.state=="won" and g.elapsed==1200,"twenty-minute victory")
 	check(g.boss_index==6 and g.blessing_index==2,"six major and two blessing boss windows")
 	check(g.swarm_index==g.encounters.swarms.size(),"all swarm events evaluated")
-	check(g.enemies.size()<=248 and g.particles.size()<=90 and g.gems.size()<=180,"entity limits after full stage")
+	check(g.enemies.size()<=152 and g.particles.size()<=90 and g.gems.size()<=180,"entity limits after full stage")
 	# Include the new projectile, summon, shield and screen-clear families in long runs.
 	for loadout in [["chain","shell","snack","rain","stone","tetra"],["heat","gull_white","gull_dark","feather","gust","anchor"]]:
 		g.start_game()
 		g.upgrades={"power":5,"haste":5,"area":5,"duration":5,"amount":2,"projectilespeed":5}
 		for weapon in loadout: g.upgrades[weapon]=8
-		for frame in 3602:
+		for frame in 2402:
 			if g.state=="won": break
 			if g.state=="levelup": g.choose_upgrade(str(g.selected_options[0].id))
 			if g.state=="treasure": g.treasure_clock=g.treasure_duration(); g.close_treasure()
 			if g.state=="blessing": g.choose_blessing(str(g.selected_options[0].id))
 			g.hp=g.max_health()
 			g.tick(0.5,Vector2.from_angle(frame*0.025))
-		check(g.state=="won" and g.elapsed==1800,"new arsenal loadout completes full thirty-minute stage")
+		check(g.state=="won" and g.elapsed==1200,"new arsenal loadout completes full twenty-minute stage")
 		check(g.arsenal.pending.size()+g.bullets.size()<=180 and g.arsenal.zones.size()<=48 and g.arsenal.flights.size()<=48,"new arsenal and flight bounds throughout long loadout")
 	g.start_game()
 	check(g.water_time==0 and g.evolved.is_empty() and g.blessings.is_empty(),"restart clears temporary and evolution state")
 	g.hp=0
 	g.tick(0.01,Vector2.ZERO)
 	check(g.state=="lost","defeat flow")
-	print("FULL STAGE: %d errors. 30-minute flow, 17 weapons, 14 passives, restricted rosters, arsenal, stat applicability, evolutions, equipment caps, water, blessings, reroll/banish/skip, revival, collision."%errors)
+	print("FULL STAGE: %d errors. 20-minute flow, 17 weapons, 14 passives, restricted rosters, arsenal, stat applicability, evolutions, equipment caps, water, blessings, reroll/banish/skip, revival, collision."%errors)
 	g.queue_free()
 	await process_frame
 	quit(1 if errors else 0)
