@@ -29,7 +29,9 @@ try {
     if ($LASTEXITCODE -ne 0 -or -not ($checkOutput -match 'FULL STAGE: 0 errors') -or ($checkOutput -match 'SCRIPT ERROR')) { throw 'Game verification failed' }
     & $engine --headless --path $PSScriptRoot --export-release Web
     if ($LASTEXITCODE -ne 0) { throw 'Web export failed' }
-    Move-Item -LiteralPath (Join-Path $PSScriptRoot 'web/index.pck') -Destination (Join-Path $PSScriptRoot 'web/index-v0.14.pck') -Force
+    Move-Item -LiteralPath (Join-Path $PSScriptRoot 'web/index.pck') -Destination (Join-Path $PSScriptRoot 'web/index-v0.14.1.pck') -Force
+    New-Item -ItemType Directory -Path (Join-Path $PSScriptRoot 'web/loading') -Force | Out-Null
+    Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'loading/tepo.png') -Destination (Join-Path $PSScriptRoot 'web/loading/tepo.png')
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'web-ranking.js') -Destination (Join-Path $PSScriptRoot 'web/web-ranking.js')
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'web-music.js') -Destination (Join-Path $PSScriptRoot 'web/web-music.js')
     New-Item -ItemType Directory -Path (Join-Path $PSScriptRoot 'web/music') -Force | Out-Null

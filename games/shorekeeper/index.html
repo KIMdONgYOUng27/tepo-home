@@ -13,7 +13,7 @@ html, body, #canvas {
 
 body {
 	color: white;
-	background-color: black;
+	background-color: #f3e6c6;
 	overflow: hidden;
 	touch-action: none;
 }
@@ -26,70 +26,28 @@ body {
 	outline: none;
 }
 
-#status, #status-splash, #status-progress {
-	position: absolute;
-	left: 0;
-	right: 0;
-}
-
-#status, #status-splash {
-	top: 0;
-	bottom: 0;
-}
-
 #status {
-	background-color: #242424;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	visibility: hidden;
+ position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;
+ background:radial-gradient(ellipse at 50% 34%,#fff9e8,#f3e6c6);color:#334637;
+ font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;text-align:center;
+ padding:20px;box-sizing:border-box;overflow:auto;
 }
+.loading-card {width:min(440px,100%);padding:20px;box-sizing:border-box}
+.loading-label {font-size:12px;letter-spacing:.24em;color:#778060;margin:0 0 8px}
+.loading-art {height:clamp(100px,30vh,230px);display:flex;justify-content:center;margin:14px 0}
+#status-splash {display:block;width:100%;height:100%;object-fit:contain;animation:tepo-float 2.8s ease-in-out infinite}
+.loading-title {font-size:clamp(23px,4vw,32px);margin:0 0 10px;letter-spacing:-.06em}
+#loading-caption {font-size:14px;margin:0 0 18px;line-height:1.6;word-break:keep-all;color:#637052}
+#status-progress {display:block;width:100%;height:14px;border:2px solid #6b7152;border-radius:12px;overflow:hidden;background:#e4d7b3;accent-color:#628a76;box-sizing:border-box}
+#status-progress::-webkit-progress-bar {background:#e4d7b3}
+#status-progress::-webkit-progress-value {background:linear-gradient(90deg,#779e86,#426d62);border-radius:8px;transition:width .2s}
+#status-progress::-moz-progress-bar {background:#628a76;border-radius:8px}
+#loading-percent {font-size:13px;margin:8px 0 0;font-variant-numeric:tabular-nums;color:#637052;min-height:20px}
+#status-notice {display:none;margin-top:16px;border:1px solid #ab7863;border-radius:10px;background:#fff5e6;color:#713f32;padding:14px;font-size:13px;line-height:1.6;overflow-wrap:anywhere}
+@keyframes tepo-float {0%,100% {transform:translateY(0) rotate(-1deg)}50% {transform:translateY(-8px) rotate(1deg)}}
+@media (orientation:landscape) and (max-height:500px) {.loading-card{padding:4px}.loading-art{height:100px;margin:6px 0}.loading-label{margin-bottom:4px}.loading-title{font-size:23px;margin-bottom:6px}#loading-caption{margin-bottom:10px}}
+@media (prefers-reduced-motion:reduce) {#status-splash{animation:none}}
 
-#status-splash {
-	max-height: 100%;
-	max-width: 100%;
-	margin: auto;
-}
-
-#status-splash.show-image--false {
-	display: none;
-}
-
-#status-splash.fullsize--true {
-	height: 100%;
-	width: 100%;
-	object-fit: contain;
-}
-
-#status-splash.use-filter--false {
-	image-rendering: pixelated;
-}
-
-#status-progress, #status-notice {
-	display: none;
-}
-
-#status-progress {
-	bottom: 10%;
-	width: 50%;
-	margin: 0 auto;
-}
-
-#status-notice {
-	background-color: #5b3943;
-	border-radius: 0.5rem;
-	border: 1px solid #9b3943;
-	color: #e0e0e0;
-	font-family: 'Noto Sans', 'Droid Sans', Arial, sans-serif;
-	line-height: 1.3;
-	margin: 0 2rem;
-	overflow: hidden;
-	padding: 1rem;
-	text-align: center;
-	z-index: 1;
-}
-		
 #tepo-rotate {display:none;position:fixed;inset:0;background:#faf0d8;color:#334637;z-index:30;text-align:center;align-items:center;justify-content:center;flex-direction:column;gap:18px;font-family:system-ui,sans-serif;padding:24px;box-sizing:border-box}
 #tepo-fullscreen {position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));z-index:25;border:2px solid #6b7152;border-radius:9px;background:#faf0d8dc;color:#334637;padding:8px 12px;font-size:14px;cursor:pointer}
 #tepo-rotate strong {font-size:24px} #tepo-rotate span {line-height:1.7;max-width:320px;word-break:keep-all}
@@ -110,18 +68,24 @@ body {
 		</noscript>
 
 		<div id="status">
-			<img id="status-splash" class="show-image--true fullsize--true use-filter--true" src="index.png" alt="">
-			<progress id="status-progress"></progress>
-			<div id="status-notice"></div>
+			<section class="loading-card" aria-labelledby="loading-title">
+                <p class="loading-label">TEPO · SHOREKEEPER</p>
+                <div class="loading-art"><img id="status-splash" src="loading/tepo.png" alt="뚝배기 모자를 쓴 테포" width="1280" height="1280" fetchpriority="high"></div>
+                <h1 id="loading-title" class="loading-title">테포 · 파도를 지켜라</h1>
+                <p id="loading-caption" role="status" aria-live="polite">테포가 바다로 나갈 준비를 하고 있어요.</p>
+                <progress id="status-progress" aria-label="게임 다운로드 진행률"></progress>
+                <p id="loading-percent">바다를 불러오는 중…</p>
+                <div id="status-notice" role="alert"></div>
+            </section>
 		</div>
 
 		<script src="web-ranking.js?v=14"></script>
 		<script src="web-music.js?v=14"></script>
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":23701492,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
-GODOT_CONFIG.mainPack = 'index-v0.14.pck';
-GODOT_CONFIG.fileSizes['index-v0.14.pck'] = GODOT_CONFIG.fileSizes['index.pck'];
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":23701604,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+GODOT_CONFIG.mainPack = 'index-v0.14.1.pck';
+GODOT_CONFIG.fileSizes['index-v0.14.1.pck'] = GODOT_CONFIG.fileSizes['index.pck'];
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
@@ -129,6 +93,8 @@ const engine = new Engine(GODOT_CONFIG);
 	const statusOverlay = document.getElementById('status');
 	const statusProgress = document.getElementById('status-progress');
 	const statusNotice = document.getElementById('status-notice');
+	const loadingPercent = document.getElementById('loading-percent');
+	const loadingCaption = document.getElementById('loading-caption');
 
 	let initializing = true;
 	let statusMode = '';
@@ -145,6 +111,10 @@ const engine = new Engine(GODOT_CONFIG);
 		statusOverlay.style.visibility = 'visible';
 		statusProgress.style.display = mode === 'progress' ? 'block' : 'none';
 		statusNotice.style.display = mode === 'notice' ? 'block' : 'none';
+		if (mode === 'notice') {
+			loadingCaption.textContent = '바다에 연결하지 못했어요. 새로고침 후 다시 시도해 주세요.';
+			loadingPercent.textContent = '';
+		}
 		statusMode = mode;
 	}
 
@@ -214,9 +184,13 @@ const engine = new Engine(GODOT_CONFIG);
 				if (current > 0 && total > 0) {
 					statusProgress.value = current;
 					statusProgress.max = total;
+					const percent = Math.min(100, Math.floor(current / total * 100));
+					loadingPercent.textContent = percent < 100 ? `바다를 불러오는 중 · ${percent}%` : '준비한 것들을 펼치는 중…';
+					if (percent === 100) loadingCaption.textContent = '곧 테포와 함께 출발해요.';
 				} else {
 					statusProgress.removeAttribute('value');
 					statusProgress.removeAttribute('max');
+					loadingPercent.textContent = '바다를 불러오는 중…';
 				}
 			},
 		}).then(() => {
