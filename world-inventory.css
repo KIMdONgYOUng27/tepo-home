@@ -1,0 +1,8 @@
+#world-bag-dialog{position:fixed;inset:0;margin:0;padding:0;border:0;max-width:none;max-height:none;width:100vw;height:100dvh;overflow:hidden;font-family:'Malgun Gothic',sans-serif;box-sizing:border-box}
+#world-bag-dialog::backdrop{background:#142319b8;backdrop-filter:blur(4px)}
+.world-bag-content{height:100%;width:100%}.world-bag-content *{box-sizing:border-box}.world-bag-content button{font:inherit;cursor:pointer}.world-bag-content button:focus-visible{outline:2px solid #f5d580;outline-offset:3px}
+.world-bag-content .close-view{position:absolute;left:25px;top:22px;z-index:5;border:1px solid #a48856;border-radius:30px;background:#211e17ef;color:#ead3a3;padding:11px 20px;font-size:14px}
+.world-bag-toggle{z-index:20;font-family:'Malgun Gothic',sans-serif;cursor:pointer}.world-bag-toggle[hidden]{display:none}.world-bag-toggle:focus-visible{outline:2px solid #ffdc68;outline-offset:4px}
+.world-place-dialog>.world-bag-toggle{position:fixed}.world-bag-content .bag-empty{word-break:keep-all}.world-bag-content .bag-view{padding-bottom:75px}
+#world-bag-dialog .bag-inspection .take-weapon{display:none}#world-bag-dialog .bag-inspection .weapon-state:empty{display:none}
+@media(max-width:650px){.world-bag-toggle{right:14px;bottom:14px;padding:9px 13px}.world-bag-content .close-view{left:15px;top:15px}.world-bag-content .bag-view{padding-top:65px}}

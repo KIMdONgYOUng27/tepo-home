@@ -21,7 +21,7 @@
   const buttons=[...document.querySelectorAll('.destination')];
   const atlas=new Image();
   atlas.src='assets/destinations-varied-angles-v4.png';
-  const arcadeArt=new Image();arcadeArt.src='assets/arcade-map-white-alpha-v25.png';
+  const arcadeArt=new Image();arcadeArt.src='assets/arcade-map-paper-alpha-v27.png';
   // Source rectangles contain real PNG alpha, with no background sampling.
   // Ground anchors keep every landmark planted during enlargement.
   const places={
@@ -87,18 +87,11 @@
       svg.append(path);button.append(svg);
     });
   }
-  let selectedTimer;
-  buttons.forEach(button=>button.addEventListener('click',()=>{
-    if(button.dataset.place==='home'){window.location.href='house.html';return;}
-    if(button.dataset.place==='arcade'){window.TEPO_WORLD.open(button.dataset.place,button);return;}
-    clearTimeout(selectedTimer);
-    buttons.forEach(item=>item.classList.toggle('is-selected',item===button));
-    selectedTimer=setTimeout(()=>button.classList.remove('is-selected'),900);
-  }));
+  buttons.forEach(button=>button.addEventListener('click',()=>window.TEPO_NAVIGATION.open(button.dataset.place,button)));
   background.addEventListener('load',layoutScene);
   new ResizeObserver(layoutScene).observe(viewport);
   Promise.all([background.decode(),atlas.decode(),arcadeArt.decode()]).then(()=>{
-    places.arcade.crop=[276,121,929,928];places.arcade.anchor=[.5,.83];
+    places.arcade.crop=[229,52,1113,922];places.arcade.anchor=[.5,.82];
     layoutScene();createAlphaHitAreas();loading.classList.add('is-ready');
   }).catch(error=>{loading.classList.add('is-ready');console.error('Map asset loading failed.',error);});
 })();

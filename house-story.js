@@ -137,6 +137,8 @@
     }gallery();
   }
   function renderBag(host){
+    try{const live=JSON.parse(sessionStorage.getItem(storageKey)||'{}');progress={...progress,...live,weapons:Array.isArray(live.weapons)?live.weapons.filter(id=>weapons.items.some(item=>item.id===id)):[],courses:Array.isArray(live.courses)?live.courses.filter(validCourse):[]};}catch{}
+
     host.innerHTML='<button class="close-view" aria-label="방으로 돌아가기">← 방으로</button><section class="bag-view"><header><p>발견하고 챙긴 물건들</p><h2 id="dialog-title">내 가방</h2><span class="bag-total"></span></header><div class="bag-panel"><section class="bag-browser"><nav class="bag-filters" aria-label="가방 분류"></nav><div class="bag-slots"></div><nav class="bag-pagination" aria-label="가방 페이지"><button class="bag-prev" aria-label="가방 이전 페이지">←</button><span></span><button class="bag-next" aria-label="가방 다음 페이지">→</button></nav></section><section class="bag-inspection" aria-live="polite"></section></div></section>';
     const slots=host.querySelector('.bag-slots'),inspection=host.querySelector('.bag-inspection'),filters=host.querySelector('.bag-filters'),pager=host.querySelector('.bag-pagination');
     const items=[];let category='all',page=0,selected=null;
@@ -154,7 +156,7 @@
       pager.querySelector('span').textContent=(page+1)+' / '+pages;pager.querySelector('.bag-prev').disabled=page===0;pager.querySelector('.bag-next').disabled=page>=pages-1;
     }
     pager.querySelector('.bag-prev').addEventListener('click',()=>{page--;draw();});pager.querySelector('.bag-next').addEventListener('click',()=>{page++;draw();});
-    inspection.innerHTML=items.length?'<p class="bag-empty">물건을 눌러 자세히 살펴보자.</p>':'<p class="bag-empty">아직 챙긴 물건이 없다.<br>방 안을 조금 더 살펴볼까?</p>';draw();
+    inspection.innerHTML=items.length?'<p class="bag-empty">물건을 눌러 자세히 살펴보자.</p>':'<p class="bag-empty">아직 챙긴 물건이 없다.<br>이 동네를 조금 더 둘러볼까?</p>';draw();
   }
   window.TEPO_STORY={get awake(){return progress.awake;},wake(){progress.awake=true;save();},hasWeapon:id=>progress.weapons.includes(id),talk:conversation,renderDrawer,renderBag,renderWeapons};
 })();

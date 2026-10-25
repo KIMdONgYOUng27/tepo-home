@@ -96,10 +96,6 @@
     }
     content.querySelector('.close-view').addEventListener('click',close);dialog.showModal();
   }
-  const bagButton=document.createElement('button');
-  bagButton.className='bag-toggle';bagButton.setAttribute('aria-label','가방 열기');
-  bagButton.innerHTML='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M11 10V7a5 5 0 0 1 10 0v3M7 10h18l3 19H4L7 10Z M10 19h12v7H10Z"/></svg><span>가방</span>';
-  bagButton.addEventListener('click',()=>openObject('bag'));document.querySelector('.room-viewport').append(bagButton);
   function renderComputer(){
     content.innerHTML=`<section class="monitor"><div class="monitor-shell"><div class="screen-rim"><div class="crt-screen"><header class="os-bar"><h2 id="dialog-title">TEPO OS</h2><span>등대 컴퓨터</span></header><div class="computer-desktop"><div class="desktop-folders"><button data-open-archive aria-label="직박구리 폴더 열기"><span class="folder-symbol" aria-hidden="true"></span>직박구리</button></div><section class="archive-window" aria-label="직박구리 폴더" hidden><header class="archive-header"><h3>직박구리</h3><button class="archive-close" aria-label="직박구리 폴더 닫기">×</button></header><div class="desktop-folders archive-folders"><button data-folder="shorts"><span class="folder-symbol" aria-hidden="true"></span>쇼츠</button><button data-folder="long"><span class="folder-symbol" aria-hidden="true"></span>롱폼</button></div><footer class="archive-footer">폴더 2개</footer></section><section class="video-window" hidden><header><h3></h3><button class="window-close" aria-label="영상 폴더 닫기">×</button></header><div class="video-list"></div></section></div><footer class="os-footer"><span>TEPO / HOME</span><span class="cursor" aria-hidden="true">▊</span></footer></div></div><div class="monitor-chin"><span class="monitor-brand">TEPO PERSONAL COMPUTER</span><span class="power-light"></span><button class="close-view power-button" aria-label="방으로 돌아가기">⏻</button></div></div></section>`;
     const win=content.querySelector('.video-window');

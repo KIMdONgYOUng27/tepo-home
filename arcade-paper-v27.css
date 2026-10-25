@@ -1,0 +1,30 @@
+/* Local art direction: the arcade belongs to the illustrated Busan map. */
+.world-adventure{--cyan:#367e78;--violet:#946448;--magenta:#b7644a;color:#493b2b;background:#eddfba url('assets/parchment-paper-v1.png') center/800px;font-family:'GeuriunXGukhanbakSingoyangI','Malgun Gothic',sans-serif;box-shadow:none}
+.world-adventure::backdrop{background:#332c2380;backdrop-filter:blur(3px)}
+.world-adventure button:focus-visible{outline-color:#b78635}
+.adventure-close,.entrance-title,.arcade-heading{color:#513924;background:#f7e9c9 url('assets/parchment-paper-v1.png') center/600px;border:2px solid #705138;border-radius:5px 8px 5px 9px;box-shadow:2px 3px 0 #5b3e2526;backdrop-filter:none;text-shadow:none}
+.adventure-close{font-family:'TepoWelcomeHand',sans-serif;font-size:23px;padding:5px 18px}
+.adventure-close:hover{border-color:#3e6e66;box-shadow:2px 3px 0 #5b3e2533}
+.entrance-title{font-family:'TepoWelcomeHand',sans-serif;font-weight:400;font-size:27px;letter-spacing:0;padding:4px 21px}
+.entrance-scene,.room-scene-view{background:#eddfba url('assets/parchment-paper-v1.png') center/800px}
+.entrance-door>svg{filter:drop-shadow(2px 2px 1px #372d2940)}
+.entrance-door:hover>svg{filter:drop-shadow(0 0 3px #ffe39b) drop-shadow(0 0 6px #d8b15b)}
+.entrance-lock:hover,.entrance-lock.is-discovered{filter:drop-shadow(0 0 3px #ffe5a2) drop-shadow(0 0 7px #d6ad54)}
+.entrance-dialogue,.game-invitation{background:#f7eacb url('assets/parchment-paper-v1.png') center/650px;color:#503e2c;border:2px solid #8e6a42;border-radius:5px 10px 7px 6px;box-shadow:0 5px 24px #382a2633;backdrop-filter:none}
+.entrance-dialogue{width:min(630px,88vw);padding:15px 25px}.entrance-message{font-size:21px}
+.chapter-label{color:#57766b;letter-spacing:1px}
+.adventure-actions button,.adventure-actions button+button,.game-player header button,.game-retry{color:#f8efd4;background:#3e716a;border:1px solid #324e43;border-radius:4px 7px 5px 6px;box-shadow:inset 0 0 0 2px #f4e8c924;font-family:inherit;font-size:19px;padding:8px 23px}
+.adventure-actions button+button{background:#efdfbc;color:#694d34;border-color:#95724c}
+.adventure-actions button:hover,.game-player header button:hover{border-color:#b28039;box-shadow:0 0 0 2px #d6b46970}
+.arcade-heading{font-family:'TepoWelcomeHand',sans-serif;text-align:center;padding:4px 22px}.arcade-heading p{display:none}.arcade-heading h2{font:400 28px 'TepoWelcomeHand',sans-serif;letter-spacing:0;margin:3px 0}
+.sacred-machine span{color:#503e2c;background:#f5e7c7;border:1px solid #896441;font-size:19px;border-radius:3px 6px 4px 5px}.sacred-machine:hover{filter:none;background:radial-gradient(ellipse,#f9dc8330,transparent 70%)}
+.game-invitation::before{display:none}.game-invitation h3{font:400 36px 'TepoWelcomeHand',sans-serif;letter-spacing:0}.game-invitation p:not(.chapter-label){color:#604e36;font-size:21px}.game-invitation small{color:#786a50;font-size:15px}
+.game-player{background:#eddfba}.game-player>header{color:#523e2c;background:#f3e5c5 url('assets/parchment-paper-v1.png') center/650px;border-bottom:2px solid #8d7049;box-shadow:none}.game-player h2{font:400 26px 'TepoWelcomeHand',sans-serif}.game-player header .game-exit{background:#e8d6af;border-color:#977445;color:#5d4630}.game-player header button{font-size:17px}
+.game-loading{background:#f5e8c9 url('assets/parchment-paper-v1.png') center/800px;color:#4c6658}.game-loading p{font-size:20px}.game-loader{border-color:#a98c5c55;border-top-color:#3e716a;border-right-color:#ba8650;box-shadow:none}
+.art-loading::after{content:'오락실로 가는 중…';color:#71583b;font-family:'TepoWelcomeHand',sans-serif;font-size:28px;letter-spacing:1px}
+.destination-arcade:is(:hover,:focus-visible,.is-selected) .place-sprite{filter:url(#arcade-cutout-alpha) drop-shadow(2px 0 0 #fff8d9) drop-shadow(-2px 0 0 #fff8d9) drop-shadow(0 2px 0 #fff8d9) drop-shadow(0 -2px 0 #fff8d9) drop-shadow(0 0 5px #ffdf7d) drop-shadow(0 0 12px #259c9c)}
+@media(max-width:700px){.adventure-close{font-size:20px}.entrance-title{font-size:23px}.entrance-message{font-size:18px}.arcade-heading h2{font-size:23px}.game-player h2{font-size:18px}.game-player header button{font-size:14px}}
+
+.entrance-door-wrap{left:37.7%;top:21.8%;width:24.6%;height:58.3%}
+
+.destination-arcade .place-sprite{filter:url(#arcade-cutout-alpha)}

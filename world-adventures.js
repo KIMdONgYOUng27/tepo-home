@@ -15,11 +15,11 @@
     if(state.read().arcadeUnlocked){arcadeRoom();return;}
     const owned=state.read().weapons?.includes('mace');
     scene(`<section class="entrance-scene"><div class="entrance-stage">
-      <img class="entrance-background" src="assets/arcade-entrance-white-v25.png" alt="밝은 낮의 바닷가에 있는 화이트 오락실과 은은한 네온 간판">
+      <img class="entrance-background" src="assets/arcade-entrance-paper-v27.png" alt="종이 질감의 수채화로 그린 청록색 창틀과 크림색 벽의 바닷가 오락실">
       <div class="entrance-door-wrap">
-        <button class="entrance-door" aria-label="오락실 문 열어 보기"><svg viewBox="61 23 763 1728" preserveAspectRatio="none" aria-hidden="true"><image href="assets/arcade-door-white-alpha-v25.png" width="887" height="1774"/></svg></button>
+        <button class="entrance-door" aria-label="오락실 문 열어 보기"><svg viewBox="69 42 745 1691" preserveAspectRatio="none" aria-hidden="true"><image href="assets/arcade-door-paper-alpha-v27.png" width="887" height="1774"/></svg></button>
         <svg class="entrance-chain" viewBox="0 0 360 70" aria-hidden="true"><defs><pattern id="chain-links" width="26" height="19" patternUnits="userSpaceOnUse"><ellipse cx="13" cy="10" rx="15" ry="7" fill="none" stroke="#69848a" stroke-width="7"/><ellipse cx="13" cy="9" rx="15" ry="6" fill="none" stroke="#e0ecea" stroke-width="3"/></pattern></defs><path d="M0 13 Q155 70 360 10" fill="none" stroke="url(#chain-links)" stroke-width="19"/></svg>
-        <button class="entrance-lock" aria-label="문에 걸린 자물쇠 살펴보기"><svg viewBox="190 63 820 1185" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><image href="assets/arcade-padlock-white-alpha-v25.png" width="1199" height="1312"/></svg></button>
+        <button class="entrance-lock" aria-label="문에 걸린 자물쇠 살펴보기"><svg viewBox="150 9 906 1287" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><image href="assets/arcade-padlock-alpha-v23.png" width="1206" height="1305"/></svg></button>
       </div>
       <div class="entrance-mace" aria-hidden="true">${window.TEPO_WEAPONS.picture(window.TEPO_WEAPONS.items.find(i=>i.id==='mace'))}</div>
       <div class="entrance-impact" aria-hidden="true">✷</div>
@@ -28,7 +28,7 @@
     const area=dialog.querySelector('.entrance-scene'),door=dialog.querySelector('.entrance-door'),lock=dialog.querySelector('.entrance-lock'),caption=dialog.querySelector('.entrance-dialogue'),line=dialog.querySelector('.entrance-message'),actions=dialog.querySelector('.adventure-actions');
     let attempted=false,inspected=false;
     area.classList.add('art-loading');
-    Promise.all(['assets/arcade-entrance-white-v25.png','assets/arcade-door-white-alpha-v25.png','assets/arcade-padlock-white-alpha-v25.png'].map(src=>{const image=new Image();image.src=src;return image.decode();})).then(()=>{if(area.isConnected)area.classList.remove('art-loading');}).catch(()=>{if(area.isConnected){area.classList.remove('art-loading');caption.hidden=false;line.textContent='입구 그림을 불러오지 못했어. 잠시 후 다시 열어 줘.';}});
+    Promise.all(['assets/arcade-entrance-paper-v27.png','assets/arcade-door-paper-alpha-v27.png','assets/arcade-padlock-alpha-v23.png'].map(src=>{const image=new Image();image.src=src;return image.decode();})).then(()=>{if(area.isConnected)area.classList.remove('art-loading');}).catch(()=>{if(area.isConnected){area.classList.remove('art-loading');caption.hidden=false;line.textContent='입구 그림을 불러오지 못했어. 잠시 후 다시 열어 줘.';}});
     door.onclick=()=>{
       if(busy)return;
       area.classList.remove('trying-door');void area.offsetWidth;area.classList.add('trying-door');
@@ -53,10 +53,10 @@
     };
   }
   function arcadeRoom(){
-    scene('<section class="arcade-room"><img class="arcade-interior" src="assets/arcade-interior-white-v25.png" alt="흰 벽과 밝은 바닥에 민트와 연보라 네온이 어우러진 오락실, 중앙의 화이트 오락기 한 대"><header class="arcade-heading"><p>PLAY IN COLOR · ONE PLAYER</p><h2 id="adventure-title">테포 오락실</h2></header><button class="sacred-machine" aria-label="빛나는 오락기 살펴보기"><span>불빛에 다가가기</span></button></section>','room-scene-view');
+    scene('<section class="arcade-room"><img class="arcade-interior" src="assets/arcade-interior-paper-v27.png" alt="먹선과 수채화로 그린 밝은 오락실. 청록색 창틀과 테라코타 바닥, 중앙의 특별한 오락기 한 대"><header class="arcade-heading"><h2 id="adventure-title">테포 오락실</h2></header><button class="sacred-machine" aria-label="빛나는 오락기 살펴보기"><span>불빛에 다가가기</span></button></section>','room-scene-view');
     dialog.querySelector('.sacred-machine').onclick=()=>{
       const card=document.createElement('section');card.className='game-invitation';card.setAttribute('aria-label','게임 시작 확인');
-      card.innerHTML='<p class="chapter-label">READY TO PLAY</p><h3>테포 · 파도를 지켜라</h3><p>게임을 하시겠습니까?</p><small>시작을 누르면 게임 파일을 불러와요.</small><div class="adventure-actions"></div>';
+      card.innerHTML='<p class="chapter-label">테포의 작은 오락실</p><h3>테포 · 파도를 지켜라</h3><p>게임을 하시겠습니까?</p><small>시작을 누르면 게임 파일을 불러와요.</small><div class="adventure-actions"></div>';
       dialog.querySelector('.sacred-machine').disabled=true;dialog.append(card);
       button('예, 게임 시작',()=>{if(busy)return;busy=true;card.remove();dialog.querySelector('.arcade-room').classList.add('entering-machine');later(startGame,650);},card.querySelector('.adventure-actions'));
       button('아니요',()=>{card.remove();dialog.querySelector('.sacred-machine').disabled=false;dialog.querySelector('.sacred-machine').focus();},card.querySelector('.adventure-actions'));
