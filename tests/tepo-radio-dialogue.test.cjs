@@ -9,6 +9,11 @@ for(const file of ['house-dialogue.js','tepo-radio-dialogue.js'])vm.runInContext
 before(async()=>await sandbox.window.TEPO_DIALOGUE.ready);
 const answer=sandbox.window.TEPO_RADIO_DIALOGUE.answer;
 
+test('ordinary face-to-face replies never assume a radio connection',()=>{for(const question of ['안녕','지금 뭐 하고 있어?','심심해','오늘 기분 어때?','오늘 밥 뭐 먹었어?','통역기는 뭐야?']){const result=answer(question,{}, {},undefined,{channel:'face',radioOwned:true});assert.doesNotMatch(result.text,/치직|무전|통신|채널|주파수/,question);}});
+test('radio greeting requires both radio channel and actual receipt',()=>{assert.match(answer('안녕',{}, {},undefined,{channel:'radio',radioOwned:true}).text,/무전 잘 들려/);assert.doesNotMatch(answer('안녕',{}, {},undefined,{channel:'radio',radioOwned:false}).text,/무전|치직/);assert.doesNotMatch(answer('안녕',{}, {},undefined,{channel:'face',radioOwned:true}).text,/무전|치직/);});
+test('asking about a radio at home explains the item instead of pretending to call',()=>{assert.match(answer('무전기는 어떻게 써?',{}, {},undefined,{channel:'face',radioOwned:false}).text,/마칠 때.*챙겨/);assert.doesNotMatch(answer('무전기는 어떻게 써?',{}, {},undefined,{channel:'face',radioOwned:true}).text,/치직|잘 들려/);});
+test('a greeting prefixed to a travel request does not swallow the travel intent',()=>{const r=answer('안녕 부산 여행 코스 짜줘',{}, {},undefined,{channel:'face'});assert.equal(r.context.trip.type,null);assert.notEqual(r.intent,'hello');});
+
 test('JSON nodes and buttons have valid authored fields and destination IDs',()=>{const ids=new Set(model.nodes.map(n=>n.id));assert.equal(ids.size,model.nodes.length);for(const n of model.nodes){assert.equal(typeof n.question,'string');assert.equal(typeof n.answer,'string');assert.ok(Array.isArray(n.keywords));for(const k of n.keywords)assert.doesNotThrow(()=>new RegExp(k));for(const b of n.buttons){assert.equal(typeof b.label,'string');assert.ok(ids.has(b.next),b.next);}}for(const b of model.defaultButtons)assert.ok(ids.has(b.next));});
 test('admin and production inquiries route to the correct shared form type',()=>{assert.equal(answer('관리자 문의').showInquiry,'general');assert.equal(answer('제작 문의').showInquiry,'production');});
 test('birth follows canon without inventing the child’s death',()=>{const result=answer('너 왜 그렇게 생겼어?');assert.match(result.text,/아이.*뚝배기/);assert.match(result.text,/테트라포드/);assert.doesNotMatch(result.text,/죽|사망/);});

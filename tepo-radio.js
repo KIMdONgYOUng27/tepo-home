@@ -28,7 +28,7 @@
   function reset(){clearTimeout(timer);session.clear();state=fresh();cleanReset=true;build();message('tepo',window.TEPO_RADIO_DIALOGUE.ui.reset);available(true);connection();}
   function complete(){
     const pending=state.pending;if(!pending)return;
-    try{const result=window.TEPO_RADIO_DIALOGUE.answer(pending.question,state.context,progress(),pending.target);if(result.saveTrip)window.TEPO_STORY.keepCourse(result.saveTrip);state.context=result.context||{};state.buttons=result.buttons;state.history.push({role:'tepo',text:result.text});state.pending=null;
+    try{const result=window.TEPO_RADIO_DIALOGUE.answer(pending.question,state.context,progress(),pending.target,{channel:mode,radioOwned:session.owned()});if(result.saveTrip)window.TEPO_STORY.keepCourse(result.saveTrip);state.context=result.context||{};state.buttons=result.buttons;state.history.push({role:'tepo',text:result.text});state.pending=null;
       const removed=Math.max(0,state.history.length-80);if(removed){state.history.splice(0,removed);state.checkpoints=state.checkpoints.filter(item=>item.length>=removed).map(item=>({...item,length:item.length-removed}));}
       redraw();available(true);connection();if(result.showFaq)panel('faq');else if(result.showInquiry){state.inquiryType=result.showInquiry;form.setType(result.showInquiry);panel('inquiry');}else{panel('chat');dialog.querySelector('#radio-input').focus({preventScroll:true});}persist();
     }catch{available(true);dialog.querySelector('.radio-connection').textContent='응답을 불러오지 못했어. 이전으로 돌아가 다시 물어봐 줘.';persist();}
@@ -81,7 +81,8 @@
     if(nextMode==='radio'&&!session.owned())return;
     if(nextMode==='face'&&(!window.TEPO_STORY.awake||!document.querySelector('#tepo')))return;
     mode=nextMode;opener=from||document.activeElement;gifting=false;untranslated=mode==='face'&&!window.TEPO_STORY.translated;
-    state=untranslated?fresh():session.load()||fresh();state.mode=mode;
+    state=untranslated?fresh():session.load(mode)||fresh();state.mode=mode;
+    if(!untranslated)state.history=state.history.map(item=>({...item,text:window.TEPO_DIALOGUE.data.legacyChannelText?.[item.text]?.[mode]||item.text}));
     if(!state.buttons.length)state.buttons=clone(window.TEPO_RADIO_DIALOGUE.buttons);cleanReset=false;
     if(untranslated){state.history=[{role:'tepo',text:window.TEPO_RADIO_DIALOGUE.ui.untranslated},{role:'visitor',text:window.TEPO_RADIO_DIALOGUE.ui.untranslatedThought}];}
     else if(!state.history.length)state.history.push({role:'tepo',text:mode==='face'?window.TEPO_RADIO_DIALOGUE.ui.directHello:window.TEPO_RADIO_DIALOGUE.ui.hello});
