@@ -23,7 +23,7 @@
 
 ## 배포와 운영
 
-현재 연결은 로컬 웹사이트 파일에 반영했다. GitHub Pages의 공개 사이트에는 아직 배포하지 않았다. 사용자가 푸시를 요청하면 publish-manifest의 HTML/JS/설정 JSON을 함께 배포해야 한다. 이 설정의 publishable key는 공개 클라이언트용이며 secret/service_role 키로 교체하면 안 된다.
+GitHub Pages 배포에는 publish-manifest의 HTML/JS/설정 JSON을 함께 포함한다. 공개 사이트와 로컬 사이트는 같은 Supabase 문의 테이블을 사용한다. 이 설정의 publishable key는 공개 클라이언트용이며 secret/service_role 키로 교체하면 안 된다.
 
 문의 양식은 현재 데이터를 접수할 수 있지만, 운영자의 실제 개인정보 처리 주체·보관 기간·삭제 요청 방법·답변 정책은 공개 운영 전에 확정해 안내해야 한다. 이메일 발송/답변 알림 기능은 별도 구현하지 않았다. 스팸 방지 서버 제한이나 CAPTCHA도 아직 없다. 현재 honeypot과 입력 제약은 기본 보조 수단이다.
 
