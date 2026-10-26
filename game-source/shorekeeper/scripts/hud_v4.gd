@@ -19,6 +19,8 @@ var sound_button: Button
 var xp_frame: Panel
 var compact:=false
 var ranking_open:=false
+var dash_button:Button
+var dash_bar:ProgressBar
 
 func _ready() -> void:
 	font.fallbacks=[preload("res://assets/korean.ttf")]
@@ -48,6 +50,11 @@ func _ready() -> void:
 	notice.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 	notice.add_theme_color_override("font_shadow_color",CREAM)
 	notice.add_theme_constant_override("shadow_outline_size",6)
+	dash_button=button("Shift · 파도 대시",Rect2(1070,680,182,62),root,func():game.try_dash())
+	dash_button.focus_mode=Control.FOCUS_NONE
+	dash_bar=bar(Rect2(1074,748,174,8),Color("83c5b5"),root)
+	dash_bar.max_value=game.DASH_COOLDOWN
+	dash_bar.add_theme_font_size_override("font_size",1)
 	get_viewport().size_changed.connect(resize_layout)
 	resize_layout(false)
 	var warning=load("res://scripts/boss_warning_v10.gd").new()
@@ -60,6 +67,8 @@ func resize_layout(rebuild: bool=true) -> void:
 	compact=get_window().size.y<500
 	root.scale=Vector2.ONE
 	root.position=Vector2.ZERO
+	dash_button.position=Vector2(view.x-210,view.y-122)
+	dash_bar.position=Vector2(view.x-206,view.y-54)
 	xp_frame.size.x=view.x-36
 	xp_bar.size.x=view.x-168
 	level_label.position.x=view.x-136
@@ -209,7 +218,7 @@ func show_start() -> void:
 	label("밀려오는 해양 크리처와 선을 넘는 진상들.\n무기를 모으고 진화시키며 20분 동안 바다를 지켜주세요.",Rect2(55,297,770,90),27,MUTED,p)
 	button("출항하기  →",Rect2(55,452,400,67),p,func():game.start_game();game.offer_blessing(),true)
 	button("출항 준비  ·  %d 코인"%game.harbor_coins,Rect2(480,452,335,67),p,func():show_harbor())
-	label("WASD / 방향키 이동 · 자동 공격 · M 마우스 조준 · ESC 가방",Rect2(55,575,1040,38),23,MUTED,p)
+	label("WASD 이동 · Shift 대시 · 자동 공격 · M 조준 · ESC 가방",Rect2(55,575,1040,38),23,MUTED,p)
 	icon(31,Rect2(825,220,325,325),p)
 	button("소리 · 화면 설정",Rect2(875,452,285,67),p,func():show_settings())
 	button("오늘의 생존 기록",Rect2(55,620,320,45),p,func():show_rankings())
@@ -462,6 +471,11 @@ func show_harbor() -> void:
 	button("항구로",Rect2(40,597,365,55),p,func():show_start())
 
 func refresh() -> void:
+	dash_button.visible=game.state=="running"
+	dash_bar.visible=dash_button.visible
+	dash_bar.value=game.DASH_COOLDOWN-game.dash_cooldown
+	dash_button.text="대시 · %.1f초"%game.dash_cooldown if game.dash_cooldown>0 else "Shift · 파도 대시"
+	dash_button.modulate=Color(0.8,0.85,0.8,0.85) if game.dash_cooldown>0 else Color.WHITE
 	xp_bar.value=100*game.xp/game.xp_needed()
 	level_label.text="LV. %02d"%game.level
 	clock_label.text=format_time(game.elapsed)

@@ -9,6 +9,9 @@ try {
     }
     & $engine --headless --path $PSScriptRoot --editor --import --quit
     if ($LASTEXITCODE -ne 0) { throw 'Godot import failed' }
+    $feedbackOutput = & $engine --headless --path $PSScriptRoot --script res://tests/feedback_v15_checks.gd 2>&1
+    $feedbackOutput | ForEach-Object { Write-Host $_ }
+    if ($LASTEXITCODE -ne 0 -or -not ($feedbackOutput -match 'FEEDBACK15: 0 errors') -or ($feedbackOutput -match 'SCRIPT ERROR')) { throw 'Dash and magnet verification failed' }
     $modeOutput = & $engine --headless --path $PSScriptRoot --script res://tests/mode20_checks.gd 2>&1
     $modeOutput | ForEach-Object { Write-Host $_ }
     if ($LASTEXITCODE -ne 0 -or -not ($modeOutput -match 'MODE20: 0 errors') -or ($modeOutput -match 'SCRIPT ERROR')) { throw 'Twenty minute mode verification failed' }
@@ -29,7 +32,7 @@ try {
     if ($LASTEXITCODE -ne 0 -or -not ($checkOutput -match 'FULL STAGE: 0 errors') -or ($checkOutput -match 'SCRIPT ERROR')) { throw 'Game verification failed' }
     & $engine --headless --path $PSScriptRoot --export-release Web
     if ($LASTEXITCODE -ne 0) { throw 'Web export failed' }
-    Move-Item -LiteralPath (Join-Path $PSScriptRoot 'web/index.pck') -Destination (Join-Path $PSScriptRoot 'web/index-v0.14.1.pck') -Force
+    Move-Item -LiteralPath (Join-Path $PSScriptRoot 'web/index.pck') -Destination (Join-Path $PSScriptRoot 'web/index-v0.15.pck') -Force
     New-Item -ItemType Directory -Path (Join-Path $PSScriptRoot 'web/loading') -Force | Out-Null
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'loading/tepo.png') -Destination (Join-Path $PSScriptRoot 'web/loading/tepo.png')
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'web-ranking.js') -Destination (Join-Path $PSScriptRoot 'web/web-ranking.js')

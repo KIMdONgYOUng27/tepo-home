@@ -60,6 +60,8 @@ func run() -> void:
 	g.elapsed=1200;g.kills=30;ranking.record(true)
 	var list:Array=ranking.ordered()
 	check(list[0].kills==30 and list[1].kills==20 and list[2].seconds==300,"survival ranking and tie break")
+	ranking.rows.append({"id":"older-rules","mode":"shore20-v14","date":ranking.today(),"seconds":1200,"kills":99999})
+	check(ranking.ordered().size()==3,"dash-mode ranking does not mix older combat rules")
 	check(not ranking.online and ranking.endpoint.is_empty(),"local records never masquerade as global ranking")
 	g.hud.show_rankings(false)
 	check(g.hud.ranking_open,"ranking board opens")

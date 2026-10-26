@@ -12,8 +12,8 @@ func run() -> void:
 	g.sound_enabled=false
 	g.start_game()
 	var p=g.presentation
-	check(p.clips.size()==59,"weapon, interface and new collision effect clips")
-	check(p.voices.size()==12,"voice count bounded including reserved UI channels")
+	check(p.clips.size()==61,"weapon, interface and new collision effect clips")
+	check(p.voices.size()==14,"voice count bounded including reserved UI channels")
 	g.sound_enabled=true
 	p.sound("water")
 	var water_deadline:float=p.sound_clocks["water"]

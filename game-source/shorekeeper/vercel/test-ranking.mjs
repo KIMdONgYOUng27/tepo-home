@@ -22,10 +22,10 @@ globalThis.fetch=async(url,options)=>{
 };
 async function call(method,body,origin='https://example.vercel.app'){
   const res={headers:{},setHeader(k,v){this.headers[k]=v;},status(c){this.code=c;return this;},json(x){this.body=x;return this;},end(){return this;}};
-  await handler({method,body,headers:{origin,host:'example.vercel.app','x-forwarded-for':'127.0.0.1'},query:{mode:'shore20-v14'}},res);
+  await handler({method,body,headers:{origin,host:'example.vercel.app','x-forwarded-for':'127.0.0.1'},query:{mode:'shore20-v15'}},res);
   return res;
 }
-const row={id:'test-run-1',mode:'shore20-v14',name:'테포',seconds:1100,kills:120,level:30,won:false};
+const row={id:'test-run-1',mode:'shore20-v15',name:'테포',seconds:1100,kills:120,level:30,won:false};
 assert.equal((await call('POST',row)).code,200);
 assert.equal((await call('POST',{...row,seconds:1200})).code,200);
 assert.equal((await call('GET')).body.rows[0].seconds,1100,'duplicate run cannot overwrite a score');

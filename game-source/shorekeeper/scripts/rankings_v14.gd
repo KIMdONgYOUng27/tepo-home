@@ -1,5 +1,5 @@
 extends RefCounted
-const MODE:="shore20-v14"
+const MODE:="shore20-v15"
 var g: Node2D
 var rows:Array=[]
 var online_rows:Array=[]
@@ -29,7 +29,7 @@ func today() -> String:
 	return "%04d-%02d-%02d"%[d.year,d.month,d.day]
 
 func ordered() -> Array:
-	var list:Array=online_rows.duplicate() if online else rows.filter(func(row):return row.get("date","")==today())
+	var list:Array=online_rows.duplicate() if online else rows.filter(func(row):return row.get("date","")==today() and row.get("mode",MODE)==MODE)
 	list.sort_custom(func(a,b):return a.seconds>b.seconds if a.seconds!=b.seconds else (a.kills>b.kills if a.kills!=b.kills else a.get("id","")<b.get("id","")))
 	return list.slice(0,20)
 

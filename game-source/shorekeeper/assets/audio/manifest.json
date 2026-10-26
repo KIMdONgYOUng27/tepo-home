@@ -1,533 +1,490 @@
 [
   {
     "id": "sand",
-    "seconds": 0.22,
-    "file": "sand.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 3500
+    "peak": 0.880001220740379,
+    "rms": 0.1306511285022733
   },
   {
     "id": "pearl",
-    "seconds": 0.22,
-    "file": "pearl.wav",
+    "seconds": 0.15,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.9,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.21931440791597315
   },
   {
     "id": "bowl",
-    "seconds": 0.22,
-    "file": "bowl.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 3500
+    "peak": 0.880001220740379,
+    "rms": 0.14952232997476728
   },
   {
     "id": "kelp",
-    "seconds": 0.22,
-    "file": "kelp.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.14589597779961805
   },
   {
     "id": "chain",
-    "seconds": 0.22,
-    "file": "chain.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 3500
+    "peak": 0.880001220740379,
+    "rms": 0.15341429529066533
   },
   {
     "id": "shell",
-    "seconds": 0.22,
-    "file": "shell.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 3500
+    "peak": 0.880001220740379,
+    "rms": 0.15265236943235178
   },
   {
     "id": "snack",
-    "seconds": 0.22,
-    "file": "snack.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 3500
+    "peak": 0.880001220740379,
+    "rms": 0.1438151249118501
   },
   {
     "id": "wave",
-    "seconds": 0.65,
-    "file": "wave.wav",
+    "seconds": 0.42,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2800
+    "peak": 0.880001220740379,
+    "rms": 0.19017395012933003
   },
   {
     "id": "rain",
-    "seconds": 0.65,
-    "file": "rain.wav",
+    "seconds": 0.42,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2800
+    "peak": 0.880001220740379,
+    "rms": 0.20733765122863218
   },
   {
     "id": "stone",
-    "seconds": 0.22,
-    "file": "stone.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 3500
+    "peak": 0.880001220740379,
+    "rms": 0.13574487577082447
   },
   {
     "id": "tetra",
-    "seconds": 0.22,
-    "file": "tetra.wav",
+    "seconds": 0.62,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.16767949186958195
   },
   {
     "id": "heat",
-    "seconds": 0.22,
-    "file": "heat.wav",
+    "seconds": 0.62,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.16331510714216785
   },
   {
     "id": "gull_white",
-    "seconds": 0.22,
-    "file": "gull_white.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.15653497258359064
   },
   {
     "id": "gull_dark",
-    "seconds": 0.22,
-    "file": "gull_dark.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.1443772611693471
   },
   {
     "id": "gull_union",
-    "seconds": 0.22,
-    "file": "gull_union.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.15153459603024808
   },
   {
     "id": "feather",
-    "seconds": 0.22,
-    "file": "feather.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.16526017153873218
   },
   {
     "id": "gust",
-    "seconds": 0.22,
-    "file": "gust.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.15800498146694786
   },
   {
     "id": "wing_union",
-    "seconds": 0.22,
-    "file": "wing_union.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.1625356861783709
   },
   {
     "id": "anchor",
-    "seconds": 0.22,
-    "file": "anchor.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 3500
+    "peak": 0.880001220740379,
+    "rms": 0.14877021973407997
   },
   {
     "id": "water",
-    "seconds": 0.65,
-    "file": "water.wav",
+    "seconds": 0.42,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2800
+    "peak": 0.880001220740379,
+    "rms": 0.19613466756658338
   },
   {
     "id": "hit",
-    "seconds": 0.075,
-    "file": "hit.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.13839811351349834
   },
   {
     "id": "kill",
-    "seconds": 0.22,
-    "file": "kill.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.14132848503162876
   },
   {
     "id": "pick",
-    "seconds": 0.075,
-    "file": "pick.wav",
+    "seconds": 0.15,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.65,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.1993171281217627
   },
   {
     "id": "hurt",
-    "seconds": 0.22,
-    "file": "hurt.wav",
+    "seconds": 0.62,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.17273175176261257
   },
   {
     "id": "level",
-    "seconds": 0.65,
-    "file": "level.wav",
+    "seconds": 0.85,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.72,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.2016390350290169
   },
   {
     "id": "drop",
-    "seconds": 0.22,
-    "file": "drop.wav",
+    "seconds": 0.62,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.1686578698499673
   },
   {
     "id": "chest",
-    "seconds": 0.65,
-    "file": "chest.wav",
+    "seconds": 0.85,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.72,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.18631132438057216
   },
   {
     "id": "evolve",
-    "seconds": 0.95,
-    "file": "evolve.wav",
+    "seconds": 0.85,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.72,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.18633472305638735
   },
   {
     "id": "win",
-    "seconds": 0.65,
-    "file": "win.wav",
+    "seconds": 0.85,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.72,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.21424555679097865
   },
   {
     "id": "lose",
-    "seconds": 0.22,
-    "file": "lose.wav",
+    "seconds": 0.62,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.16209996987221034
   },
   {
     "id": "ui",
-    "seconds": 0.075,
-    "file": "ui.wav",
+    "seconds": 0.15,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.65,
-    "lowpass_hz": 2400
+    "peak": 0.6400036622211371,
+    "rms": 0.14769603979833995
   },
   {
     "id": "warning",
-    "seconds": 0.95,
-    "file": "warning.wav",
+    "seconds": 0.9,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.12755482542769395
   },
   {
     "id": "impact_light",
-    "seconds": 0.22,
-    "file": "impact_light.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.15630833904505267
   },
   {
     "id": "impact_heavy",
-    "seconds": 0.22,
-    "file": "impact_heavy.wav",
+    "seconds": 0.62,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.16972047610364185
   },
   {
     "id": "wing_drop",
-    "seconds": 0.65,
-    "file": "wing_drop.wav",
+    "seconds": 0.42,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2800
+    "peak": 0.880001220740379,
+    "rms": 0.20378448643161554
   },
   {
     "id": "food",
-    "seconds": 0.22,
-    "file": "food.wav",
+    "seconds": 0.15,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.72,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.2253270042197128
   },
   {
     "id": "magnet",
-    "seconds": 0.65,
-    "file": "magnet.wav",
+    "seconds": 0.42,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2800
+    "peak": 0.880001220740379,
+    "rms": 0.20287749954960968
   },
   {
     "id": "freeze",
-    "seconds": 0.22,
-    "file": "freeze.wav",
+    "seconds": 0.15,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.85,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.22034394940336063
   },
   {
     "id": "wipe",
-    "seconds": 0.65,
-    "file": "wipe.wav",
+    "seconds": 0.42,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2800
+    "peak": 0.880001220740379,
+    "rms": 0.2052591040712488
   },
   {
     "id": "xp",
-    "seconds": 0.22,
-    "file": "xp.wav",
+    "seconds": 0.15,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.8,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.22325901449522842
   },
   {
     "id": "coin",
-    "seconds": 0.075,
-    "file": "coin.wav",
+    "seconds": 0.15,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.62,
-    "lowpass_hz": 2400
+    "peak": 0.6400036622211371,
+    "rms": 0.16235076667302928
   },
   {
     "id": "relic",
-    "seconds": 0.65,
-    "file": "relic.wav",
+    "seconds": 0.85,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.72,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.17636900545168652
   },
   {
     "id": "revive",
-    "seconds": 0.65,
-    "file": "revive.wav",
+    "seconds": 0.85,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.72,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.1893680029049492
   },
   {
     "id": "boss_down",
-    "seconds": 0.22,
-    "file": "boss_down.wav",
+    "seconds": 0.62,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.17529460060027008
   },
   {
     "id": "chest_open",
-    "seconds": 0.22,
-    "file": "chest_open.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 3500
+    "peak": 0.880001220740379,
+    "rms": 0.15295909638072652
   },
   {
     "id": "reel_tick",
-    "seconds": 0.075,
-    "file": "reel_tick.wav",
+    "seconds": 0.15,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.48,
-    "lowpass_hz": 2400
+    "peak": 0.6400036622211371,
+    "rms": 0.1630451080839769
   },
   {
     "id": "reel_stop",
-    "seconds": 0.35,
-    "file": "reel_stop.wav",
+    "seconds": 0.15,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.78,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.22226155286588412
   },
   {
     "id": "treasure_1",
-    "seconds": 0.65,
-    "file": "treasure_1.wav",
+    "seconds": 0.85,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.72,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.17745831214676633
   },
   {
     "id": "treasure_3",
-    "seconds": 0.95,
-    "file": "treasure_3.wav",
+    "seconds": 0.85,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.72,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.19358684859104588
   },
   {
     "id": "treasure_5",
     "seconds": 1.25,
-    "file": "treasure_5.wav",
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 0.72,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.18087664015795812
   },
   {
     "id": "water_start",
-    "seconds": 0.65,
-    "file": "water_start.wav",
+    "seconds": 0.42,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2800
+    "peak": 0.880001220740379,
+    "rms": 0.16759105854120765
   },
   {
     "id": "water_end",
-    "seconds": 0.65,
-    "file": "water_end.wav",
+    "seconds": 0.42,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2800
+    "peak": 0.880001220740379,
+    "rms": 0.20640551511102206
   },
   {
     "id": "enemy_shot",
-    "seconds": 0.22,
-    "file": "enemy_shot.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.15173989081621625
   },
   {
     "id": "bug_die",
-    "seconds": 0.22,
-    "file": "bug_die.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.12599981744510702
   },
   {
     "id": "shell_die",
-    "seconds": 0.22,
-    "file": "shell_die.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 3500
+    "peak": 0.880001220740379,
+    "rms": 0.14934214653625658
   },
   {
     "id": "kelp_die",
-    "seconds": 0.22,
-    "file": "kelp_die.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.14002958713769345
   },
   {
     "id": "quad_die",
-    "seconds": 0.22,
-    "file": "quad_die.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.1441525574551543
   },
   {
     "id": "jelly_die",
-    "seconds": 0.22,
-    "file": "jelly_die.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.12157571528259173
   },
   {
     "id": "human_die",
-    "seconds": 0.22,
-    "file": "human_die.wav",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
     "original": true,
-    "revision": "v11-muted-coastal",
-    "gain": 1.0,
-    "lowpass_hz": 2400
+    "peak": 0.880001220740379,
+    "rms": 0.13273264190440492
+  },
+  {
+    "id": "dash",
+    "seconds": 0.3,
+    "revision": "v15-layered-coastal",
+    "original": true,
+    "peak": 0.880001220740379,
+    "rms": 0.1952808618385958
+  },
+  {
+    "id": "xp_collect",
+    "seconds": 0.14,
+    "revision": "v15-layered-coastal",
+    "original": true,
+    "peak": 0.7000030518509476,
+    "rms": 0.16273073624298376
   }
 ]

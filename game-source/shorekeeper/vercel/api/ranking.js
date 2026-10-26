@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-const MODE='shore20-v14';
+const MODE='shore20-v15';
 const day=()=>new Date(Date.now()+9*3600000).toISOString().slice(0,10);
 async function command(parts) {
   const response=await fetch(process.env.UPSTASH_REDIS_REST_URL,{method:'POST',headers:{Authorization:`Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`,'Content-Type':'application/json'},body:JSON.stringify(parts)});

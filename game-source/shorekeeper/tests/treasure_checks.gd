@@ -13,7 +13,7 @@ func run() -> void:
 	g.start_game()
 	for id in g.presentation.clips:
 		check(g.presentation.clips[id] is AudioStreamWAV,"real exported WAV for "+id)
-	check(g.presentation.clips.size()==59,"59 original sound assets")
+	check(g.presentation.clips.size()==61,"61 original sound assets")
 	g.upgrades={"sand":1}
 	for i in 500:
 		var delay:float=g.next_supply_interval()
@@ -51,7 +51,7 @@ func run() -> void:
 	check(g.chests.any(func(c):return c.get("boss",false)),"boss drops guaranteed equipment chest")
 	g.start_game()
 	check(g.boss_warning==0 and g.treasure_clock==0,"restart clears warning and reveal")
-	print("TREASURE: %d errors. Supply cadence, 59 WAV assets, 1/3/5 immutable reveals, finish gate, boss warning and chest drop."%errors)
+	print("TREASURE: %d errors. Supply cadence, 61 WAV assets, 1/3/5 immutable reveals, finish gate, boss warning and chest drop."%errors)
 	g.queue_free()
 	await process_frame
 	quit(1 if errors else 0)

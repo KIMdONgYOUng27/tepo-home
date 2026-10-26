@@ -172,3 +172,17 @@ https://vampire-survivors.fandom.com/wiki/Nduja_Fritta_Tanto
 타이틀과 결과에서 오늘의 생존 기록을 열 수 있습니다. 서버 연결 전에는 기기 내 기록입니다. 순위는 생존시간 우선, 완주1200초 동률은 처치 수 우선입니다. 한국 날짜별로 분리하고 기존30분 최고 기록을 섞지 않습니다. 온라인 준비는 vercel/README.md 참고. 실제 공유 랭킹에는 Vercel 배포와 Redis REST 환경변수가 필요하며 이번 작업에서 Vercel 계정/DB는 만들지 않았습니다.
 
 검증: mode20_checks, 기존 전체 검사, query_benchmark, balance20_sim, vercel/test-ranking.mjs. 성능 수치와 조건은 ../output/tepo-v14-review.txt 참고. 브라우저 공개 재검증은 워크스페이스 크레딧 제한으로 수행하지 못했습니다.
+
+
+## v0.15 · 전 무기 이펙트 / 효과음 / 파도 대시
+
+- 실제 전투 렌더러는 scripts/combat_fx_v15.gd. 기존 v9는 비교 검수용이며 현재 게임에서 사용하지 않습니다.
+- 19개 전투 형태의 굵은 발사광·궤적·명중 충격파, 쇠사슬 부채꼴 스윙, 파도 포말, 큰 낙하·갈매기 폭격, 회전 뚝배기·해조 오라·물대포·닻 방어막을 재구성했습니다.
+- 공격 피해와 판정 크기는 유지하며 연출만 확대했습니다. 우호 이펙트 위로 테포와 체력바를 표시합니다. 화면 흔들림 줄이기 설정을 존중합니다.
+- Shift / 게임패드 A / 화면 대시 버튼: 0.18초, 1050유닛/초, 약189유닛, 쿨타임4초, 짧은 피격보호0.22초. 장애물은 작은 이동 단위로 검사합니다. 일시정지·선택 화면에서는 쿨타임도 멈춥니다.
+- 자석은 기존 젬에 흡인 상태를 부여합니다. 짧게 떠오른 뒤 가속하며, 실제 도착 시 경험치를 한 번 지급합니다. 180젬 병합 상한과 경험치 총량 보존을 유지합니다.
+- tools/generate_sfx_v15.py로 원본 합성한 61개 PCM 효과음을 사용합니다. 배경음은 기존 4곡을 유지합니다. XP는 2개 전용 음성 채널과 짧은 음계 피치 변화, 전체14채널 및 재생 간격 제한을 사용합니다.
+- 밀집 시 반복되는 회전 궤적·폭발 장식만 축소합니다. 112적/6고레벨 무기/32초/Intel Iris Xe 네이티브 OpenGL 검사: 폭격·빔59.60FPS(p95 16.98ms), 투사체·근접59.57FPS(p95 17.26ms). 브라우저·모바일 실기기 성능 보증은 아닙니다.
+- 대시가 추가된 기록은 shore20-v15 및 best20_v15로 구분합니다. Vercel API의 모드도 같은 이름입니다.
+- 자동 검사: feedback_v15_checks / mode20_checks / music_checks / treasure_checks / combat_fx_checks / presentation_checks / full_stage, 별도 mocked Redis API 검사.
+- 검수용 화면: tests/feedback_v15_preview.gd, 성능: tests/feedback_v15_benchmark.gd. 테스트는 사용자 기록을 저장하지 않습니다.

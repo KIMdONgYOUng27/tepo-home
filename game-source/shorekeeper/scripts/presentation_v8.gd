@@ -46,13 +46,13 @@ func reset() -> void:
 
 func setup() -> void:
 	if DisplayServer.get_name()!="headless": RenderingServer.frame_post_draw.connect(input_frame_finished)
-	for i in 12:
+	for i in 14:
 		var voice:=AudioStreamPlayer.new()
 		g.add_child(voice)
 		voices.append(voice)
 	for id in ["sand","pearl","bowl","kelp","chain","shell","snack","wave","rain","stone","tetra","heat","gull_white","gull_dark","gull_union","feather","gust","wing_union","anchor","water","hit","kill","pick","hurt","level","drop","chest","evolve","win","lose","ui","warning","impact_light","impact_heavy","wing_drop"]:
 		clips[id]=load("res://assets/audio/%s.wav"%id)
-	for id in ["food", "magnet", "freeze", "wipe", "xp", "coin", "relic", "revive", "boss_down", "chest_open", "reel_tick", "reel_stop", "treasure_1", "treasure_3", "treasure_5", "water_start", "water_end", "enemy_shot", "bug_die", "shell_die", "kelp_die", "quad_die", "jelly_die", "human_die"]:
+	for id in ["food", "magnet", "freeze", "wipe", "xp", "coin", "relic", "revive", "boss_down", "chest_open", "reel_tick", "reel_stop", "treasure_1", "treasure_3", "treasure_5", "water_start", "water_end", "enemy_shot", "bug_die", "shell_die", "kelp_die", "quad_die", "jelly_die", "human_die", "dash", "xp_collect"]:
 		clips[id]=load("res://assets/audio/%s.wav"%id)
 	# Prebuild meshes once, outside combat. Every instance shares the same mesh.
 	for profile in ["hero","bug","shell","kelp","quad","jelly","human"]:
@@ -101,20 +101,20 @@ func bake_walks() -> void:
 func sound(id: String, important: bool=false) -> void:
 	if not g.sound_enabled or not clips.has(id): return
 	var now:=Time.get_ticks_msec()/1000.0
-	var gap:=0.5 if id=="water" else (0.12 if id in ["pick","hit","kill","reel_tick"] else 0.2)
+	var gap:=0.06 if id=="xp_collect" else (0.5 if id=="water" else (0.12 if id in ["pick","hit","kill","reel_tick"] else 0.2))
 	if now<float(sound_clocks.get(id,-1)): return
 	sound_clocks[id]=now+gap
 	var interface:bool=id in ["ui","level","chest","evolve","win","lose","chest_open","reel_tick","reel_stop","treasure_1","treasure_3","treasure_5","coin","food","magnet","freeze","wipe","xp","relic","revive"]
-	var gain:float=ui_volume if interface else volume
+	var gain:float=ui_volume if interface or id=="xp_collect" else volume
 	if gain<=0: return
 	# Reserve the last two channels for rewards and damage feedback.
-	var first:=10 if interface or important or id=="hurt" else 0
-	var last:=12 if first==10 else 10
+	var first:=12 if id=="xp_collect" else (10 if interface or important or id=="hurt" else 0)
+	var last:=14 if first==12 else (12 if first==10 else 10)
 	for i in range(first,last):
 		if voices[i].playing and not (important and i==last-1): continue
 		voices[i].stream=clips[id]
-		voices[i].volume_db=linear_to_db(gain)-12
-		voices[i].pitch_scale=1.0 if interface else 0.96+float(i%3)*0.035
+		voices[i].volume_db=linear_to_db(gain)+(-11 if id=="xp_collect" else (-10 if id in ["impact_light","impact_heavy","hit","kill"] else -7))
+		voices[i].pitch_scale=pow(2.0,float([0,2,4,7,9,12,14,16][g.xp_combo])/12.0) if id=="xp_collect" else (1.0 if interface else 0.96+float(i%3)*0.035)
 		voices[i].play()
 		return
 

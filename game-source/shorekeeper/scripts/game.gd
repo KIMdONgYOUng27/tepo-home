@@ -4,7 +4,7 @@ const HUD = preload("res://scripts/hud_v4.gd")
 const ARSENAL = preload("res://scripts/arsenal_v7.gd")
 const SHORE = preload("res://scripts/shore_v4.gd")
 const PRESENTATION = preload("res://scripts/presentation_v8.gd")
-const COMBAT_FX = preload("res://scripts/combat_fx_v9.gd")
+const COMBAT_FX = preload("res://scripts/combat_fx_v15.gd")
 var combat_fx: RefCounted
 var presentation: RefCounted
 var music: RefCounted
@@ -99,6 +99,17 @@ var water_reach := 340.0
 var arsenal: RefCounted
 var arsenal_icons: Texture2D
 var retired_weapons: Array[String]=[]
+const DASH_COOLDOWN:=4.0
+const DASH_DURATION:=0.18
+const DASH_SPEED:=1050.0
+var dash_cooldown:=0.0
+var dash_time:=0.0
+var dash_dir:=Vector2.RIGHT
+var dash_ghost_clock:=0.0
+var dash_ghosts:Array[Dictionary]=[]
+var magnet_visual:=0.0
+var xp_combo:=0
+var xp_flashes:Array[Dictionary]=[]
 
 func _ready() -> void:
 	rng.randomize()
@@ -137,7 +148,7 @@ func _ready() -> void:
 	init_audio()
 	var save := ConfigFile.new()
 	if save.load("user://tepo.cfg") == OK:
-		best_time = float(save.get_value("records", "best20_v14", 0.0))
+		best_time = float(save.get_value("records", "best20_v15", 0.0))
 		sound_enabled = bool(save.get_value("settings", "sound", true))
 		harbor_coins = int(save.get_value("harbor","coins",0))
 		harbor = save.get_value("harbor","upgrades",harbor)
@@ -156,6 +167,13 @@ func _exit_tree() -> void:
 	if music!=null: music.shutdown()
 
 func start_game() -> void:
+	dash_cooldown=0
+	dash_time=0
+	dash_dir=Vector2.RIGHT
+	dash_ghosts.clear()
+	xp_flashes.clear()
+	xp_combo=0
+	magnet_visual=0
 	rankings.submitted=false
 	boss_warning=0.0
 	treasure_clock=0.0
@@ -251,12 +269,10 @@ func tick(dt: float, input_override: Vector2 = Vector2.INF) -> void:
 	banner_time = maxf(0, banner_time - dt)
 	freeze_time = maxf(0,freeze_time-dt)
 	flash_time = maxf(0,flash_time-dt)
-	pickup_sound_cd = maxf(0,pickup_sound_cd-dt)
+	pickup_sound_cd = maxf(-1,pickup_sound_cd-dt)
 	hp = minf(max_health(), hp + dt * recovery())
 	move_dir = movement() if input_override == Vector2.INF else input_override.limit_length()
-	if move_dir.length_squared() > 0.01:
-		facing = move_dir.normalized()
-		player = shore.slide(player,move_dir * 225 * move_speed() * dt,18)
+	update_player_motion(dt)
 	orbit_angle += dt * (2.8 + maxf(0,upgrades.get("bowl",0)-1)*0.1) * projectile_speed()
 	timers.spawn -= dt
 	if timers.spawn <= 0:
@@ -303,6 +319,42 @@ func resolve_death() -> bool:
 	finish(false)
 	return true
 
+func try_dash(direction: Vector2=Vector2.INF) -> bool:
+	if state!="running" or dash_cooldown>0 or dash_time>0: return false
+	var wanted:Vector2=movement() if direction==Vector2.INF else direction
+	dash_dir=wanted.normalized() if wanted.length_squared()>0.01 else facing.normalized()
+	if dash_dir.length_squared()<0.1: dash_dir=Vector2.RIGHT
+	facing=dash_dir
+	dash_time=DASH_DURATION
+	dash_cooldown=DASH_COOLDOWN
+	dash_ghost_clock=0
+	invulnerable=maxf(invulnerable,0.22)
+	presentation.sound("dash",true)
+	return true
+
+func update_player_motion(dt: float) -> void:
+	dash_cooldown=maxf(0,dash_cooldown-dt)
+	magnet_visual=maxf(0,magnet_visual-dt)
+	for i in range(dash_ghosts.size()-1,-1,-1):
+		dash_ghosts[i].life-=dt
+		if dash_ghosts[i].life<=0: dash_ghosts.remove_at(i)
+	var active_dt:=minf(dt,dash_time)
+	if active_dt>0:
+		dash_ghost_clock-=dt
+		if dash_ghost_clock<=0 and dash_ghosts.size()<7:
+			dash_ghost_clock=0.03
+			var sector:=posmod(roundi(dash_dir.angle()/(TAU/8)),8)
+			dash_ghosts.append({"pos":player,"life":0.22,"index":[6,1,0,7,2,3,4,5][sector]})
+		# Small sweeps keep collision reliable even at the maximum frame dt.
+		var distance:=DASH_SPEED*active_dt
+		var steps:=maxi(1,ceili(distance/10))
+		for n in steps: player=shore.slide(player,dash_dir*distance/steps,18)
+		dash_time=maxf(0,dash_time-dt)
+		move_dir=dash_dir
+	elif move_dir.length_squared()>0.01:
+		facing=move_dir.normalized()
+		player=shore.slide(player,move_dir*225*move_speed()*dt,18)
+
 func movement() -> Vector2:
 	var v := Vector2.ZERO
 	if Input.is_physical_key_pressed(KEY_A) or Input.is_key_pressed(KEY_A) or Input.is_key_pressed(KEY_LEFT): v.x -= 1
@@ -331,6 +383,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			banner = "마우스 16방향 조준" if manual_aim else "16방향 자동 조준 보정"
 			banner_time = 2
 	if state != "running": return
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode==KEY_SHIFT:
+		try_dash()
+		get_viewport().set_input_as_handled()
+		return
+	if event is InputEventJoypadButton and event.pressed and event.button_index==JOY_BUTTON_A:
+		try_dash()
+		return
 	if event is InputEventScreenTouch:
 		if event.pressed and touch_id == -1:
 			touch_id = event.index
@@ -467,7 +526,7 @@ func finish(won: bool) -> void:
 func save_settings() -> void:
 	if not persist_results: return
 	var save := ConfigFile.new()
-	save.set_value("records", "best20_v14", best_time)
+	save.set_value("records", "best20_v15", best_time)
 	save.set_value("settings", "sound", sound_enabled)
 	save.set_value("settings","effects_volume",presentation.volume)
 	save.set_value("settings","ui_volume",presentation.ui_volume)
@@ -885,18 +944,34 @@ func add_gem(pos: Vector2, value: int) -> void:
 		gems.append({"pos":pos, "value":value, "pulled":false})
 
 func update_gems(dt: float) -> void:
-	var radius: float = 100.0 * (1 + upgrades.get("magnet", 0) * 0.35)
-	for i in range(gems.size() - 1, -1, -1):
-		var gem := gems[i]
-		var dist: float = gem.pos.distance_to(player)
-		if dist < radius: gem.pulled = true
-		if gem.pulled: gem.pos = gem.pos.move_toward(player, dt * 500)
-		if gem.pos.distance_to(player) < 22:
-			xp += gem.value*growth()*1.7
+	for i in range(xp_flashes.size()-1,-1,-1):
+		xp_flashes[i].life-=dt
+		if xp_flashes[i].life<=0: xp_flashes.remove_at(i)
+	var radius:float=100.0*(1+upgrades.get("magnet",0)*0.35)
+	for i in range(gems.size()-1,-1,-1):
+		var gem:=gems[i]
+		var dist:float=gem.pos.distance_to(player)
+		gem.previous=gem.pos
+		if dist<radius and not gem.pulled:
+			gem.pulled=true
+			gem.pull_age=0.0
+		if gem.pulled:
+			gem.pull_age=float(gem.get("pull_age",0))+dt
+			var age:float=gem.pull_age
+			if gem.get("global_pull",false) and age<0.16:
+				gem.pos+=(gem.pos-player).normalized()*120*dt
+			else:
+				var speed:float=minf(2800,180+maxf(0,age)*1600) if gem.get("global_pull",false) else minf(1000,200+age*1500)
+				gem.pos=gem.pos.move_toward(player,speed*dt)
+		if gem.pos.distance_squared_to(player)<22*22 and (not gem.get("global_pull",false) or float(gem.get("pull_age",0))>=0.16):
+			xp+=gem.value*growth()*1.7
 			gems.remove_at(i)
-			if pickup_sound_cd <= 0:
-				play_sound("pick")
-				pickup_sound_cd = 0.12
+			if pickup_sound_cd<=0:
+				if pickup_sound_cd< -0.3: xp_combo=0
+				xp_combo=(xp_combo+1)%8
+				presentation.sound("xp_collect")
+				pickup_sound_cd=0.065
+				if xp_flashes.size()<10: xp_flashes.append({"pos":player+Vector2(0,-15),"life":0.28})
 
 func spawn_pickup(pos: Vector2, kind: String) -> void:
 	if pickups.size() >= 64:
@@ -943,9 +1018,12 @@ func apply_pickup(kind: String) -> void:
 			hp = minf(max_health(),hp+healing)
 			banner = "따끈한 바다 간식 · 체력 +%d" % int(recovered)
 		"magnet":
-			for gem in gems: xp += gem.value*growth()*1.7
-			gems.clear()
-			banner = "자석 · 맵 전체의 경험치를 모두 회수!"
+			for i in gems.size():
+				gems[i].pulled=true
+				gems[i].global_pull=true
+				gems[i].pull_age=-float(i%9)*0.018
+			magnet_visual=0.75
+			banner = "자석 · 온 바다의 경험치가 테포에게!"
 		"xp":
 			xp += maxf(25,xp_needed()*1.5)
 			banner = "큰 경험치 · 성장의 파도!"
@@ -1072,10 +1150,19 @@ func toggle_sound() -> void:
 	save_settings()
 
 func _draw() -> void:
+	var gem_trails:=0
 	for gem in gems:
-		if not on_screen(gem.pos,30): continue
-		var pos: Vector2 = gem.pos
-		atlas_draw(icons,25,pos,Vector2(23,27) if gem.value<3 else Vector2(30,34),8,4,0,Color.WHITE if gem.value<3 else Color("f8d89c"))
+		if not on_screen(gem.pos,60): continue
+		var pos:Vector2=gem.pos
+		if gem.pulled and gem_trails<36:
+			var dir:Vector2=(player-pos).normalized()
+			draw_line(pos-dir*30,pos,Color(0.45,0.95,0.85,0.65),7,true)
+			gem_trails+=1
+		atlas_draw(icons,25,pos,Vector2(28,33) if gem.value<3 else Vector2(35,40),8,4,0,Color.WHITE if gem.value<3 else Color("f8d89c"))
+	for flash in xp_flashes:
+		var t:float=1-flash.life/0.28
+		draw_arc(flash.pos,16+t*30,0,TAU,16,Color(0.65,1,0.82,1-t),5,true)
+	combat_fx.draw_dash()
 	for d in drops:
 		if d.age < 0.65:
 			draw_circle(d.pos, d.radius, Color(0.86,0.4,0.23,0.13))
@@ -1093,7 +1180,7 @@ func _draw() -> void:
 		paint_ellipse(actor.pos+Vector2(0,8),Vector2(width*0.25,9),Color(0.12,0.2,0.16,0.22))
 	for actor in actors:
 		match actor.type:
-			"player": draw_player()
+			"player": pass # Draw above friendly effects so the hero and health stay readable.
 			"enemy": draw_enemy(actor.data)
 			"prop": draw_prop(actor.data)
 	if water_time > 0: draw_water_cannon()
@@ -1131,6 +1218,7 @@ func _draw() -> void:
 		atlas_draw(effects,9 if shot.get("human",false) else 8,shot.pos,Vector2(36,36),4,4,shot.dir.angle()+PI)
 	arsenal.draw()
 	presentation.draw()
+	draw_player()
 	for p in particles:
 		var c: Color = p.color
 		c.a = minf(1, p.life * 4)
@@ -1149,13 +1237,7 @@ func _draw() -> void:
 		draw_circle(screen_origin + touch_start + (touch_now-touch_start).limit_length(65), 24, Color(1,1,1,0.3))
 
 func draw_water_cannon() -> void:
-	var origin:=player+Vector2(0,-24)
-	var length_value:=maxf(30,water_reach)
-	var width:=80+length_value*0.4
-	atlas_draw(effects,5,origin+aim*(length_value*0.5),Vector2(length_value,width),4,4,aim.angle(),Color(1,1,1,0.8+sin(scene_time*24)*0.12))
-	for n in 4:
-		var phase:=fmod(elapsed*2.8+n*0.25,1.0)
-		atlas_draw(effects,4,origin+aim*length_value*phase,Vector2(40+phase*55,30+phase*width*0.5),4,4,aim.angle(),Color(0.8,0.95,0.9,0.65*(1-phase)))
+	combat_fx.draw_water()
 
 func draw_chest_marker(chest: Dictionary) -> void:
 	var offset:Vector2=chest.pos-camera.position

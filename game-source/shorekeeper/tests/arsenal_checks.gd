@@ -145,7 +145,9 @@ func run(g: Node2D) -> int:
 	dummy(g,g.player+Vector2(100,0),100)
 	g.build_grid()
 	g.arsenal.heat_pulse()
-	check(g.xp>0 and g.gems.is_empty(),"evolved heat generates and absorbs XP")
+	check(not g.gems.is_empty() and g.gems.all(func(gem):return gem.pulled),"evolved heat sends surviving XP toward the player")
+	for frame in 150: g.update_gems(0.05)
+	check(g.xp>0 and g.gems.is_empty(),"evolved heat grants XP after the gems arrive")
 	# Relics are outside common six-slot pool and cannot be rolled before collection.
 	reset(g)
 	var relic:Dictionary=g.catalog.filter(func(u):return u.id=="relic_left")[0]
