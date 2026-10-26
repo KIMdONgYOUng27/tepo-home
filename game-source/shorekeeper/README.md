@@ -186,3 +186,10 @@ https://vampire-survivors.fandom.com/wiki/Nduja_Fritta_Tanto
 - 대시가 추가된 기록은 shore20-v15 및 best20_v15로 구분합니다. Vercel API의 모드도 같은 이름입니다.
 - 자동 검사: feedback_v15_checks / mode20_checks / music_checks / treasure_checks / combat_fx_checks / presentation_checks / full_stage, 별도 mocked Redis API 검사.
 - 검수용 화면: tests/feedback_v15_preview.gd, 성능: tests/feedback_v15_benchmark.gd. 테스트는 사용자 기록을 저장하지 않습니다.
+
+
+### v0.15.1 · 오락실 로딩 연결 복구
+
+게임 재내보내기로 빠졌던 same-origin tepo-game progress/ready/error 신호를 web-shell.html 원본과 배포 HTML에 복구했습니다. 홈페이지는 ready를 받아 로딩 가림막을 닫습니다. 부모 요청 시 최신 상태를 다시 보내고, iframe 진입 URL과 홈페이지 스크립트 버전을 갱신합니다. 게임팩·이펙트·효과음 변경은 없습니다.
+
+회귀 검사: node tests/arcade_bridge_checks.cjs <홈페이지 world-adventures.js 경로>. 실제 부모 메시지 핸들러와 원본/내보낸 자식 HTML을 함께 실행하여 진행률, 시작 완료, 실패 안내, 포커스, 타이머 해제, 출처 검사를 확인합니다. 브라우저 실기기 실행을 대체하는 검사는 아닙니다.

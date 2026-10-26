@@ -69,7 +69,8 @@
     dialog.querySelector('.adventure-close').hidden=true;
     const stage=dialog.querySelector('.game-stage'),loading=dialog.querySelector('.game-loading');
     const fail=message=>{loading.hidden=false;loading.querySelector('p').textContent=message;loading.querySelector('.game-loader').hidden=true;loading.querySelector('progress').hidden=true;loading.querySelector('.game-retry').hidden=false;};
-    frame=document.createElement('iframe');frame.title='테포 · 파도를 지켜라 게임';frame.allow='autoplay; fullscreen; gamepad';frame.allowFullscreen=true;frame.src='games/shorekeeper/index.html?from=arcade';stage.prepend(frame);
+    frame=document.createElement('iframe');frame.title='테포 · 파도를 지켜라 게임';frame.allow='autoplay; fullscreen; gamepad';frame.allowFullscreen=true;frame.src='games/shorekeeper/index.html?from=arcade&v=15.1';stage.prepend(frame);
+    frame.addEventListener('load',()=>frame?.contentWindow.postMessage({type:'tepo-game-status-request'},location.origin));
     frame.addEventListener('error',()=>fail('게임을 불러오지 못했어. 다시 시도해 줘.'));
     gameTimer=setTimeout(()=>fail('로딩이 오래 걸리고 있어. 조금 더 기다리거나 다시 시도해 줘.'),90000);
     dialog.querySelector('.game-retry').onclick=startGame;
