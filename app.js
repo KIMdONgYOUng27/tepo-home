@@ -92,6 +92,6 @@
   new ResizeObserver(layoutScene).observe(viewport);
   Promise.all([background.decode(),atlas.decode(),arcadeArt.decode()]).then(()=>{
     places.arcade.crop=[229,52,1113,922];places.arcade.anchor=[.5,.82];
-    layoutScene();createAlphaHitAreas();loading.classList.add('is-ready');
-  }).catch(error=>{loading.classList.add('is-ready');console.error('Map asset loading failed.',error);});
+    layoutScene();createAlphaHitAreas();loading.classList.add('is-ready');dispatchEvent(new Event('tepo-map-ready'));
+  }).catch(error=>{loading.classList.add('is-ready');dispatchEvent(new Event('tepo-map-ready'));console.error('Map asset loading failed.',error);});
 })();

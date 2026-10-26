@@ -7,7 +7,8 @@
   let opener=null,timers=[],frame=null,gameTimer=null,busy=false;
   const later=(fn,ms)=>{const id=setTimeout(fn,ms);timers.push(id);return id;};
   function cleanup(){timers.forEach(clearTimeout);timers=[];clearTimeout(gameTimer);if(frame){frame.remove();frame=null;}busy=false;}
-  function scene(html,kind='paper'){cleanup();dialog.className='world-adventure '+kind;dialog.innerHTML='<button class="adventure-close" aria-label="지도로 돌아가기">← 지도</button>'+html;dialog.querySelector('.adventure-close').onclick=()=>dialog.close();}
+  function scene(html,kind='paper'){cleanup();dialog.className='world-adventure '+kind;dialog.innerHTML='<button class="adventure-close" aria-label="지도로 돌아가기">← 지도</button>'+html;dialog.querySelector('.adventure-close').onclick=leaveArcade;}
+  function leaveArcade(){window.TEPO_NAVIGATION.returnToMap('arcade',{close:()=>dialog.close(),surface:dialog.querySelector('.entrance-stage')||dialog.querySelector('.arcade-room')});}
   function button(label,fn,host=dialog.querySelector('.adventure-actions')){const b=document.createElement('button');b.textContent=label;b.onclick=fn;host.append(b);return b;}
   function paper(title,text){scene('<article class="adventure-paper"><p class="chapter-label">테포의 부산 · 작은 모험</p><h2 id="adventure-title">'+title+'</h2><p class="adventure-copy"></p><div class="adventure-actions"></div></article>');dialog.querySelector('.adventure-copy').textContent=text;}
   function home(){location.href='house.html';}
@@ -85,6 +86,6 @@
     if(data.status==='error'){clearTimeout(gameTimer);loading.querySelector('p').textContent='게임을 불러오지 못했어. 다시 시도해 줘.';loading.querySelector('.game-loader').hidden=true;loading.querySelector('progress').hidden=true;loading.querySelector('.game-retry').hidden=false;}
     if(data.status==='exit')arcadeRoom();
   });
-  dialog.addEventListener('cancel',event=>{if(frame){event.preventDefault();if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});arcadeRoom();}else cleanup();});dialog.addEventListener('close',()=>{cleanup();dialog.replaceChildren();opener?.focus({preventScroll:true});});
+  dialog.addEventListener('cancel',event=>{if(frame){event.preventDefault();if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});arcadeRoom();}else{event.preventDefault();leaveArcade();}});dialog.addEventListener('close',()=>{cleanup();dialog.replaceChildren();opener?.focus({preventScroll:true});});
   window.TEPO_WORLD={open(place,from){opener=from;arcade();if(!dialog.open)dialog.showModal();dialog.querySelector('button:not([hidden])')?.focus();}};
 })();

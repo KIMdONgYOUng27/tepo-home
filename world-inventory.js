@@ -11,13 +11,13 @@
   }
   function sync(){
     launcher(document.body);
-    document.querySelectorAll('dialog[open]:not(#world-bag-dialog):not(#world-welcome):not(.world-travel)').forEach(dialog=>launcher(dialog.querySelector('.game-player')||dialog));
+    document.querySelectorAll('dialog[open]:not(#world-bag-dialog):not(#world-welcome):not(#tepo-radio-dialog):not(.world-travel)').forEach(dialog=>launcher(dialog.querySelector('.game-player')||dialog));
     const active=[...document.querySelectorAll('dialog[open]')].at(-1);
     document.querySelectorAll('.world-bag-toggle').forEach(button=>{button.hidden=bag.open||!!active&&(active.id==='world-welcome'||active.classList.contains('world-travel')||!active.contains(button));});
   }
-  document.addEventListener('click',event=>{
+  document.addEventListener('click',async event=>{
     const target=event.target.closest('[data-world-bag]');if(!target||bag.open)return;
-    opener=target;bag.className='view-bag';window.TEPO_STORY.renderBag(host);
+    opener=target;try{await window.TEPO_STORY_READY;}catch{return;}if(bag.open)return;bag.className='view-bag';window.TEPO_STORY.renderBag(host);
     const close=host.querySelector('.close-view');close.textContent='← 돌아가기';close.setAttribute('aria-label','현재 장소로 돌아가기');close.onclick=()=>bag.close();
     bag.showModal();close.focus();
   });

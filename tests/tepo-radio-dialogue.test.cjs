@@ -1,0 +1,28 @@
+const {test,before}=require('node:test');
+const assert=require('node:assert/strict');
+const {readFileSync}=require('node:fs');
+const {resolve}=require('node:path');
+const vm=require('node:vm');
+const model=JSON.parse(readFileSync(resolve(__dirname,'../data/tepo-chatbot.json'),'utf8'));
+const sandbox={window:{},URL,document:{baseURI:'http://localhost/'},fetch:async()=>({ok:true,json:async()=>model})};vm.createContext(sandbox);
+for(const file of ['house-dialogue.js','tepo-radio-dialogue.js'])vm.runInContext(readFileSync(resolve(__dirname,'..',file),'utf8'),sandbox);
+before(async()=>await sandbox.window.TEPO_DIALOGUE.ready);
+const answer=sandbox.window.TEPO_RADIO_DIALOGUE.answer;
+
+test('JSON nodes and buttons have valid authored fields and destination IDs',()=>{const ids=new Set(model.nodes.map(n=>n.id));assert.equal(ids.size,model.nodes.length);for(const n of model.nodes){assert.equal(typeof n.question,'string');assert.equal(typeof n.answer,'string');assert.ok(Array.isArray(n.keywords));for(const k of n.keywords)assert.doesNotThrow(()=>new RegExp(k));for(const b of n.buttons){assert.equal(typeof b.label,'string');assert.ok(ids.has(b.next),b.next);}}for(const b of model.defaultButtons)assert.ok(ids.has(b.next));});
+test('admin and production inquiries route to the correct shared form type',()=>{assert.equal(answer('관리자 문의').showInquiry,'general');assert.equal(answer('제작 문의').showInquiry,'production');});
+test('birth follows canon without inventing the child’s death',()=>{const result=answer('너 왜 그렇게 생겼어?');assert.match(result.text,/아이.*뚝배기/);assert.match(result.text,/테트라포드/);assert.doesNotMatch(result.text,/죽|사망/);});
+test('lock hints stay indirect even when the visitor owns the mace',()=>{const result=answer('오락실 문에 비밀이 있어?',{}, {weapons:['mace']});assert.match(result.text,/꼭 열쇠로 열라는 법/);assert.doesNotMatch(result.text,/메이스|철퇴|무기|부수/);});
+test('opened arcade receives a different response',()=>assert.match(answer('오락실 문이 잠겼어',{}, {arcadeUnlocked:true}).text,/벌써 열었/));
+test('trip conversation remembers type, time and pace then saves the same course',()=>{let result=answer('부산 여행 코스 짜 줄래?');result=answer('바다 산책이 좋아',result.context);assert.equal(result.context.trip.type,'sea');result=answer('반나절 정도 있어',result.context);assert.equal(result.context.trip.duration,'half');result=answer('느긋하게 쉬고 싶어',result.context);assert.equal(result.route.stops.length,2);result=answer('이 코스를 가방에 넣어 줘',result.context);assert.equal(result.saveTrip.type,'sea');assert.equal(result.saveTrip.duration,'half');assert.equal(result.saveTrip.pace,'slow');});
+test('visitor can leave an unfinished trip branch',()=>{const result=answer('다른 얘기 하자',{trip:{type:'sea',duration:null,pace:null}});assert.equal(result.context,undefined);assert.match(result.text,/궁금한/);});
+test('70 years is experience rather than an invented exact age',()=>assert.match(answer('테트라포드 경력이 얼마나 돼?').text,/나이를 딱 70살이라고 정한 건 아니/));
+test('unknown input falls back instead of inventing an answer',()=>assert.match(answer('달의 비밀 비밀번호 알려줘').text,/잘 알아듣지 못/));
+test('favorite food stays about food, not temperament or itineraries',()=>{const result=answer('니가 가장 좋아하는 음식이 뭐니?');assert.equal(result.intent,'favorite-food');assert.match(result.text,/국밥/);assert.doesNotMatch(result.text,/민감|동선|여행|코스/);});
+test('meal and mood questions receive direct daily replies',()=>{assert.equal(answer('오늘 밥 뭐 먹었냐?').intent,'meal');const result=answer('오늘은 기분이 어때?');assert.equal(result.intent,'mood');assert.match(result.text,/기분 좋아/);assert.doesNotMatch(result.text,/지쳤|쉬어도/);});
+test('informal identity and clothes questions are understood',()=>{assert.equal(answer('넌 뭐하는 놈이냐?').intent,'identity');assert.equal(answer('너 왜 옷 안입어?').intent,'clothes');assert.match(answer('너 왜 옷 안입어?').text,/테트라포드는 원래 옷 안 입어/);});
+test('a daily topic can interrupt travel without being forced back into a route',()=>{const result=answer('가장 좋아하는 음식이 뭐야?',{trip:{type:'sea',duration:null,pace:null}});assert.equal(result.intent,'favorite-food');assert.equal(result.context,undefined);});
+test('food travel stays in the explicit travel branch',()=>{const result=answer('먹거리 여행 코스 짜 줘');assert.equal(result.context.trip.type,'food');assert.match(result.text,/시간/);});
+test('every FAQ question maps to an authored answer',()=>{for(const group of sandbox.window.TEPO_RADIO_DIALOGUE.faq)for(const question of group.questions)assert.notEqual(answer(question).intent,'fallback',question);assert.equal(answer('자주 묻는 질문 보여줘').showFaq,true);});
+test('fallback apologizes in Tepo voice then lists known topics',()=>{const result=answer('일치할 수 없는 문자열 xyz123');assert.equal(result.intent,'fallback');assert.match(result.text,/테포\.\.\? 미안해/);assert.match(result.text,/대신.*잘 알아/);assert.ok(result.suggestions.length);});
+test('unmatched text during a trip also falls back without losing the pending choices',()=>{const context={trip:{type:'sea',duration:null,pace:null}},result=answer('xyz123',context);assert.equal(result.intent,'fallback');assert.equal(result.context.trip.type,'sea');assert.equal(answer('반나절',result.context).context.trip.duration,'half');});

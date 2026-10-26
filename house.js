@@ -12,6 +12,7 @@
   ];
   const ns='http://www.w3.org/2000/svg';
   await window.TEPO_WEAPONS.ready;
+  await window.TEPO_STORY_READY;
   objects.forEach(item=>{
     const [x,y,w,h]=item.box,button=document.createElement('button');button.className='object';button.dataset.object=item.id;button.setAttribute('aria-label',item.label);Object.assign(button.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px'});
     const svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.setAttribute('aria-hidden','true');

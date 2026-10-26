@@ -25,3 +25,8 @@
 @media(prefers-reduced-motion:reduce){.world-place-dialog:not(.place-arrival){animation:none}}
 
 .place-preview>.place-preview-art{width:min(100%,calc(23dvh * var(--place-ratio)));height:auto;max-height:none}
+
+/* Leaving a place: retreat into darkness, then pull back over the map. */
+.is-returning .travel-veil{opacity:1}.is-returning .travel-caption{opacity:1;animation:exit-caption .35s ease-out both}
+@keyframes exit-caption{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.is-returning .travel-caption{animation:none}}

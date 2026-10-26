@@ -1,0 +1,6 @@
+{
+  "enabled": true,
+  "supabaseUrl": "https://ehqkdzxkgiyrunwssqgw.supabase.co",
+  "publishableKey": "sb_publishable_dGMsLbR4Kkll9BgjBguM4g_GqUcWmnI",
+  "table": "inquiries"
+}

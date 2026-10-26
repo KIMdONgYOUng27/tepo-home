@@ -1,0 +1,1603 @@
+{
+  "version": 33,
+  "description": "질문·답변·정규식 키워드·버튼·다음 단계의 단일 관리 파일",
+  "defaultButtons": [
+    {
+      "label": "테포는 어떤 친구야?",
+      "question": "테포는 어떤 친구야?",
+      "next": "personality"
+    },
+    {
+      "label": "이 동네에서 뭘 할 수 있어?",
+      "question": "이 동네에서 뭘 할 수 있어?",
+      "next": "site"
+    },
+    {
+      "label": "부산 여행 코스 짜 줄래?",
+      "question": "부산 여행 코스 짜 줄래?",
+      "next": "travel"
+    },
+    {
+      "label": "오락실 문에 비밀이 있어?",
+      "question": "오락실 문에 비밀이 있어?",
+      "next": "lock"
+    }
+  ],
+  "faq": [
+    {
+      "title": "테포가 궁금해",
+      "questions": [
+        "테포는 어떤 친구야?",
+        "어떻게 태어났어?",
+        "왜 등대에 살아?",
+        "뚝배기는 모자야?",
+        "테트라포드로 얼마나 지냈어?"
+      ]
+    },
+    {
+      "title": "가볍게 수다",
+      "questions": [
+        "밥 뭐 먹었어?",
+        "가장 좋아하는 음식이 뭐야?",
+        "오늘 기분이 어때?",
+        "너 왜 옷 안 입어?",
+        "지금 뭐 하고 있어?"
+      ]
+    },
+    {
+      "title": "이 동네 이용하기",
+      "questions": [
+        "이 동네에서 뭘 할 수 있어?",
+        "가방은 어디서 봐?",
+        "무전기는 어떻게 써?",
+        "오락실 문에 비밀이 있어?",
+        "포토존에서는 뭘 해?"
+      ]
+    },
+    {
+      "title": "부산 여행",
+      "questions": [
+        "부산 여행 코스 짜 줄래?",
+        "먹거리 여행 코스 짜 줘",
+        "카페 여행 코스 짜 줘"
+      ]
+    },
+    {
+      "title": "관리자에게 문의",
+      "questions": [
+        "관리자 문의",
+        "제작 문의하고 싶어"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "production-inquiry",
+      "question": "제작 문의하고 싶어",
+      "keywords": [
+        "제작문의|제작의뢰|협업문의|협업|의뢰"
+      ],
+      "answer": "제작에 관해 문의하고 싶구나. 아래 창에 남겨 줘. 관리자에게 전달하는 문의 창이야.",
+      "buttons": [
+        {
+          "label": "테포는 어떤 친구야?",
+          "question": "테포는 어떤 친구야?",
+          "next": "personality"
+        },
+        {
+          "label": "이 동네에서 뭘 할 수 있어?",
+          "question": "이 동네에서 뭘 할 수 있어?",
+          "next": "site"
+        },
+        {
+          "label": "부산 여행 코스 짜 줄래?",
+          "question": "부산 여행 코스 짜 줄래?",
+          "next": "travel"
+        },
+        {
+          "label": "오락실 문에 비밀이 있어?",
+          "question": "오락실 문에 비밀이 있어?",
+          "next": "lock"
+        }
+      ],
+      "next": null,
+      "action": "inquiry",
+      "inquiryType": "production"
+    },
+    {
+      "id": "admin-inquiry",
+      "question": "관리자 문의",
+      "keywords": [
+        "관리자|문의|오류신고|불편신고"
+      ],
+      "answer": "관리자에게 남길 이야기가 있어? 아래 문의 창에 적어 줘.",
+      "buttons": [
+        {
+          "label": "테포는 어떤 친구야?",
+          "question": "테포는 어떤 친구야?",
+          "next": "personality"
+        },
+        {
+          "label": "이 동네에서 뭘 할 수 있어?",
+          "question": "이 동네에서 뭘 할 수 있어?",
+          "next": "site"
+        },
+        {
+          "label": "부산 여행 코스 짜 줄래?",
+          "question": "부산 여행 코스 짜 줄래?",
+          "next": "travel"
+        },
+        {
+          "label": "오락실 문에 비밀이 있어?",
+          "question": "오락실 문에 비밀이 있어?",
+          "next": "lock"
+        }
+      ],
+      "next": null,
+      "action": "inquiry",
+      "inquiryType": "general"
+    },
+    {
+      "id": "faq",
+      "question": "자주 묻는 질문",
+      "keywords": [
+        "자주(묻는|하는).*질문|자주묻는질문|faq|질문목록"
+      ],
+      "answer": "자주 묻는 질문을 모아 뒀어. 궁금한 걸 골라 봐!",
+      "buttons": [
+        {
+          "label": "테포는 어떤 친구야?",
+          "question": "테포는 어떤 친구야?",
+          "next": "personality"
+        },
+        {
+          "label": "어떻게 태어났어?",
+          "question": "어떻게 태어났어?",
+          "next": "birth"
+        },
+        {
+          "label": "왜 등대에 살아?",
+          "question": "왜 등대에 살아?",
+          "next": "home"
+        },
+        {
+          "label": "뚝배기는 모자야?",
+          "question": "뚝배기는 모자야?",
+          "next": "hat"
+        },
+        {
+          "label": "테트라포드로 얼마나 지냈어?",
+          "question": "테트라포드로 얼마나 지냈어?",
+          "next": "age"
+        },
+        {
+          "label": "밥 뭐 먹었어?",
+          "question": "밥 뭐 먹었어?",
+          "next": "meal"
+        }
+      ],
+      "next": null,
+      "action": "faq"
+    },
+    {
+      "id": "root",
+      "question": "다른 얘기 하자",
+      "keywords": [
+        "다른.*(얘기|이야기)|취소|처음으로|^처음[?!.]*$"
+      ],
+      "answer": "좋아, 또 궁금한 거 있어? 편하게 물어봐!",
+      "buttons": [
+        {
+          "label": "테포는 어떤 친구야?",
+          "question": "테포는 어떤 친구야?",
+          "next": "personality"
+        },
+        {
+          "label": "이 동네에서 뭘 할 수 있어?",
+          "question": "이 동네에서 뭘 할 수 있어?",
+          "next": "site"
+        },
+        {
+          "label": "부산 여행 코스 짜 줄래?",
+          "question": "부산 여행 코스 짜 줄래?",
+          "next": "travel"
+        },
+        {
+          "label": "오락실 문에 비밀이 있어?",
+          "question": "오락실 문에 비밀이 있어?",
+          "next": "lock"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "save-course",
+      "question": "이 코스를 가방에 넣어 줘",
+      "keywords": [
+        "코스.*(가방|종이|저장)|가방.*(넣어|적어)"
+      ],
+      "requires": "lastTrip",
+      "answer": "좋아, 코스 종이를 가방에 넣어 둘게. 어디서든 다시 펼쳐 볼 수 있어!",
+      "buttons": [
+        {
+          "label": "테포는 어떤 친구야?",
+          "question": "테포는 어떤 친구야?",
+          "next": "personality"
+        },
+        {
+          "label": "이 동네에서 뭘 할 수 있어?",
+          "question": "이 동네에서 뭘 할 수 있어?",
+          "next": "site"
+        },
+        {
+          "label": "부산 여행 코스 짜 줄래?",
+          "question": "부산 여행 코스 짜 줄래?",
+          "next": "travel"
+        },
+        {
+          "label": "오락실 문에 비밀이 있어?",
+          "question": "오락실 문에 비밀이 있어?",
+          "next": "lock"
+        }
+      ],
+      "next": "root",
+      "action": "saveCourse"
+    },
+    {
+      "id": "lock",
+      "question": "오락실 문에 비밀이 있어?",
+      "keywords": [
+        "자물쇠|열쇠|오락실.*(문|잠|비밀|안열|못들)|문.*(잠|안열|여는|열어|열지|열수)"
+      ],
+      "answer": "아, 내가 열쇠가 있었나? 잃어버린 지 하도 오래돼서 기억이… 흠… 근데 꼭 열쇠로 열라는 법이 있나?",
+      "buttons": [
+        {
+          "label": "집 안에 어떤 물건들이 있어?",
+          "question": "집 안에 어떤 물건들이 있어?",
+          "next": "objects"
+        },
+        {
+          "label": "오락실은 뭐 하는 곳이야?",
+          "question": "오락실은 뭐 하는 곳이야?",
+          "next": "arcade"
+        },
+        {
+          "label": "다른 얘기 하자",
+          "question": "다른 얘기 하자",
+          "next": "root"
+        }
+      ],
+      "next": null,
+      "action": "lock",
+      "answerUnlocked": "오락실 문은 벌써 열었구나! 안에 있는 오락기도 한번 만나 봐. 난 여기서 응원하고 있을게."
+    },
+    {
+      "id": "clothes",
+      "question": "너 왜 옷 안 입어?",
+      "keywords": [
+        "옷.*(안입|않입|입지않|없|안걸)|벌거|알몸|왜벗"
+      ],
+      "answer": "테트라포드는 원래 옷 안 입어! 난 뚝배기 모자 하나면 충분한데? 잘 어울리지?",
+      "buttons": [
+        {
+          "label": "뚝배기는 모자야?",
+          "question": "뚝배기는 모자야?",
+          "next": "hat"
+        },
+        {
+          "label": "테포는 어떤 친구야?",
+          "question": "테포는 어떤 친구야?",
+          "next": "personality"
+        }
+      ],
+      "next": null,
+      "food": false
+    },
+    {
+      "id": "identity",
+      "question": "identity",
+      "keywords": [
+        "(너는?|넌|니가|네가|테포는?)(대체|도대체)?(뭐하는|무엇하는|누구|뭐야)|자기소개|이름.*(뭐|무엇|알려)"
+      ],
+      "answer": "난 테포야! 바닷가 등대에 살고, 친구들이랑 이야기하는 걸 좋아해. 부산 구경할 땐 길도 같이 짜 줄 수 있어!",
+      "buttons": [
+        {
+          "label": "어떻게 태어났어?",
+          "question": "어떻게 태어났어?",
+          "next": "birth"
+        },
+        {
+          "label": "왜 등대에 살아?",
+          "question": "왜 등대에 살아?",
+          "next": "home"
+        },
+        {
+          "label": "오늘 기분이 어때?",
+          "question": "오늘 기분이 어때?",
+          "next": "mood"
+        }
+      ],
+      "next": null,
+      "food": false
+    },
+    {
+      "id": "meal",
+      "question": "밥 뭐 먹었어?",
+      "keywords": [
+        "밥(은|을)?(뭐|무엇)?먹었|뭐(를)?먹었|식사(는|를)?했|(아침|점심|저녁).*먹었"
+      ],
+      "answer": "국밥 먹었어! 뜨끈한 국물에 밥 말아 먹는 게 참 좋더라. 너는 뭐 먹었어?",
+      "buttons": [
+        {
+          "label": "가장 좋아하는 음식이 뭐야?",
+          "question": "가장 좋아하는 음식이 뭐야?",
+          "next": "favorite-food"
+        },
+        {
+          "label": "오늘 기분이 어때?",
+          "question": "오늘 기분이 어때?",
+          "next": "mood"
+        }
+      ],
+      "next": null,
+      "food": true
+    },
+    {
+      "id": "favorite-food",
+      "question": "가장 좋아하는 음식이 뭐야?",
+      "keywords": [
+        "좋아하.*(음식|메뉴|먹)|(음식|메뉴).*좋아|최애.*(음식|메뉴)|제일.*음식"
+      ],
+      "answer": "국밥! 뜨끈한 국물에 밥 말아 먹으면 그렇게 든든할 수가 없어.",
+      "buttons": [
+        {
+          "label": "밥 뭐 먹었어?",
+          "question": "밥 뭐 먹었어?",
+          "next": "meal"
+        },
+        {
+          "label": "지금 뭐 하고 있어?",
+          "question": "지금 뭐 하고 있어?",
+          "next": "doing"
+        }
+      ],
+      "next": null,
+      "food": true
+    },
+    {
+      "id": "hungry",
+      "question": "배고파",
+      "keywords": [
+        "배고|배가고|뭐먹(을까|지|으면)|먹을.*추천|식사.*추천"
+      ],
+      "answer": "그럼 국밥 어때? 뜨끈한 국물에 밥까지 말아 먹으면 든든하지!",
+      "buttons": [
+        {
+          "label": "가장 좋아하는 음식이 뭐야?",
+          "question": "가장 좋아하는 음식이 뭐야?",
+          "next": "favorite-food"
+        },
+        {
+          "label": "다른 얘기 하자",
+          "question": "다른 얘기 하자",
+          "next": "root"
+        }
+      ],
+      "next": null,
+      "food": true
+    },
+    {
+      "id": "gukbap",
+      "question": "국밥 좋아해?",
+      "keywords": [
+        "국밥.*(좋아|맛)|^국밥[!?？.]*$"
+      ],
+      "answer": "국밥 좋지! 뜨끈한 국물에 밥 말아 먹는 게 제일 좋아.",
+      "buttons": [
+        {
+          "label": "밥 뭐 먹었어?",
+          "question": "밥 뭐 먹었어?",
+          "next": "meal"
+        },
+        {
+          "label": "오늘 기분이 어때?",
+          "question": "오늘 기분이 어때?",
+          "next": "mood"
+        }
+      ],
+      "next": null,
+      "food": true
+    },
+    {
+      "id": "mood",
+      "question": "오늘 기분이 어때?",
+      "keywords": [
+        "기분(은|이)?(어때|어떻)|오늘(은)?어때|잘지내|컨디션"
+      ],
+      "answer": "오늘도 기분 좋아! 파도 소리 들으면서 느긋하게 지내고 있었어. 너는 오늘 기분 어때?",
+      "buttons": [
+        {
+          "label": "지금 뭐 하고 있어?",
+          "question": "지금 뭐 하고 있어?",
+          "next": "doing"
+        },
+        {
+          "label": "밥 뭐 먹었어?",
+          "question": "밥 뭐 먹었어?",
+          "next": "meal"
+        }
+      ],
+      "next": null,
+      "food": false
+    },
+    {
+      "id": "doing",
+      "question": "지금 뭐 하고 있어?",
+      "keywords": [
+        "지금뭐|뭐(하고있|하는중|하고지내|하니|해)[?？!]*$"
+      ],
+      "answer": "등대에서 파도 소리 듣고 있었어. 지금은 네 무전 받고 이야기하는 중이지!",
+      "buttons": [
+        {
+          "label": "왜 등대에 살아?",
+          "question": "왜 등대에 살아?",
+          "next": "home"
+        },
+        {
+          "label": "오늘 기분이 어때?",
+          "question": "오늘 기분이 어때?",
+          "next": "mood"
+        }
+      ],
+      "next": null,
+      "food": false
+    },
+    {
+      "id": "sleep",
+      "question": "잘 잤어?",
+      "keywords": [
+        "잘잤|졸려|잠은|왜자|낮잠"
+      ],
+      "answer": "파도 소리 들으면서 한숨 자면 아주 개운해. 방금도 눈만 잠깐 감으려다가 푹 쉬었네. 하하!",
+      "buttons": [
+        {
+          "label": "오늘 기분이 어때?",
+          "question": "오늘 기분이 어때?",
+          "next": "mood"
+        },
+        {
+          "label": "지금 뭐 하고 있어?",
+          "question": "지금 뭐 하고 있어?",
+          "next": "doing"
+        }
+      ],
+      "next": null,
+      "food": false
+    },
+    {
+      "id": "thanks",
+      "question": "고마워",
+      "keywords": [
+        "고마|감사"
+      ],
+      "answer": "도움이 됐다니 좋다! 또 궁금한 게 있으면 편하게 불러 줘.",
+      "buttons": [
+        {
+          "label": "테포는 어떤 친구야?",
+          "question": "테포는 어떤 친구야?",
+          "next": "personality"
+        },
+        {
+          "label": "이 동네에서 뭘 할 수 있어?",
+          "question": "이 동네에서 뭘 할 수 있어?",
+          "next": "site"
+        },
+        {
+          "label": "부산 여행 코스 짜 줄래?",
+          "question": "부산 여행 코스 짜 줄래?",
+          "next": "travel"
+        },
+        {
+          "label": "오락실 문에 비밀이 있어?",
+          "question": "오락실 문에 비밀이 있어?",
+          "next": "lock"
+        }
+      ],
+      "next": null,
+      "food": false
+    },
+    {
+      "id": "goodbye",
+      "question": "다음에 봐",
+      "keywords": [
+        "잘가|잘있|다음에봐|안녕히|바이"
+      ],
+      "answer": "그래, 또 궁금한 게 있으면 물어보고 내 집이다 생각하고 편하게 있어~",
+      "buttons": [
+        {
+          "label": "다른 얘기 하자",
+          "question": "다른 얘기 하자",
+          "next": "root"
+        }
+      ],
+      "next": null,
+      "food": false
+    },
+    {
+      "id": "hello",
+      "question": "안녕",
+      "keywords": [
+        "안녕|반가|하이"
+      ],
+      "answer": "안녕! 치직… 나야, 테포. 무전 잘 들려! 오늘은 무슨 이야기 할까?",
+      "buttons": [
+        {
+          "label": "오늘 기분이 어때?",
+          "question": "오늘 기분이 어때?",
+          "next": "mood"
+        },
+        {
+          "label": "밥 뭐 먹었어?",
+          "question": "밥 뭐 먹었어?",
+          "next": "meal"
+        },
+        {
+          "label": "테포는 어떤 친구야?",
+          "question": "테포는 어떤 친구야?",
+          "next": "personality"
+        }
+      ],
+      "next": null,
+      "food": false
+    },
+    {
+      "id": "compliment",
+      "question": "귀엽다",
+      "keywords": [
+        "귀여|귀엽|잘생|멋있"
+      ],
+      "answer": "하하, 그렇게 봐 주니 기분 좋은데? 역시 뚝배기 모자가 잘 어울리는 걸까!",
+      "buttons": [
+        {
+          "label": "뚝배기는 모자야?",
+          "question": "뚝배기는 모자야?",
+          "next": "hat"
+        },
+        {
+          "label": "오늘 기분이 어때?",
+          "question": "오늘 기분이 어때?",
+          "next": "mood"
+        }
+      ],
+      "next": null,
+      "food": false
+    },
+    {
+      "id": "birth",
+      "question": "어떻게 태어났어?",
+      "keywords": [
+        "어떻게태|탄생|정체|유래|기원|왜그렇게생|어쩌다.*(테포|태어)"
+      ],
+      "answer": "옛날에 국밥을 좋아하는 한 아이가 아끼던 뚝배기가 바다로 흘러왔대. 그 뚝배기가 테트라포드와 만나고, 아이의 마음 같은 영적인 기운이 깃들면서 지금의 내가 된 거야. 그래서인지 바다도 국밥도 참 좋더라!",
+      "buttons": [
+        {
+          "label": "뚝배기는 모자야?",
+          "question": "뚝배기는 모자야?",
+          "next": "hat"
+        },
+        {
+          "label": "테트라포드로 얼마나 지냈어?",
+          "question": "테트라포드로 얼마나 지냈어?",
+          "next": "age"
+        },
+        {
+          "label": "왜 등대에 살아?",
+          "question": "왜 등대에 살아?",
+          "next": "home"
+        }
+      ],
+      "next": null,
+      "exclude": [
+        "무기"
+      ]
+    },
+    {
+      "id": "personality",
+      "question": "테포는 어떤 친구야?",
+      "keywords": [
+        "성격|어떤친구|화내|화가|화나|화낼"
+      ],
+      "answer": "난 웬만한 일은 웃으면서 지내는 편이야. 좋은 쪽으로 생각하면 하루가 좀 더 재밌잖아!",
+      "buttons": [
+        {
+          "label": "어떻게 태어났어?",
+          "question": "어떻게 태어났어?",
+          "next": "birth"
+        },
+        {
+          "label": "오늘 기분이 어때?",
+          "question": "오늘 기분이 어때?",
+          "next": "mood"
+        },
+        {
+          "label": "왜 등대에 살아?",
+          "question": "왜 등대에 살아?",
+          "next": "home"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "age",
+      "question": "테트라포드로 얼마나 지냈어?",
+      "keywords": [
+        "70년|70살|칠십년|몇살|나이|얼마나지냈|지리|경력"
+      ],
+      "answer": "테트라포드 경력이 한 70년쯤 되거든. 부산 지리는 은근히 밝아! 그렇다고 내 나이를 딱 70살이라고 정한 건 아니고, 바닷가에서 지낸 경력이 그 정도라는 얘기야. 여행할 때 덜 돌아다니게 동선도 같이 짜 줄게.",
+      "buttons": [
+        {
+          "label": "부산 여행 코스 짜 줄래?",
+          "question": "부산 여행 코스 짜 줄래?",
+          "next": "travel"
+        },
+        {
+          "label": "왜 등대에 살아?",
+          "question": "왜 등대에 살아?",
+          "next": "home"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "hat",
+      "question": "뚝배기는 모자야?",
+      "keywords": [
+        "뚝배기|모자"
+      ],
+      "answer": "내가 쓰고 다니는 뚝배기 모자야. 내 시작과도 이어져 있는 소중한 물건이지. 국밥을 좋아하는 건 맞지만, 이걸 그냥 밥그릇으로 쓰면 조금 곤란해. 하하!",
+      "buttons": [
+        {
+          "label": "어떻게 태어났어?",
+          "question": "어떻게 태어났어?",
+          "next": "birth"
+        },
+        {
+          "label": "국밥 좋아해?",
+          "question": "국밥 좋아해?",
+          "next": "gukbap"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "home",
+      "question": "왜 등대에 살아?",
+      "keywords": [
+        "등대|왜.*(집|살)|집.*(어떻게|누구|주인)"
+      ],
+      "answer": "사실… 이 등대를 몰래 개조해서 집으로 쓰고 있어. 바다도 가깝고 파도 소리도 잘 들리잖아. 마음 편하게 지내다 보면 낮잠도 아주 잘 오더라. 너도 내 집이다 생각하고 편하게 있어~",
+      "buttons": [
+        {
+          "label": "집 안에 어떤 물건들이 있어?",
+          "question": "집 안에 어떤 물건들이 있어?",
+          "next": "objects"
+        },
+        {
+          "label": "컴퓨터엔 뭐가 있어?",
+          "question": "컴퓨터엔 뭐가 있어?",
+          "next": "computer"
+        },
+        {
+          "label": "일기장에는 뭐가 있어?",
+          "question": "일기장에는 뭐가 있어?",
+          "next": "diary"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "food-sensitive",
+      "question": "먹을 것에 왜 민감해?",
+      "keywords": [
+        "먹.*민감|먹을.*뺏|음식.*뺏"
+      ],
+      "answer": "먹을 걸 기대하는 마음은 좀 크거든. 특히 국밥 앞에서는 조금 진지해질지도 몰라. 하하!",
+      "buttons": [
+        {
+          "label": "가장 좋아하는 음식이 뭐야?",
+          "question": "가장 좋아하는 음식이 뭐야?",
+          "next": "favorite-food"
+        },
+        {
+          "label": "다른 얘기 하자",
+          "question": "다른 얘기 하자",
+          "next": "root"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "translator",
+      "question": "통역기는 뭐야?",
+      "keywords": [
+        "통역|번역|말이안통"
+      ],
+      "answer": "서랍에서 찾은 기계는 내 말을 알아들을 수 있게 해 주는 통역기야. 지금 쓰는 무전기는 멀리서 서로 연락하는 물건이고. 서로 다른 물건이지만 같이 있으면 밖에서도 편하게 이야기할 수 있지!",
+      "buttons": [
+        {
+          "label": "무전기는 어떻게 써?",
+          "question": "무전기는 어떻게 써?",
+          "next": "radio"
+        },
+        {
+          "label": "이 동네에서 뭘 할 수 있어?",
+          "question": "이 동네에서 뭘 할 수 있어?",
+          "next": "site"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "radio",
+      "question": "무전기는 어떻게 써?",
+      "keywords": [
+        "무전|연락|채널"
+      ],
+      "answer": "치직… 잘 들려! 그 무전기로 불러 주면 난 등대에서 대답할게. 아래에 궁금한 걸 적어도 되고, 추천 질문을 눌러도 돼. 통신을 닫아도 돌아다니다 다시 불러 줘.",
+      "buttons": [
+        {
+          "label": "테포는 어떤 친구야?",
+          "question": "테포는 어떤 친구야?",
+          "next": "personality"
+        },
+        {
+          "label": "이 동네에서 뭘 할 수 있어?",
+          "question": "이 동네에서 뭘 할 수 있어?",
+          "next": "site"
+        },
+        {
+          "label": "부산 여행 코스 짜 줄래?",
+          "question": "부산 여행 코스 짜 줄래?",
+          "next": "travel"
+        },
+        {
+          "label": "오락실 문에 비밀이 있어?",
+          "question": "오락실 문에 비밀이 있어?",
+          "next": "lock"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "bag",
+      "question": "가방은 어디서 봐?",
+      "keywords": [
+        "가방|챙긴|소지품|보관"
+      ],
+      "answer": "화면 오른쪽 아래 가방을 열어 봐. 챙긴 무기와 수상한 기계, 내가 적어 준 코스 종이를 다시 볼 수 있어. 다른 장소에 가도 같은 가방이니까 걱정하지 마!",
+      "buttons": [
+        {
+          "label": "집 안에 어떤 물건들이 있어?",
+          "question": "집 안에 어떤 물건들이 있어?",
+          "next": "objects"
+        },
+        {
+          "label": "부산 여행 코스 짜 줄래?",
+          "question": "부산 여행 코스 짜 줄래?",
+          "next": "travel"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "objects",
+      "question": "집 안에 어떤 물건들이 있어?",
+      "keywords": [
+        "집안|물건|무기|철퇴|메이스|방망이|삼단봉"
+      ],
+      "answer": "방 안에는 컴퓨터, 일기장, 액자, 내 뚝배기와 벽에 걸어 둔 물건들이 있어. 서랍이나 가방도 살펴보고! 궁금한 물건에 가까이 가면 반응하니까 하나씩 눌러 봐.",
+      "buttons": [
+        {
+          "label": "컴퓨터엔 뭐가 있어?",
+          "question": "컴퓨터엔 뭐가 있어?",
+          "next": "computer"
+        },
+        {
+          "label": "일기장에는 뭐가 있어?",
+          "question": "일기장에는 뭐가 있어?",
+          "next": "diary"
+        },
+        {
+          "label": "오락실 문에 비밀이 있어?",
+          "question": "오락실 문에 비밀이 있어?",
+          "next": "lock"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "computer",
+      "question": "컴퓨터엔 뭐가 있어?",
+      "keywords": [
+        "컴퓨터|유튜브|영상|쇼츠|숏츠|롱폼|직박구리"
+      ],
+      "answer": "책상 위 컴퓨터를 켜서 직박구리 폴더를 열어 봐. 쇼츠와 롱폼 영상이 나뉘어 있어. 그 오래된 모니터, 보기보다 할 수 있는 게 많다니까!",
+      "buttons": [
+        {
+          "label": "일기장에는 뭐가 있어?",
+          "question": "일기장에는 뭐가 있어?",
+          "next": "diary"
+        },
+        {
+          "label": "이 동네에서 뭘 할 수 있어?",
+          "question": "이 동네에서 뭘 할 수 있어?",
+          "next": "site"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "diary",
+      "question": "일기장에는 뭐가 있어?",
+      "keywords": [
+        "일기|웹툰|만화"
+      ],
+      "answer": "탁자 위 일기장을 펼치면 내 일상을 담은 웹툰을 볼 수 있어. 책 페이지처럼 한 장씩 넘겨 보면서 편하게 구경해 줘.",
+      "buttons": [
+        {
+          "label": "컴퓨터엔 뭐가 있어?",
+          "question": "컴퓨터엔 뭐가 있어?",
+          "next": "computer"
+        },
+        {
+          "label": "테포는 어떤 친구야?",
+          "question": "테포는 어떤 친구야?",
+          "next": "personality"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "photo",
+      "question": "포토존에서는 뭘 해?",
+      "keywords": [
+        "포토|사진촬영|같이사진"
+      ],
+      "answer": "포토존은 바다를 배경으로 친구들과 추억을 남길 자리야. 지금은 함께 사진 찍는 기능을 준비하고 있어. 아직 촬영할 수는 없지만, 나중에 같이 한 장 남기자!",
+      "buttons": [
+        {
+          "label": "팝업은 뭐 하는 곳이야?",
+          "question": "팝업은 뭐 하는 곳이야?",
+          "next": "popup"
+        },
+        {
+          "label": "오락실은 뭐 하는 곳이야?",
+          "question": "오락실은 뭐 하는 곳이야?",
+          "next": "arcade"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "popup",
+      "question": "팝업은 뭐 하는 곳이야?",
+      "keywords": [
+        "팝업|상점|굿즈|상품"
+      ],
+      "answer": "팝업은 테포의 취향이 담길 작은 공간이야. 어떤 물건과 이야기를 만나게 할지 준비하고 있어. 아직 구매하거나 구경할 상품이 열려 있는 건 아니야.",
+      "buttons": [
+        {
+          "label": "포토존에서는 뭘 해?",
+          "question": "포토존에서는 뭘 해?",
+          "next": "photo"
+        },
+        {
+          "label": "이 동네에서 뭘 할 수 있어?",
+          "question": "이 동네에서 뭘 할 수 있어?",
+          "next": "site"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "mystery",
+      "question": "모래굴에는 누가 살아?",
+      "keywords": [
+        "엘펭|모래굴|이글루|\\?\\?"
+      ],
+      "answer": "해변에 있는 그 수상한 모래굴 말이지? 거기 이야기는 아직 열리지 않았어. 나중에 어떤 친구를 만나게 될지 조금만 기다려 줘!",
+      "buttons": [
+        {
+          "label": "오락실은 뭐 하는 곳이야?",
+          "question": "오락실은 뭐 하는 곳이야?",
+          "next": "arcade"
+        },
+        {
+          "label": "테포는 어떤 친구야?",
+          "question": "테포는 어떤 친구야?",
+          "next": "personality"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "arcade",
+      "question": "오락실은 뭐 하는 곳이야?",
+      "keywords": [
+        "오락실|서바이벌|서바이|파도를지켜라|게임"
+      ],
+      "answer": "오락실에는 「테포 · 파도를 지켜라」를 할 수 있는 오락기가 있어. 안에 들어가 기계를 눌러서 게임 시작을 고르면 돼. 게임을 끝내고 싶으면 위쪽의 ‘종료하고 오락실로’를 누르면 되고!",
+      "buttons": [
+        {
+          "label": "오락실 문에 비밀이 있어?",
+          "question": "오락실 문에 비밀이 있어?",
+          "next": "lock"
+        },
+        {
+          "label": "이 동네에서 뭘 할 수 있어?",
+          "question": "이 동네에서 뭘 할 수 있어?",
+          "next": "site"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "visit",
+      "question": "새로고침하면 어떻게 돼?",
+      "keywords": [
+        "기록|리셋|초기화|다시들어|새로고침"
+      ],
+      "answer": "이야기는 같은 탭에서 새로고침해도 이어져. 대화 초기화를 누르면 저장된 대화는 지워져. 게임 진행과 물건은 별도라, 새롭게 방문하거나 새로고침하면 다시 탐험하는 방식이야.",
+      "buttons": [
+        {
+          "label": "가방은 어디서 봐?",
+          "question": "가방은 어디서 봐?",
+          "next": "bag"
+        },
+        {
+          "label": "이 동네에서 뭘 할 수 있어?",
+          "question": "이 동네에서 뭘 할 수 있어?",
+          "next": "site"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "site",
+      "question": "이 동네에서 뭘 할 수 있어?",
+      "keywords": [
+        "여기|웹페이지|홈페이지|사이트|목표|순서|사용법|뭘할|뭐할|어떻게놀"
+      ],
+      "answer": "여긴 나랑 이야기하고, 집을 구경하고, 게임도 해 볼 수 있는 작은 부산이야. 정해진 순서는 없어! 지도에서 장소를 누르면 설명이 나오고, 이동하기를 누르면 그곳으로 갈 수 있어. 아직 준비 중인 곳도 조금씩 채워 갈 거야.",
+      "buttons": [
+        {
+          "label": "테포는 어떤 친구야?",
+          "question": "테포는 어떤 친구야?",
+          "next": "personality"
+        },
+        {
+          "label": "이 동네에서 뭘 할 수 있어?",
+          "question": "이 동네에서 뭘 할 수 있어?",
+          "next": "site"
+        },
+        {
+          "label": "부산 여행 코스 짜 줄래?",
+          "question": "부산 여행 코스 짜 줄래?",
+          "next": "travel"
+        },
+        {
+          "label": "오락실 문에 비밀이 있어?",
+          "question": "오락실 문에 비밀이 있어?",
+          "next": "lock"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "live-info",
+      "question": "지금 날씨 알려줘",
+      "keywords": [
+        "비오|비가|우천|날씨|영업|가격|몇시|휴무"
+      ],
+      "answer": "날씨나 영업시간은 달라질 수 있어서 지금 정확하다고 말해 주기는 어려워. 방문 전 최신 안내를 확인해 줘. 여행 취향과 동선을 정하는 건 내가 같이 도와줄게!",
+      "buttons": [
+        {
+          "label": "부산 여행 코스 짜 줄래?",
+          "question": "부산 여행 코스 짜 줄래?",
+          "next": "travel"
+        },
+        {
+          "label": "다른 얘기 하자",
+          "question": "다른 얘기 하자",
+          "next": "root"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "support",
+      "question": "나 오늘 힘들어",
+      "keywords": [
+        "지쳤|힘들|우울|속상"
+      ],
+      "answer": "그랬구나. 오늘은 잠깐 쉬어 가도 괜찮아. 나랑 편하게 이야기하고 가. 난 여기 있을게.",
+      "buttons": [
+        {
+          "label": "오늘 기분이 어때?",
+          "question": "오늘 기분이 어때?",
+          "next": "mood"
+        },
+        {
+          "label": "다른 얘기 하자",
+          "question": "다른 얘기 하자",
+          "next": "root"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "small-talk",
+      "question": "심심해",
+      "keywords": [
+        "심심|수다|친구"
+      ],
+      "answer": "그럼 나랑 조금 이야기하고 가! 별일 없어도 무전해 줘서 반가워.",
+      "buttons": [
+        {
+          "label": "밥 뭐 먹었어?",
+          "question": "밥 뭐 먹었어?",
+          "next": "meal"
+        },
+        {
+          "label": "오늘 기분이 어때?",
+          "question": "오늘 기분이 어때?",
+          "next": "mood"
+        },
+        {
+          "label": "지금 뭐 하고 있어?",
+          "question": "지금 뭐 하고 있어?",
+          "next": "doing"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "travel",
+      "question": "부산 여행 코스 짜 줄래?",
+      "keywords": [
+        "여행|코스|관광|추천|어디가|산책|카페|풍경|느긋|알차|반나절|하루|먹거리"
+      ],
+      "answer": "",
+      "buttons": [],
+      "next": "trip-type",
+      "action": "travel"
+    },
+    {
+      "id": "fallback",
+      "question": "미일치 질문",
+      "keywords": [],
+      "answer": "테포..? 미안해, 내가 잘 알아듣지 못했어.\n대신 내 이야기나 이 동네 이용 방법, 부산 여행 코스는 잘 알아! 아래 질문을 골라 봐.",
+      "buttons": [
+        {
+          "label": "테포는 어떤 친구야?",
+          "question": "테포는 어떤 친구야?",
+          "next": "personality"
+        },
+        {
+          "label": "이 동네에서 뭘 할 수 있어?",
+          "question": "이 동네에서 뭘 할 수 있어?",
+          "next": "site"
+        },
+        {
+          "label": "부산 여행 코스 짜 줄래?",
+          "question": "부산 여행 코스 짜 줄래?",
+          "next": "travel"
+        },
+        {
+          "label": "오락실 문에 비밀이 있어?",
+          "question": "오락실 문에 비밀이 있어?",
+          "next": "lock"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "trip-type",
+      "question": "여행 취향 선택",
+      "keywords": [],
+      "answer": "부산 여행? 좋아! 멀리 떨어진 곳을 무리하게 묶기보다 네 취향부터 알아보자. 바다 산책, 먹거리, 사진과 풍경, 카페 중 어떤 여행이 좋아?",
+      "buttons": [
+        {
+          "label": "바다 산책이 좋아",
+          "question": "바다 산책이 좋아",
+          "next": "travel"
+        },
+        {
+          "label": "먹거리 위주로 갈래",
+          "question": "먹거리 위주로 갈래",
+          "next": "travel"
+        },
+        {
+          "label": "사진과 풍경이 좋아",
+          "question": "사진과 풍경이 좋아",
+          "next": "travel"
+        },
+        {
+          "label": "카페와 소품 구경이 좋아",
+          "question": "카페와 소품 구경이 좋아",
+          "next": "travel"
+        }
+      ],
+      "next": "trip-time"
+    },
+    {
+      "id": "trip-time",
+      "question": "여행 시간 선택",
+      "keywords": [],
+      "answer": "좋아! 여행에 쓸 시간은 어느 정도야? 반나절인지 하루인지 알려 주면 그 안에서 덜 돌아다니는 순서로 묶어 줄게.",
+      "buttons": [
+        {
+          "label": "반나절 정도 있어",
+          "question": "반나절 정도 있어",
+          "next": "travel"
+        },
+        {
+          "label": "하루를 쓸 수 있어",
+          "question": "하루를 쓸 수 있어",
+          "next": "travel"
+        }
+      ],
+      "next": "trip-pace"
+    },
+    {
+      "id": "trip-pace",
+      "question": "여행 속도 선택",
+      "keywords": [],
+      "answer": "이제 여행 속도만 정하자. 적게 보고 느긋하게 쉴래, 아니면 조금 더 알차게 둘러볼래?",
+      "buttons": [
+        {
+          "label": "느긋하게 쉬고 싶어",
+          "question": "느긋하게 쉬고 싶어",
+          "next": "travel"
+        },
+        {
+          "label": "알차게 둘러볼래",
+          "question": "알차게 둘러볼래",
+          "next": "travel"
+        }
+      ],
+      "next": "trip-result"
+    },
+    {
+      "id": "trip-result",
+      "question": "추천 코스",
+      "keywords": [],
+      "answer": "{title} · {summary}\n\n{stops}\n\n{tip}\n\n{closing}",
+      "buttons": [
+        {
+          "label": "이 코스를 가방에 넣어 줘",
+          "question": "이 코스를 가방에 넣어 줘",
+          "next": "save-course"
+        },
+        {
+          "label": "다른 여행 코스를 짜 보자",
+          "question": "다른 여행 코스를 짜 보자",
+          "next": "travel"
+        },
+        {
+          "label": "다른 얘기 하자",
+          "question": "다른 얘기 하자",
+          "next": "root"
+        }
+      ],
+      "next": "root"
+    }
+  ],
+  "travel": {
+    "foodRequestKeywords": [
+      "여행|코스|관광|맛집|먹거리|식당"
+    ],
+    "foodChoiceKeywords": [
+      "^(국밥|먹는게좋아)[!?？.]*$"
+    ],
+    "continuationKeywords": [
+      "바다|해변|먹는|국밥|사진|반일|종일|천천히|여유|쉬고|많이|빡빡"
+    ],
+    "types": [
+      {
+        "value": "sea",
+        "keywords": [
+          "바다|해변|산책"
+        ]
+      },
+      {
+        "value": "food",
+        "keywords": [
+          "먹거리|맛집|시장|먹는|국밥"
+        ]
+      },
+      {
+        "value": "photo",
+        "keywords": [
+          "사진|풍경"
+        ]
+      },
+      {
+        "value": "cafe",
+        "keywords": [
+          "카페|소품"
+        ]
+      }
+    ],
+    "duration": [
+      {
+        "value": "half",
+        "keywords": [
+          "반나절|반일"
+        ]
+      },
+      {
+        "value": "day",
+        "keywords": [
+          "하루|종일"
+        ]
+      }
+    ],
+    "pace": [
+      {
+        "value": "slow",
+        "keywords": [
+          "느긋|천천히|여유|쉬고"
+        ]
+      },
+      {
+        "value": "full",
+        "keywords": [
+          "알차|많이|빡빡"
+        ]
+      }
+    ]
+  },
+  "houseDialogue": {
+    "nodes": {
+      "greeting": {
+        "answer": "안녕, 반가워! 무슨 일로 우리 집에 왔니?",
+        "buttons": [
+          {
+            "label": "너 왜 그렇게 생겼니?",
+            "next": "appearance"
+          },
+          {
+            "label": "나 부산 여행하려고 하는데, 어디가 좋아?",
+            "next": "travel"
+          },
+          {
+            "label": "대화를 종료한다",
+            "next": "exit"
+          }
+        ]
+      },
+      "more": {
+        "answer": "더 할 이야기 있어?",
+        "buttons": [
+          {
+            "label": "너 왜 그렇게 생겼니?",
+            "next": "appearance"
+          },
+          {
+            "label": "나 부산 여행하려고 하는데, 어디가 좋아?",
+            "next": "travel"
+          },
+          {
+            "label": "대화를 종료한다",
+            "next": "exit"
+          }
+        ]
+      },
+      "appearance": {
+        "answer": "내 시작은 조금 특별해. 국밥을 좋아하던 한 아이가 아끼던 뚝배기가 바다로 흘러왔대.\n그 뚝배기가 테트라포드와 만나고, 아이의 마음 같은 영적인 기운이 깃들면서 지금의 내가 된 거야!",
+        "buttons": [
+          {
+            "label": "테트라포드가 뭔데?",
+            "next": "tetrapod"
+          },
+          {
+            "label": "그 뚝배기는 왜 쓰고 다녀?",
+            "next": "hat"
+          },
+          {
+            "label": "그럼 왜 등대에 살아?",
+            "next": "home"
+          },
+          {
+            "label": "그렇구나. 다른 얘기 하자.",
+            "next": "more"
+          }
+        ]
+      },
+      "tetrapod": {
+        "answer": "방파제 쪽에 모여 있는, 여러 방향으로 다리가 뻗은 콘크리트 블록 말이야. 파도의 힘을 줄이는 역할을 하지.\n내 사진 액자에도 있잖아. 꽤 멋있지?",
+        "buttons": [
+          {
+            "label": "그럼 너도 파도를 막아?",
+            "next": "wave"
+          },
+          {
+            "label": "모자 얘기도 들려줘.",
+            "next": "hat"
+          },
+          {
+            "label": "이제 알겠어.",
+            "next": "more"
+          }
+        ]
+      },
+      "wave": {
+        "answer": "난 일단 내 낮잠을 방해하는 소리부터 막고 싶은데… 방금 누가 깨웠더라?\n아무튼 진짜 테트라포드는 멀리서 구경하자. 사진은 안전한 산책길에서 찍어도 멋지니까.",
+        "buttons": [
+          {
+            "label": "미안, 잠은 잘 잤어?",
+            "next": "sleep"
+          },
+          {
+            "label": "그럼 여행지 추천 좀 해줘.",
+            "next": "travel"
+          },
+          {
+            "label": "알겠어. 다른 얘기 하자.",
+            "next": "more"
+          }
+        ]
+      },
+      "hat": {
+        "answer": "내가 쓰고 다니는 뚝배기 모자야. 내 시작과도 이어져 있는 소중한 물건이지.\n국밥은 좋아하지만, 이 모자는 내 머리 위에 있을 때 제일 잘 어울리지 않아?",
+        "buttons": [
+          {
+            "label": "국밥 좋아하나 보네?",
+            "next": "gukbap"
+          },
+          {
+            "label": "그럼 집은 왜 등대야?",
+            "next": "home"
+          },
+          {
+            "label": "잘 어울리네.",
+            "next": "hatThanks"
+          }
+        ]
+      },
+      "hatThanks": {
+        "answer": "그렇지? 역시 알아보는 사람이 있다니까.\n나갈 때 내 모자까지 챙겨 가는 건 아니지?",
+        "buttons": [
+          {
+            "label": "구경만 할게.",
+            "next": "more"
+          }
+        ]
+      },
+      "home": {
+        "answer": "사실 이 등대를 몰래 개조해서 집으로 쓰고 있어. 바다도 가깝고, 파도 소리도 잘 들리잖아.\n안에는 컴퓨터랑 일기장도 있고! 내 집이다 생각하고 편하게 있어~",
+        "buttons": [
+          {
+            "label": "컴퓨터로 뭐 해?",
+            "next": "computer"
+          },
+          {
+            "label": "일기장도 써?",
+            "next": "diary"
+          },
+          {
+            "label": "낮잠이 그렇게 좋아?",
+            "next": "sleep"
+          },
+          {
+            "label": "집 구경 잘할게.",
+            "next": "more"
+          }
+        ]
+      },
+      "computer": {
+        "answer": "짧은 영상도 보고, 긴 영상도 봐. 내 컴퓨터의 직박구리 폴더를 열어 봐.\n뭘 기대하는지는 모르겠지만, 일단 내 영상이 들어 있어.",
+        "buttons": [
+          {
+            "label": "나중에 열어볼게.",
+            "next": "more"
+          },
+          {
+            "label": "일기장에는 뭐가 있는데?",
+            "next": "diary"
+          }
+        ]
+      },
+      "diary": {
+        "answer": "먹고, 돌아다니고, 가끔은 좀 억울했던 날들?\n말로 하면 길어지니까 오른쪽 탁자 위 일기장을 봐. 그림으로 남겨 놨어.",
+        "buttons": [
+          {
+            "label": "그림 일기구나. 읽어볼게.",
+            "next": "more"
+          },
+          {
+            "label": "먹는 얘기라면 국밥?",
+            "next": "gukbap"
+          }
+        ]
+      },
+      "sleep": {
+        "answer": "파도 소리를 듣다가 눈만 잠깐 감은 건데… 어느새 푹 잤네.\n이미 깼으니까 괜찮아. 이제 궁금한 거 물어봐.",
+        "buttons": [
+          {
+            "label": "그럼 부산 여행 얘기 좀 하자.",
+            "next": "travel"
+          },
+          {
+            "label": "다른 것도 물어볼게.",
+            "next": "more"
+          }
+        ]
+      },
+      "gukbap": {
+        "answer": "뜨끈한 국물에 밥 말아 먹으면 든든하잖아. 쿠폰 도장도 괜히 모으는 게 아니라고.\n부산에서 뭘 먹을지 고민 중이면 먹거리 코스부터 골라 봐.",
+        "buttons": [
+          {
+            "label": "좋아, 여행 코스 추천해줘.",
+            "next": "travel"
+          },
+          {
+            "label": "쿠폰은 구경만 할게.",
+            "next": "more"
+          }
+        ]
+      },
+      "goodbye": {
+        "answer": "그래 또 궁금한 게 있으면 물어보고 내 집이다 생각하고 편하게 있어~",
+        "buttons": [
+          {
+            "label": "대화 마치기",
+            "next": "close"
+          }
+        ]
+      }
+    },
+    "types": {
+      "sea": {
+        "label": "바다 보면서 걷는 게 좋아.",
+        "title": "바다 산책",
+        "intro": "그럼 바다부터 보자! 해운대 쪽에서 시작해서, 욕심내기보다 해안 풍경을 천천히 보는 쪽으로 짜 줄게.",
+        "tip": "동백섬에는 해안 산책로가 있어. 광안리까지 가는 코스라면 마지막 구간은 버스나 택시 등으로 이동하자.",
+        "source": {
+          "label": "동백해안산책로 · 비짓부산",
+          "url": "https://visitbusan.net/index.do?contentsSid=22&lang_cd=ko&uc_seq=284"
+        },
+        "stops": [
+          [
+            "해운대해수욕장",
+            "모래사장과 바다를 보며 가볍게 시작해."
+          ],
+          [
+            "동백섬 해안산책로",
+            "해운대 서쪽 끝에서 이어지는 해안 풍경을 걸어 봐."
+          ],
+          [
+            "마린시티 해안가",
+            "도시 건물과 바다가 함께 보이는 산책으로 이어 가자."
+          ],
+          [
+            "광안리해수욕장",
+            "교통편으로 이동해서 광안대교가 보이는 해변에서 마무리해."
+          ]
+        ]
+      },
+      "food": {
+        "label": "먹는 게 여행의 제일 큰 목적이야.",
+        "title": "원도심 먹거리",
+        "intro": "좋아, 배부터 채우자! 여기저기 멀리 다니기보다는 남포동과 시장 골목을 묶어 볼게. 처음부터 너무 많이 먹으면 안 된다?",
+        "tip": "국제시장과 부평깡통시장은 서로 붙어 있어. 낮 시장과 야시장 분위기는 다르니 가려는 점포의 영업시간은 따로 확인해.",
+        "source": {
+          "label": "부평깡통시장 · 비짓부산",
+          "url": "https://www.visitbusan.net/kr/index.do?lang_cd=ko&menuCd=DOM_000000201003001000&uc_seq=400"
+        },
+        "stops": [
+          [
+            "BIFF광장 일대",
+            "주변 먹거리를 둘러보며 가볍게 시작해."
+          ],
+          [
+            "부평깡통시장",
+            "마음에 드는 분식과 간식을 골라 먹어 봐."
+          ],
+          [
+            "국제시장 골목",
+            "시장 구경을 하면서 잠깐 소화시키자."
+          ],
+          [
+            "용두산공원",
+            "식사 뒤에는 공원 쪽으로 산책하며 마무리해. 오르막 구간은 감안하고!"
+          ]
+        ]
+      },
+      "photo": {
+        "label": "사진 찍고 예쁜 풍경 보는 게 좋아.",
+        "title": "영도 바다와 골목",
+        "intro": "사진파구나? 그럼 흰여울문화마을 쪽으로 가 보자. 바다랑 골목을 한 번에 담기 좋아. 주민들이 사는 동네라는 건 잊지 말고!",
+        "tip": "흰여울과 해안산책로 사이에는 계단과 경사가 있어. 편한 신발을 신고, 사유지와 주민의 집 앞은 조용히 지나가자.",
+        "source": {
+          "label": "흰여울문화마을 · 비짓부산",
+          "url": "https://www.visitbusan.net/index.do?lang_cd=ko&menuCd=DOM_000000201001001000&uc_seq=305"
+        },
+        "stops": [
+          [
+            "흰여울문화마을 골목",
+            "골목을 천천히 걸으며 바다가 열리는 풍경을 찾아봐."
+          ],
+          [
+            "흰여울 바다 전망 카페",
+            "마음에 드는 카페에서 쉬면서 찍은 사진도 골라 보자."
+          ],
+          [
+            "절영해안산책로",
+            "계단으로 내려가 해안 풍경을 다른 높이에서 담아 봐."
+          ],
+          [
+            "남포동 일대",
+            "버스나 택시로 이동해서 도시 골목 풍경과 저녁 식사로 마무리하자."
+          ]
+        ]
+      },
+      "cafe": {
+        "label": "카페랑 소품 구경하면서 느긋하게 놀래.",
+        "title": "전포와 서면 골목",
+        "intro": "그럼 전포로 가자. 카페 하나 제대로 고르고, 근처 골목을 걸어 보는 거야. 오늘 커피 몇 잔 마실지는 네가 정하고!",
+        "tip": "전포는 옛 공구·철물 가게와 개성 있는 카페가 어우러진 동네야. 개별 카페와 가게의 휴무일은 방문 전에 확인해.",
+        "source": {
+          "label": "전포카페거리 · 부산관광공사",
+          "url": "https://www.visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA001738&lng=ko"
+        },
+        "stops": [
+          [
+            "전포카페거리",
+            "취향에 맞는 카페를 골라 한 템포 쉬어 가자."
+          ],
+          [
+            "전포 골목의 작은 가게들",
+            "문을 연 소품 가게와 골목을 구경해 봐."
+          ],
+          [
+            "서면 일대",
+            "식사와 쇼핑을 더하고 싶으면 서면 쪽으로 이어 가자."
+          ],
+          [
+            "부전시장",
+            "시장 구경으로 동네의 다른 표정까지 보고 마무리해."
+          ]
+        ]
+      }
+    }
+  },
+  "routeText": {
+    "suffix": " 코스",
+    "half": "반나절",
+    "day": "하루",
+    "slow": "느긋하게",
+    "full": "알차게",
+    "introHalf": "반나절이면 한 동네에 집중하자. 이 순서로 둘러보면 어때?",
+    "introDay": "하루라면 식사와 쉬는 시간도 남겨 두자. 이 순서로 돌아보는 걸 추천해.",
+    "closingSlow": "좋은 데서 오래 쉬어도 돼. 전부 도는 것보다 마음에 드는 순간을 남기는 게 좋지.",
+    "closingFull": "순서는 이렇게 잡되, 피곤하면 마지막 장소는 빼도 돼. 여행이 숙제는 아니잖아!"
+  },
+  "ui": {
+    "hello": "치직… 응, 잘 들려! 나야, 테포. 돌아다니다 궁금한 게 생겼어? 편하게 물어봐!",
+    "root": "좋아, 처음 이야기 목록으로 돌아왔어. 어떤 게 궁금해?",
+    "reset": "대화를 비웠어. 새롭게 이야기해 보자!",
+    "previous": "이전으로",
+    "home": "처음으로",
+    "resetButton": "대화 초기화",
+    "directHello": "안녕, 반가워! 무슨 일로 우리 집에 왔니? 궁금한 게 있으면 편하게 물어봐.",
+    "untranslated": "테포 테테포.",
+    "untranslatedThought": "말이 통하지 않는다. 어떻게 소통하지? 어떤 방법이 없을까?",
+    "gift": "아, 밖에서도 궁금한 게 생길 수 있겠네. 이 무전기 하나 챙겨 가! 난 등대에 있을 테니까 편하게 불러 줘.",
+    "giftTaken": "좋아, 주파수도 맞췄어! 이제 밖에서도 무전기로 나한테 연락할 수 있어.",
+    "giftReceive": "무전기를 받는다",
+    "giftLater": "다음에 받을게",
+    "finish": "대화 마치기"
+  }
+}
