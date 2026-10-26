@@ -28,7 +28,7 @@
     try{
       await Promise.race([Promise.all((info.assets||[]).map(src=>{const image=new Image();image.src=src;return image.decode();})),delay(12000).then(()=>{throw new Error('timeout');})]);
     }catch{busy=false;go.disabled=false;go.textContent='다시 이동하기';const error=preview.querySelector('.place-error');error.hidden=false;error.textContent='장소를 불러오지 못했어. 잠시 후 다시 눌러 줘.';return;}
-    preview.close();travel.querySelector('p').textContent=(place==='mystery'?'수상한 모래굴':info.title)+' 쪽으로 걸어가는 중…';travel.showModal();
+    window.TEPO_AUDIO?.play('area_enter');preview.close();travel.querySelector('p').textContent=(place==='mystery'?'수상한 모래굴':info.title)+' 쪽으로 걸어가는 중…';travel.showModal();
     const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,duration=reduced?160:1100;
     const scene=document.querySelector('#map-scene'),viewport=document.querySelector('#map-viewport');
     if(scene&&viewport&&!reduced){const s=scene.getBoundingClientRect(),v=viewport.getBoundingClientRect(),b=button.getBoundingClientRect(),scale=s.width/scene.offsetWidth,x=(b.left+b.width/2-s.left)/scale,y=(b.top+b.height*.65-s.top)/scale;zoom=scene.animate([{transform:scene.style.transform},{transform:`translate(${v.width/2-x*scale*2.8}px,${v.height/2-y*scale*2.8}px) scale(${scale*2.8})`}],{duration,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});}
@@ -59,7 +59,7 @@
     zoom?.cancel();zoom=null;travel.close();fade.cancel();travel.classList.remove('is-returning');busy=false;target?.focus({preventScroll:true});
   }
   async function returnToMap(place,{close,href,surface}={}){
-    if(busy)return;busy=true;
+    if(busy)return;busy=true;window.TEPO_AUDIO?.play('area_exit');
     const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,duration=reduced?160:600;
     travel.classList.remove('is-travelling','is-revealing','reveal-ready');travel.classList.add('is-returning');travel.querySelector('p').textContent='밖으로 나와 지도로 돌아가는 중…';travel.showModal();
     const base=surface?getComputedStyle(surface).transform:'none';

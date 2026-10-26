@@ -11,7 +11,7 @@
   }
   function sync(){
     launcher(document.body);
-    document.querySelectorAll('dialog[open]:not(#world-bag-dialog):not(#world-welcome):not(#tepo-radio-dialog):not(.world-travel)').forEach(dialog=>launcher(dialog.querySelector('.game-player')||dialog));
+    document.querySelectorAll('dialog[open]:not(#world-bag-dialog):not(#world-audio-settings):not(#world-welcome):not(#tepo-radio-dialog):not(.world-travel)').forEach(dialog=>launcher(dialog.querySelector('.game-player')||dialog));
     const active=[...document.querySelectorAll('dialog[open]')].at(-1);
     document.querySelectorAll('.world-bag-toggle').forEach(button=>{button.hidden=bag.open||!!active&&(active.id==='world-welcome'||active.classList.contains('world-travel')||!active.contains(button));});
   }

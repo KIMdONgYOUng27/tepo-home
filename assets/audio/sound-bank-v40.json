@@ -1,0 +1,504 @@
+{
+  "version": 40,
+  "sounds": {
+    "ui_click": {
+      "label": "버튼 · 짧은 선택음",
+      "src": "assets/audio/sfx/ui_click-v39.wav",
+      "gain": 0.4,
+      "seconds": 0.049791666666666665,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "interface",
+          "file": "click_001.ogg"
+        }
+      ]
+    },
+    "ui_back": {
+      "label": "뒤로가기 · 짧은 취소음",
+      "src": "assets/audio/sfx/ui_back-v39.wav",
+      "gain": 0.14,
+      "seconds": 0.086,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "interface",
+          "file": "back_001.ogg"
+        }
+      ]
+    },
+    "map_select": {
+      "label": "지도 · 장소 선택음",
+      "src": "assets/audio/sfx/map_select-v39.wav",
+      "gain": 0.16,
+      "seconds": 0.220875,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "interface",
+          "file": "select_004.ogg"
+        }
+      ]
+    },
+    "frame_tap": {
+      "label": "액자 · 나무 프레임",
+      "src": "assets/audio/sfx/frame_tap-v39.wav",
+      "gain": 0.46,
+      "seconds": 0.11641666666666667,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "impact",
+          "file": "impactWood_light_004.ogg"
+        }
+      ]
+    },
+    "paper_open": {
+      "label": "일기장 · 책 펼치기",
+      "src": "assets/audio/sfx/paper_open-v39.wav",
+      "gain": 0.25,
+      "seconds": 0.168375,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "rpg",
+          "file": "bookOpen.ogg"
+        }
+      ]
+    },
+    "paper_close": {
+      "label": "일기장 · 책 덮기",
+      "src": "assets/audio/sfx/paper_close-v39.wav",
+      "gain": 0.23,
+      "seconds": 0.21075,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "rpg",
+          "file": "bookClose.ogg"
+        }
+      ]
+    },
+    "page_turn": {
+      "label": "일기장 · 실제 책장 넘기기",
+      "src": "assets/audio/sfx/page_turn-v39.wav",
+      "gain": 0.24,
+      "seconds": 0.409625,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "rpg",
+          "file": "bookFlip2.ogg"
+        }
+      ]
+    },
+    "card_slide": {
+      "label": "민증 · 카드 꺼내기",
+      "src": "assets/audio/sfx/card_slide-v39.wav",
+      "gain": 0.18,
+      "seconds": 0.16820833333333332,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "interface",
+          "file": "switch_002.ogg"
+        }
+      ]
+    },
+    "wallet_open": {
+      "label": "지갑 · 작은 가죽 물건",
+      "src": "assets/audio/sfx/wallet_open-v39.wav",
+      "gain": 0.23,
+      "seconds": 0.22245833333333334,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "rpg",
+          "file": "handleSmallLeather.ogg"
+        }
+      ]
+    },
+    "bag_open": {
+      "label": "가방 · 버클과 가죽",
+      "src": "assets/audio/sfx/bag_open-v39.wav",
+      "gain": 0.25,
+      "seconds": 0.41541666666666666,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "rpg",
+          "file": "metalClick.ogg"
+        },
+        {
+          "pack": "rpg",
+          "file": "dropLeather.ogg"
+        }
+      ]
+    },
+    "bag_close": {
+      "label": "가방 · 버클 잠그기",
+      "src": "assets/audio/sfx/bag_close-v39.wav",
+      "gain": 0.23,
+      "seconds": 0.322,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "rpg",
+          "file": "beltHandle2.ogg"
+        }
+      ]
+    },
+    "bag_collect": {
+      "label": "가방 수납 · 작은 획득음",
+      "src": "assets/audio/sfx/bag_collect-v37.wav",
+      "gain": 0.23,
+      "seconds": 0.35
+    },
+    "drawer_open": {
+      "label": "서랍 · 나무 레일 드르륵 열기",
+      "src": "assets/audio/sfx/drawer_open-v40.wav",
+      "gain": 0.42,
+      "seconds": 0.8895,
+      "kind": "foley",
+      "sources": [
+        {
+          "file": "wooden-drawer-opening-1499.wav",
+          "author": "Joseph SARDIN",
+          "url": "https://bigsoundbank.com/wooden-drawer-opening-s1499.html",
+          "license": "CC0"
+        }
+      ]
+    },
+    "drawer_close": {
+      "label": "서랍 · 나무 레일 밀어 닫기",
+      "src": "assets/audio/sfx/drawer_close-v40.wav",
+      "gain": 0.38,
+      "seconds": 1.0339166666666666,
+      "kind": "foley",
+      "sources": [
+        {
+          "file": "wooden-drawer-closing-1500.wav",
+          "author": "Joseph SARDIN",
+          "url": "https://bigsoundbank.com/wooden-drawer-closing-s1500.html",
+          "license": "CC0"
+        }
+      ]
+    },
+    "computer_boot": {
+      "label": "브라운관 전원 · 띠리릭",
+      "src": "assets/audio/sfx/computer_boot-v37.wav",
+      "gain": 0.25,
+      "seconds": 0.76
+    },
+    "computer_off": {
+      "label": "컴퓨터 전원 끄기",
+      "src": "assets/audio/sfx/computer_off-v37.wav",
+      "gain": 0.2,
+      "seconds": 0.27
+    },
+    "folder_open": {
+      "label": "컴퓨터 폴더 열기",
+      "src": "assets/audio/sfx/folder_open-v37.wav",
+      "gain": 0.21,
+      "seconds": 0.15
+    },
+    "device_pickup": {
+      "label": "통역기 작동음",
+      "src": "assets/audio/sfx/device_pickup-v37.wav",
+      "gain": 0.27,
+      "seconds": 0.38
+    },
+    "radio_on": {
+      "label": "무전 연결 · 짧은 치지직",
+      "src": "assets/audio/sfx/radio_on-v39.wav",
+      "gain": 0.3,
+      "seconds": 0.34,
+      "kind": "original-noise",
+      "sources": []
+    },
+    "radio_off": {
+      "label": "무전 종료 · 짧은 수신 종료음",
+      "src": "assets/audio/sfx/radio_off-v39.wav",
+      "gain": 0.27,
+      "seconds": 0.16,
+      "kind": "original-synth",
+      "sources": []
+    },
+    "radio_send": {
+      "label": "무전 송신 버튼",
+      "src": "assets/audio/sfx/radio_send-v37.wav",
+      "gain": 0.19,
+      "seconds": 0.13
+    },
+    "stone_tap": {
+      "label": "테포 · 단단한 돌 접촉",
+      "src": "assets/audio/sfx/stone_tap-v39.wav",
+      "gain": 0.5,
+      "seconds": 0.175625,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "impact",
+          "file": "impactGeneric_light_002.ogg"
+        }
+      ]
+    },
+    "stone_stir": {
+      "label": "테포 · 돌 몸을 뒤척임",
+      "src": "assets/audio/sfx/stone_stir-v39.wav",
+      "gain": 0.5,
+      "seconds": 0.492125,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "impact",
+          "file": "impactMining_002.ogg"
+        },
+        {
+          "pack": "impact",
+          "file": "impactGeneric_light_003.ogg"
+        }
+      ]
+    },
+    "stone_wake": {
+      "label": "테포 · 돌 몸을 일으킴",
+      "src": "assets/audio/sfx/stone_wake-v39.wav",
+      "gain": 0.5,
+      "seconds": 0.29804166666666665,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "impact",
+          "file": "impactGeneric_light_004.ogg"
+        },
+        {
+          "pack": "impact",
+          "file": "footstep_concrete_000.ogg"
+        }
+      ]
+    },
+    "pottery": {
+      "label": "뚝배기 · 가벼운 공명",
+      "src": "assets/audio/sfx/pottery-v39.wav",
+      "gain": 0.2,
+      "seconds": 0.14895833333333333,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "impact",
+          "file": "impactGlass_light_003.ogg"
+        }
+      ]
+    },
+    "weapon_rack": {
+      "label": "벽걸이 무기 · 금속 접촉",
+      "src": "assets/audio/sfx/weapon_rack-v39.wav",
+      "gain": 0.24,
+      "seconds": 0.22695833333333335,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "impact",
+          "file": "impactMetal_light_000.ogg"
+        }
+      ]
+    },
+    "weapon_baton": {
+      "label": "삼단봉 · 철컥 펼침과 고정",
+      "src": "assets/audio/sfx/weapon_baton-v39.wav",
+      "gain": 0.4,
+      "seconds": 0.38004166666666667,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "artisticdude",
+          "file": "inventory/metal-small1.wav"
+        },
+        {
+          "pack": "artisticdude",
+          "file": "inventory/metal-small2.wav"
+        },
+        {
+          "pack": "impact",
+          "file": "impactMetal_light_002.ogg"
+        }
+      ]
+    },
+    "weapon_bat": {
+      "label": "야구방망이 · 공을 치는 타격음",
+      "src": "assets/audio/sfx/weapon_bat-v39.wav",
+      "gain": 0.48,
+      "seconds": 0.8081666666666667,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "baseball",
+          "file": "baseball-bat-martinimeniscus.mp3"
+        }
+      ]
+    },
+    "weapon_unknown": {
+      "label": "곡날 무기 · 금속 스르릉",
+      "src": "assets/audio/sfx/weapon_unknown-v39.wav",
+      "gain": 0.42,
+      "seconds": 0.361,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "artisticdude",
+          "file": "battle/sword-unsheathe.wav"
+        }
+      ]
+    },
+    "weapon_mace": {
+      "label": "메이스 · 쇠뭉치와 걸쇠 금속",
+      "src": "assets/audio/sfx/weapon_mace-v39.wav",
+      "gain": 0.46,
+      "seconds": 0.4841666666666667,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "artisticdude",
+          "file": "inventory/metal-ringing.wav"
+        },
+        {
+          "pack": "impact",
+          "file": "impactMetal_heavy_004.ogg"
+        }
+      ]
+    },
+    "door_locked": {
+      "label": "잠긴 문 · 손잡이와 쇠 잠금장치",
+      "src": "assets/audio/sfx/door_locked-v39.wav",
+      "gain": 0.42,
+      "seconds": 0.6915416666666667,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "artisticdude",
+          "file": "inventory/metal-small1.wav"
+        },
+        {
+          "pack": "artisticdude",
+          "file": "inventory/metal-small3.wav"
+        },
+        {
+          "pack": "artisticdude",
+          "file": "inventory/chainmail1.wav"
+        }
+      ]
+    },
+    "lock_tap": {
+      "label": "자물쇠 · 철렁철렁",
+      "src": "assets/audio/sfx/lock_tap-v39.wav",
+      "gain": 0.42,
+      "seconds": 0.299125,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "artisticdude",
+          "file": "inventory/metal-small2.wav"
+        },
+        {
+          "pack": "artisticdude",
+          "file": "inventory/metal-small1.wav"
+        }
+      ]
+    },
+    "mace_swing": {
+      "label": "메이스 · 휘두름",
+      "src": "assets/audio/sfx/mace_swing-v39.wav",
+      "gain": 0.24,
+      "seconds": 0.3742916666666667,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "rpg",
+          "file": "knifeSlice.ogg"
+        }
+      ]
+    },
+    "lock_break": {
+      "label": "자물쇠 · 금속 타격과 파편",
+      "src": "assets/audio/sfx/lock_break-v39.wav",
+      "gain": 0.46,
+      "seconds": 0.5325416666666667,
+      "kind": "foley",
+      "sources": [
+        {
+          "pack": "impact",
+          "file": "impactMetal_heavy_004.ogg"
+        },
+        {
+          "pack": "artisticdude",
+          "file": "inventory/metal-ringing.wav"
+        },
+        {
+          "pack": "artisticdude",
+          "file": "inventory/metal-small3.wav"
+        }
+      ]
+    },
+    "door_open": {
+      "label": "문 · 나무문 경첩 끼이익",
+      "src": "assets/audio/sfx/door_open-v40.wav",
+      "gain": 0.36,
+      "seconds": 0.7297083333333333,
+      "kind": "foley",
+      "sources": [
+        {
+          "file": "door.wav",
+          "author": "artisticdude",
+          "url": "https://opengameart.org/content/rpg-sound-pack",
+          "license": "CC0"
+        }
+      ]
+    },
+    "arcade_ready": {
+      "label": "오락기에 들어온 불빛",
+      "src": "assets/audio/sfx/arcade_ready-v37.wav",
+      "gain": 0.25,
+      "seconds": 0.52
+    },
+    "game_enter": {
+      "label": "동전 투입 후 게임 진입",
+      "src": "assets/audio/sfx/game_enter-v37.wav",
+      "gain": 0.37,
+      "seconds": 0.75
+    },
+    "game_exit": {
+      "label": "게임에서 오락실로",
+      "src": "assets/audio/sfx/game_exit-v37.wav",
+      "gain": 0.27,
+      "seconds": 0.46
+    },
+    "error": {
+      "label": "작은 알림 · 실패",
+      "src": "assets/audio/sfx/error-v37.wav",
+      "gain": 0.22,
+      "seconds": 0.3
+    },
+    "notice_success": {
+      "label": "문의 접수 확인",
+      "src": "assets/audio/sfx/notice_success-v37.wav",
+      "gain": 0.25,
+      "seconds": 0.38
+    },
+    "area_enter": {
+      "label": "이동 · 짧은 8비트 지역 전환",
+      "src": "assets/audio/sfx/area_enter-v39.wav",
+      "gain": 0.22,
+      "seconds": 0.43,
+      "kind": "original-synth",
+      "sources": []
+    },
+    "area_exit": {
+      "label": "복귀 · 짧은 8비트 지역 전환",
+      "src": "assets/audio/sfx/area_exit-v39.wav",
+      "gain": 0.22,
+      "seconds": 0.43,
+      "kind": "original-synth",
+      "sources": []
+    }
+  }
+}

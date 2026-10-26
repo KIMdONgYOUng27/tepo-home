@@ -70,11 +70,11 @@
   if(story.awake)showAwake();
   function stopStir(){clearTimeout(stirTimer);tepo.classList.remove('is-stirring','is-restless');}
   tepo.addEventListener('click',()=>{
-    if(tepo.classList.contains('awake')){story.talk();return;}const now=performance.now();if(clicks.length&&now-clicks.at(-1)>650)clicks=[];clicks=clicks.filter(t=>now-t<=2000);clicks.push(now);
+    if(tepo.classList.contains('awake')){window.TEPO_AUDIO?.play('stone_tap');story.talk();return;}const now=performance.now();if(clicks.length&&now-clicks.at(-1)>650)clicks=[];clicks=clicks.filter(t=>now-t<=2000);clicks.push(now);
     clearTimeout(chainTimer);
-    if(clicks.length>=4){stopStir();showAwake();story.wake();status.textContent='테포가 잠에서 깼어요.';clicks=[];story.talk();return;}
-    if(clicks.length===1)stopStir();
-    if(clicks.length===2||clicks.length===3){
+    if(clicks.length>=4){window.TEPO_AUDIO?.play('stone_wake');stopStir();showAwake();story.wake();status.textContent='테포가 잠에서 깼어요.';clicks=[];story.talk();return;}
+    if(clicks.length===1){stopStir();window.TEPO_AUDIO?.play('stone_tap');}
+    if(clicks.length===2||clicks.length===3){window.TEPO_AUDIO?.play('stone_stir');
       clearTimeout(stirTimer);tepo.classList.add('is-stirring');tepo.classList.toggle('is-restless',clicks.length===3);
       status.textContent=clicks.length===2?'테포가 잠결에 움찔했지만 아직 자고 있어요.':'테포가 뒤척이며 깰 듯 말 듯해요.';
       stirTimer=setTimeout(stopStir,1100);

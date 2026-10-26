@@ -9,7 +9,7 @@
   const fresh=()=>({history:[],context:{},buttons:clone(window.TEPO_RADIO_DIALOGUE.buttons),checkpoints:[],pending:null,panel:'chat',mode,draft:'',open:true});
   function launcher(parent){if(parent.querySelector(':scope > .radio-toggle'))return;const button=document.createElement('button');button.className='radio-toggle';button.dataset.tepoRadio='';button.setAttribute('aria-label','테포에게 무전하기');button.innerHTML=icon+'<span>무전</span>';parent.append(button);}
   function sync(){
-    const owned=session.owned();if(owned){launcher(document.body);document.querySelectorAll('dialog[open]:not(#tepo-radio-dialog):not(#world-bag-dialog):not(#world-welcome):not(.world-travel)').forEach(modal=>launcher(modal.querySelector('.game-player')||modal));}
+    const owned=session.owned();if(owned){launcher(document.body);document.querySelectorAll('dialog[open]:not(#tepo-radio-dialog):not(#world-bag-dialog):not(#world-audio-settings):not(#world-welcome):not(.world-travel)').forEach(modal=>launcher(modal.querySelector('.game-player')||modal));}
     const active=[...document.querySelectorAll('dialog[open]')].at(-1);document.querySelectorAll('.radio-toggle').forEach(button=>button.hidden=!owned||dialog.open||!!active&&(!active.contains(button)||['world-bag-dialog','world-welcome'].includes(active.id)||active.classList.contains('world-travel')));
   }
   function persist(){if(untranslated||!state||cleanReset&&!state.history.length)return;state.panel=currentPanel;state.mode=mode;state.open=dialog.open;session.save(state);}
@@ -33,7 +33,7 @@
       redraw();available(true);connection();if(result.showFaq)panel('faq');else if(result.showInquiry){state.inquiryType=result.showInquiry;form.setType(result.showInquiry);panel('inquiry');}else{panel('chat');dialog.querySelector('#radio-input').focus({preventScroll:true});}persist();
     }catch{available(true);dialog.querySelector('.radio-connection').textContent='응답을 불러오지 못했어. 이전으로 돌아가 다시 물어봐 줘.';persist();}
   }
-  function send(text,target){if(busy||untranslated||gifting||!dialog.open)return;const clean=text.trim().slice(0,300);if(!clean)return;cleanReset=false;snapshot();state.draft='';dialog.querySelector('#radio-input').value='';state.history.push({role:'visitor',text:clean});state.pending={question:clean,target};panel('chat');redraw();available(false);dialog.querySelector('.radio-connection').textContent='테포가 응답하는 중…';persist();timer=setTimeout(complete,400);}
+  function send(text,target){if(busy||untranslated||gifting||!dialog.open)return;const clean=text.trim().slice(0,300);if(!clean)return;window.TEPO_AUDIO?.play(mode==='radio'?'radio_send':'ui_click');cleanReset=false;snapshot();state.draft='';dialog.querySelector('#radio-input').value='';state.history.push({role:'visitor',text:clean});state.pending={question:clean,target};panel('chat');redraw();available(false);dialog.querySelector('.radio-connection').textContent='테포가 응답하는 중…';persist();timer=setTimeout(complete,400);}
   function build(){
     const ui=window.TEPO_RADIO_DIALOGUE.ui;
     dialog.innerHTML='<section class="radio-shell"><header><div><p>TEPO · LIGHTHOUSE CHANNEL</p><h2 id="radio-title">테포에게 무전</h2></div><button class="radio-close" aria-label="무전 닫기">×</button></header><div class="radio-portrait"><img src="assets/tepo-radio-answer-v30.png" alt="무전기로 반갑게 응답하는 테포"><div><span class="radio-signal" aria-label="무전 신호 4칸"><i></i><i></i><i></i><i></i></span><p class="radio-connection" role="status">치직… 등대로 연결하는 중…</p></div></div><section class="radio-faq" aria-label="자주 묻는 질문" hidden></section><section class="radio-inquiry" aria-label="관리자 문의 작성" hidden><div class="radio-inquiry-form"></div><a href="contact.html">문의 페이지에서 작성하기 ↗</a></section><div class="radio-log" role="log" aria-label="테포와 무전 대화" aria-live="polite" aria-relevant="additions"></div><nav class="radio-suggestions" aria-label="추천 질문"></nav><nav class="radio-bottom-menu" aria-label="대화 메뉴"><button type="button" data-radio-panel="chat">대화</button><button type="button" data-radio-panel="faq">자주 묻는 질문</button><button type="button" data-radio-panel="inquiry">관리자 문의</button></nav><form class="radio-compose"><label class="radio-input-label" for="radio-input">테포에게 물어보기</label><textarea id="radio-input" rows="2" maxlength="300" placeholder="테포야, 궁금한 게 있어…"></textarea><button class="radio-send" type="submit">보내기</button></form><nav class="radio-controls" aria-label="대화 이동"><button type="button" data-control="previous"></button><button type="button" data-control="home"></button><button type="button" data-control="reset"></button></nav></section>';
@@ -64,7 +64,7 @@
       gifting=true;clearTimeout(timer);if(state.pending)complete();state.pending=null;available(true);panel('chat');
       message('tepo',window.TEPO_RADIO_DIALOGUE.ui.gift);const host=dialog.querySelector('.radio-suggestions');host.replaceChildren();
       for(const [label,receive] of [[window.TEPO_RADIO_DIALOGUE.ui.giftReceive,true],[window.TEPO_RADIO_DIALOGUE.ui.giftLater,false]]){
-        const button=document.createElement('button');button.textContent=label;button.onclick=()=>{
+        const button=document.createElement('button');button.textContent=label;button.dataset.sound='none';button.onclick=()=>{
           if(receive&&!window.TEPO_STORY.receiveRadio())return;
           if(receive){state.history.push({role:'tepo',text:window.TEPO_RADIO_DIALOGUE.ui.giftTaken});persist();}
           dialog.close();
@@ -86,7 +86,7 @@
     if(!state.buttons.length)state.buttons=clone(window.TEPO_RADIO_DIALOGUE.buttons);cleanReset=false;
     if(untranslated){state.history=[{role:'tepo',text:window.TEPO_RADIO_DIALOGUE.ui.untranslated},{role:'visitor',text:window.TEPO_RADIO_DIALOGUE.ui.untranslatedThought}];}
     else if(!state.history.length)state.history.push({role:'tepo',text:mode==='face'?window.TEPO_RADIO_DIALOGUE.ui.directHello:window.TEPO_RADIO_DIALOGUE.ui.hello});
-    build();dialog.showModal();scroll();dialog.querySelector('.radio-close').focus();available(true);persist();signal();sync();
+    build();dialog.showModal();if(mode==='radio')window.TEPO_AUDIO?.play('radio_on');scroll();dialog.querySelector('.radio-close').focus();available(true);persist();signal();sync();
     if(state.pending&&!untranslated)timer=setTimeout(complete,400);
   }
   document.addEventListener('click',event=>{const button=event.target.closest('[data-tepo-radio]');if(button)open(button);});
