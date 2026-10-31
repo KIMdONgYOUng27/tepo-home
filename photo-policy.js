@@ -3,7 +3,7 @@
   'use strict';
   function access(progress={}) {
     const invited=progress.photoFriendsInvited===true;
-    const tepo=invited||progress.metTepo===true||progress.awake===true;
+    const tepo=invited||progress.radio===true||(progress.translator===true&&progress.metTepo===true);
     const elpeng=invited||progress.elpengRescued===true;
     return {tepo,elpeng,any:tepo||elpeng,invited};
   }
