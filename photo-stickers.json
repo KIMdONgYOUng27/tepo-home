@@ -1,0 +1,221 @@
+{
+  "version": 2,
+  "stickers": [
+    {
+      "id": "tepo-wave",
+      "friend": "tepo",
+      "style": "tiny",
+      "name": "하찮게 안녕",
+      "src": "assets/photo/tepo-wave-v1.png"
+    },
+    {
+      "id": "tepo-sleep",
+      "friend": "tepo",
+      "style": "tiny",
+      "name": "졸린 테포",
+      "src": "assets/photo/tepo-sleep-v1.png"
+    },
+    {
+      "id": "tepo-cheer",
+      "friend": "tepo",
+      "style": "2d",
+      "name": "만세 테포",
+      "src": "assets/photo/tepo-cheer-v1.png"
+    },
+    {
+      "id": "tepo-heart",
+      "friend": "tepo",
+      "style": "2d",
+      "name": "마음을 받아줘",
+      "src": "assets/photo/tepo-heart-v1.png"
+    },
+    {
+      "id": "tepo-original",
+      "friend": "tepo",
+      "style": "tiny",
+      "name": "기본 하찮테포",
+      "src": "assets/photo/tepo-original-v1.png"
+    },
+    {
+      "id": "elpeng-wave",
+      "friend": "elpeng",
+      "style": "2d",
+      "name": "엘펭이도 안녕",
+      "src": "assets/photo/elpeng-wave-v1.png"
+    },
+    {
+      "id": "elpeng-cool",
+      "friend": "elpeng",
+      "style": "2d",
+      "name": "멋쟁이 엘펭이",
+      "src": "assets/photo/elpeng-cool-v1.png"
+    },
+    {
+      "id": "elpeng-original",
+      "friend": "elpeng",
+      "style": "2d",
+      "name": "선글라스 엘펭이",
+      "src": "assets/photo/elpeng-original-v1.png"
+    },
+    {
+      "id": "tepo-gukbap",
+      "friend": "tepo",
+      "style": "2d",
+      "name": "국밥이 최고야",
+      "src": "assets/photo/tepo-gukbap-v42.png"
+    },
+    {
+      "id": "tepo-float",
+      "friend": "tepo",
+      "style": "2d",
+      "name": "물놀이 테포",
+      "src": "assets/photo/tepo-float-v42.png"
+    },
+    {
+      "id": "tepo-sunglasses",
+      "friend": "tepo",
+      "style": "2d",
+      "name": "오늘 좀 멋짐",
+      "src": "assets/photo/tepo-sunglasses-v42.png"
+    },
+    {
+      "id": "tepo-panic",
+      "friend": "tepo",
+      "style": "2d",
+      "name": "어? 깜짝이야",
+      "src": "assets/photo/tepo-panic-v42.png"
+    },
+    {
+      "id": "elpeng-selfie",
+      "friend": "elpeng",
+      "style": "2d",
+      "name": "엘펭 사진사",
+      "src": "assets/photo/elpeng-selfie-v42.png"
+    },
+    {
+      "id": "elpeng-fish",
+      "friend": "elpeng",
+      "style": "2d",
+      "name": "오늘의 대어",
+      "src": "assets/photo/elpeng-fish-v42.png"
+    },
+    {
+      "id": "tepo-real",
+      "friend": "tepo",
+      "style": "real",
+      "name": "진짜 테트라포드",
+      "src": "assets/photo/tepo-real-v42.png"
+    },
+    {
+      "id": "tepo-real-nap",
+      "friend": "tepo",
+      "style": "real",
+      "name": "퇴근한 테트라포드",
+      "src": "assets/photo/tepo-real-nap-v42.png"
+    },
+    {
+      "id": "tepo-gif-disco",
+      "friend": "tepo",
+      "style": "gif",
+      "name": "디스코 테포",
+      "src": "assets/photo/gifs/disco.gif",
+      "animation": {
+        "atlas": "assets/photo/gifs/disco-atlas.png",
+        "mask": "assets/photo/gifs/disco-mask.png",
+        "poster": "assets/photo/gifs/disco-poster.png",
+        "width": 467,
+        "height": 437,
+        "columns": 4,
+        "durations": [
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80
+        ]
+      }
+    },
+    {
+      "id": "tepo-gif-twist",
+      "friend": "tepo",
+      "style": "gif",
+      "name": "트위스트 테포",
+      "src": "assets/photo/gifs/twist.gif",
+      "animation": {
+        "atlas": "assets/photo/gifs/twist-atlas.png",
+        "mask": "assets/photo/gifs/twist-mask.png",
+        "poster": "assets/photo/gifs/twist-poster.png",
+        "width": 465,
+        "height": 419,
+        "columns": 4,
+        "durations": [
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80
+        ]
+      }
+    },
+    {
+      "id": "tepo-gif-kick",
+      "friend": "tepo",
+      "style": "gif",
+      "name": "발재간 테포",
+      "src": "assets/photo/gifs/kick.gif",
+      "animation": {
+        "atlas": "assets/photo/gifs/kick-atlas.png",
+        "mask": "assets/photo/gifs/kick-mask.png",
+        "poster": "assets/photo/gifs/kick-poster.png",
+        "width": 469,
+        "height": 423,
+        "columns": 4,
+        "durations": [
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80
+        ]
+      }
+    },
+    {
+      "id": "tepo-gif-zero",
+      "friend": "tepo",
+      "style": "gif",
+      "name": "제로투 테포",
+      "src": "assets/photo/gifs/zero.gif",
+      "animation": {
+        "atlas": "assets/photo/gifs/zero-atlas.png",
+        "mask": "assets/photo/gifs/zero-mask.png",
+        "poster": "assets/photo/gifs/zero-poster.png",
+        "width": 480,
+        "height": 423,
+        "columns": 4,
+        "durations": [
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80
+        ]
+      }
+    }
+  ]
+}

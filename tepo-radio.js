@@ -7,9 +7,9 @@
   const progress=()=>{try{return JSON.parse(sessionStorage.getItem('tepo-lighthouse-visit-v2')||'{}');}catch{return {};}};
   session.migrate();let state,opener,timer,busy=false,currentPanel='chat',form,cleanReset=false,mode='radio',untranslated=false,gifting=false,signalTimer;
   const fresh=()=>({history:[],context:{},buttons:clone(window.TEPO_RADIO_DIALOGUE.buttons),checkpoints:[],pending:null,panel:'chat',mode,draft:'',open:true});
-  function launcher(parent){if(parent.querySelector(':scope > .radio-toggle'))return;const button=document.createElement('button');button.className='radio-toggle';button.dataset.tepoRadio='';button.setAttribute('aria-label','테포에게 무전하기');button.innerHTML=icon+'<span>무전</span>';parent.append(button);}
+  function launcher(parent){if(parent.id==='tepo-photo-zone')parent=parent.querySelector('.photo-utilities')||parent;if(parent.querySelector(':scope > .radio-toggle'))return;const button=document.createElement('button');button.className='radio-toggle';button.dataset.tepoRadio='';button.setAttribute('aria-label','테포에게 무전하기');button.innerHTML=icon+'<span>무전</span>';parent.append(button);}
   function sync(){
-    const owned=session.owned();if(owned){launcher(document.body);document.querySelectorAll('dialog[open]:not(#tepo-radio-dialog):not(#world-bag-dialog):not(#world-audio-settings):not(#world-welcome):not(.world-travel)').forEach(modal=>launcher(modal.querySelector('.game-player')||modal));}
+    const owned=session.owned();if(owned){launcher(document.body);document.querySelectorAll('dialog[open]:not(#tepo-radio-dialog):not(#world-bag-dialog):not(#world-audio-settings):not([data-photo-sheet]):not(#world-welcome):not(.world-travel)').forEach(modal=>launcher(modal.querySelector('.game-player')||modal));}
     const active=[...document.querySelectorAll('dialog[open]')].at(-1);document.querySelectorAll('.radio-toggle').forEach(button=>button.hidden=!owned||dialog.open||!!active&&(!active.contains(button)||['world-bag-dialog','world-welcome'].includes(active.id)||active.classList.contains('world-travel')));
   }
   function persist(){if(untranslated||!state||cleanReset&&!state.history.length)return;state.panel=currentPanel;state.mode=mode;state.open=dialog.open;session.save(state);}
@@ -80,6 +80,7 @@
     const nextMode=options.mode==='face'?'face':'radio';
     if(nextMode==='radio'&&!session.owned())return;
     if(nextMode==='face'&&(!window.TEPO_STORY.awake||!document.querySelector('#tepo')))return;
+    if(nextMode==='face')window.TEPO_WORLD_STATE?.update({metTepo:true});
     mode=nextMode;opener=from||document.activeElement;gifting=false;untranslated=mode==='face'&&!window.TEPO_STORY.translated;
     state=untranslated?fresh():session.load(mode)||fresh();state.mode=mode;
     if(!untranslated)state.history=state.history.map(item=>({...item,text:window.TEPO_DIALOGUE.data.legacyChannelText?.[item.text]?.[mode]||item.text}));

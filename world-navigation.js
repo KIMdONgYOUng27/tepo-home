@@ -4,7 +4,7 @@
     home:{title:'테포의 등대',category:'바닷가의 작은 집',description:'파도 소리가 들리는 등대 안에는 테포가 살고 있어. 테포를 만나 이야기를 나누고, 방 안에 놓인 물건들도 살펴봐.',note:'테포를 만나러 가 볼까?',destination:'house.html',assets:['assets/lighthouse-room-empty-hooks-v18.png']},
     arcade:{title:'오락실',category:'파도 너머 한 판',description:'바닷가에 조용히 자리 잡은 작은 오락실. 문 너머에는 특별한 오락기 한 대가 기다리고 있어.',note:'어떤 게임이 기다리고 있을까?',assets:['assets/arcade-entrance-paper-v27.png','assets/arcade-door-paper-alpha-v27.png','assets/arcade-padlock-alpha-v23.png']},
     popup:{title:'팝업',category:'테포의 작은 상점',description:'테포의 취향이 담긴 작은 팝업 공간이야. 이곳에서 만나게 될 물건과 이야기는 조금씩 채워지고 있어.',note:'팝업 안의 이야기는 준비 중이야.'},
-    photo:{title:'포토존',category:'바다를 담는 한 장',description:'부산 바다를 배경으로 테포와 추억을 남길 자리야. 친구들과 함께 사진을 찍는 공간을 준비하고 있어.',note:'사진 촬영은 준비 중이야.'},
+    photo:{title:'포토존',category:'바다를 담는 한 장',description:'카메라나 내 사진 위에 테포와 엘펭이를 놓고, 바닷가의 추억을 한 장 남겨 봐. 포즈와 표정을 고르고 스티커처럼 자유롭게 꾸밀 수 있어.',note:'오늘은 어떤 친구와 사진을 남길까?'},
     mystery:{title:'??',category:'수상한 모래굴',description:'해변 한쪽에 낯선 모래굴이 있어. 안에서는 누군가 지내고 있는 것 같은데… 누가 사는 걸까?',note:'모래굴의 이야기는 아직 열리지 않았어.'}
   };
   const preview=document.createElement('dialog');preview.className='world-place-dialog';preview.setAttribute('aria-labelledby','place-title');document.body.append(preview);
@@ -34,7 +34,7 @@
     if(scene&&viewport&&!reduced){const s=scene.getBoundingClientRect(),v=viewport.getBoundingClientRect(),b=button.getBoundingClientRect(),scale=s.width/scene.offsetWidth,x=(b.left+b.width/2-s.left)/scale,y=(b.top+b.height*.65-s.top)/scale;zoom=scene.animate([{transform:scene.style.transform},{transform:`translate(${v.width/2-x*scale*2.8}px,${v.height/2-y*scale*2.8}px) scale(${scale*2.8})`}],{duration,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});}
     travel.classList.add('is-travelling');await delay(duration);
     if(info.destination){try{sessionStorage.setItem('tepo-place-arrival',place);}catch{}location.href=info.destination;return;}
-    try{if(place==='arcade'){window.TEPO_WORLD.open(place,button);document.querySelector('.world-adventure').animate([{opacity:0},{opacity:1}],{duration:reduced?1:500});}else arrive(place,button);}finally{zoom?.cancel();travel.close();travel.classList.remove('is-travelling');busy=false;}
+    try{if(place==='arcade'){window.TEPO_WORLD.open(place,button);document.querySelector('.world-adventure').animate([{opacity:0},{opacity:1}],{duration:reduced?1:500});}else if(place==='photo'){await window.TEPO_PHOTO.open(button);}else arrive(place,button);}finally{zoom?.cancel();travel.close();travel.classList.remove('is-travelling');busy=false;}
   }
   function arrive(place,button){
     const info=places[place];preview.className='world-place-dialog place-arrival';preview.innerHTML='<section class="place-lookout"><div class="place-arrival-scenery"></div><div class="place-arrival-art"></div><article class="arrival-paper"><p class="place-category"></p><h2 id="place-title"></h2><p class="place-description"></p><button class="place-go">← 지도로 돌아가기</button></article></section>';

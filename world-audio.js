@@ -52,7 +52,7 @@
     for(const slider of panel.querySelectorAll('[data-volume]')){const key=slider.dataset.volume,value=Math.round(prefs[key]*100);slider.value=value;const output=panel.querySelector('[data-level='+key+']');if(output.textContent!==value+'%')output.textContent=value+'%';}
     document.querySelectorAll('[data-world-audio]').forEach(b=>{const text=b.parentElement===document.body?(!armed||blocked?'♪ 소리 켜기':prefs.muted?'♪ 소리 꺼짐':'♪ 소리'):(prefs.muted?'♩':'♪');if(b.textContent!==text)b.textContent=text;b.dataset.muted=String(prefs.muted);});refreshStatus();
   }
-  function launcher(parent){if(parent.querySelector(':scope > [data-world-audio]'))return;const b=document.createElement('button');b.type='button';b.className='world-audio-toggle';b.dataset.worldAudio='';b.setAttribute('aria-label','소리 설정 열기');parent.append(b);}
+  function launcher(parent){if(parent.id==='tepo-photo-zone')parent=parent.querySelector('.photo-utilities')||parent;if(parent.querySelector(':scope > [data-world-audio]'))return;const b=document.createElement('button');b.type='button';b.className='world-audio-toggle';b.dataset.worldAudio='';b.setAttribute('aria-label','소리 설정 열기');parent.append(b);}
   function hidden(el,value){if(el.hidden!==value)el.hidden=value;}
   function stopGame(frame){
     if(!frame)return;gameFrames.delete(frame);
@@ -73,8 +73,8 @@
     if(prefs.muted||document.hidden||document.querySelector('.game-player,.youtube-embed')){current=0;music.volume=0;if(!music.paused){savePosition();music.pause();}}
     sendGame(mixed.game);launcher(document.body);
     const modals=[...document.querySelectorAll('dialog[open]')],top=modals.at(-1);
-    modals.filter(m=>m!==panel&&!m.classList.contains('world-travel')&&m.id!=='world-welcome').forEach(launcher);
-    document.querySelectorAll('[data-world-audio]').forEach(b=>hidden(b,panel.open||!!top&&b.parentElement!==top));
+    modals.filter(m=>m!==panel&&!m.classList.contains('world-travel')&&m.id!=='world-welcome'&&!m.hasAttribute('data-photo-sheet')).forEach(launcher);
+    document.querySelectorAll('[data-world-audio]').forEach(b=>hidden(b,panel.open||!!top&&b.parentElement!==top&&!(top.id==='tepo-photo-zone'&&top.contains(b))));
     refreshControls();if(target>0)startMusic();
   }
   function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(update);}
